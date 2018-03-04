@@ -4,7 +4,7 @@ let tickCount;
 let substanceClasses = [];
 let interactionClasses = [];
 let ingredientClasses = [];
-let cauldron = new Cauldron;
+let cauldron = null;
 let plates = [];
 let currentPlate = null;
 // let inventory = [];
@@ -207,6 +207,8 @@ function init()
 			{ substance: substanceClasses["red"], amount: 1 }
 		]
 	});
+	
+	cauldron = new Cauldron;
 	
 	plates.push(new Plate);
 	plates.push(new Plate);

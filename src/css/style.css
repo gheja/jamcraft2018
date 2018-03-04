@@ -4,9 +4,9 @@ body,
 html
 {
 	padding: 0;
-	margin: 0;
-	background: #282422;
-	color: #aaaaaa;
+	margin: 32px 64px;
+	background: #2e2626;
+	color: #9e9090;
 	font-family: Compassion, Arial;
 	font-size: 32px;
 	font-smooth: never;
@@ -20,7 +20,8 @@ html
 	right: 0;
 	left: 0;
 	height: 200px;
-	background: rgba(255, 255, 255, 0.15);
+	padding: 32px;
+	background: #403535;
 }
 
 b, strong

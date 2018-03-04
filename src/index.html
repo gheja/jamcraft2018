@@ -17,10 +17,11 @@
 		
 		<hr/>
 		
+		<b>Ingredients</b>
 		<table>
 			<tr>
 				<td>
-					A<br/>
+					Rose petal (3 tbsp)<br/>
 					<button onclick="addIngredient('rosepetal'); return false">+</button> <button onclick="removeIngredient('rosepetal'); return false">-</button>
 				</td>
 				<td>
@@ -40,22 +41,24 @@
 		
 		<hr/>
 		
+		<b>Plates</b>
+		
 		<table>
 			<tr>
 				<td>
-					Plate
+					#1
 					<div id="plate0_contents"></div>
 					<button id="button_plate_0" onclick="selectPlate(0); return false;">select</button>
 					<button onclick="usePlate(0); return false;">v</button>
 				</td>
 				<td>
-					Plate
+					#2
 					<div id="plate1_contents"></div>
 					<button id="button_plate_1" onclick="selectPlate(1); return false;">select</button>
 					<button onclick="usePlate(1); return false;">v</button>
 				</td>
 				<td>
-					Plate
+					#3
 					<div id="plate2_contents"></div>
 					<button id="button_plate_2" onclick="selectPlate(2); return false;">select</button>
 					<button onclick="usePlate(2); return false;">v</button>
@@ -81,7 +84,8 @@
 		<br/>
 		
 		Contents:<br/>
-		<div id="cauldron1"></div>
+		<div id="cauldron_content"></div>
+		
 		<div id="messages"></div>
 	</body>
 </html>

@@ -8,10 +8,19 @@ class Cauldron
 {
 	constructor()
 	{
+		let i;
+		
 		this.temperature = 20;
 		this.temperatureTarget = 20;
 		this.cookTime = 0;
 		this.status = CAULDRON_REMOVED;
+		
+		this.substances = [];
+		
+		for (i in substanceClasses)
+		{
+			this.substances[i] = 0;
+		}
 	}
 	
 	start()
