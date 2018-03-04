@@ -1,8 +1,16 @@
-body
+@import url("compassion_by_eeve_somepx/stylesheet.css");
+
+body,
 html
 {
 	padding: 0;
 	margin: 0;
+	background: #282422;
+	color: #aaaaaa;
+	font-family: Compassion, Arial;
+	font-size: 32px;
+	font-smooth: never;
+	-webkit-font-smoothing : none;
 }
 
 #messages
@@ -12,5 +20,24 @@ html
 	right: 0;
 	left: 0;
 	height: 200px;
-	background: rgba(255, 255, 0, 0.25);
+	background: rgba(255, 255, 255, 0.15);
+}
+
+b, strong
+{
+	color: #fff;
+}
+
+td
+{
+	padding: 0 48px 0 0;
+}
+
+hr
+{
+	width: 100%;
+	border-top: 4px solid #403535;
+	border-right: 0;
+	border-bottom: 0;
+	border-left: 0;
 }

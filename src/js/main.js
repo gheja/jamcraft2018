@@ -6,10 +6,74 @@ let interactionClasses = [];
 let ingredientClasses = [];
 let cauldron = new Cauldron;
 let plates = [];
+let currentPlate = null;
+// let inventory = [];
+
+let ingredientCount = [];
+
+function addIngredient(n)
+{
+	let ingredient;
+	
+	ingredient = ingredientClasses[n];
+	
+	if (!ingredient)
+	{
+		console.log("ERROR: could not find ingredient \"" + n + "\"");
+		return;
+	}
+	
+	if (ingredientClasses[n].countInventory == 0)
+	{
+		return;
+	}
+	
+	ingredient.countInventory--;
+	
+	if (!currentPlate.contents[n])
+	{
+		currentPlate.contents[n] = 0;
+	}
+	
+	currentPlate.contents[n]++;
+	
+	updateDisplayPlates();
+}
+
+function removeIngredient(n)
+{
+	let ingredient;
+	
+	ingredient = ingredientClasses[n];
+	
+	if (!ingredient)
+	{
+		console.log("ERROR: could not find ingredient \"" + n + "\"");
+		return;
+	}
+	
+	if (!currentPlate.contents[n] || currentPlate.contents[n] == 0)
+	{
+		return;
+	}
+	
+	ingredient.countInventory++;
+	
+	currentPlate.contents[n]--;
+	
+	if (currentPlate.contents[n] == 0)
+	{
+		delete currentPlate.contents[n];
+	}
+	
+	updateDisplayPlates();
+}
 
 function selectPlate(n)
 {
 	let i;
+	
+	currentPlate = plates[n];
 	
 	for (i=0; i<plates.length; i++)
 	{
@@ -28,6 +92,30 @@ function usePlate(n)
 	}
 	
 	plates[n].use();
+}
+
+function updateDisplayPlates()
+{
+	let i, j, s, a;
+	
+	for (i=0; i<plates.length; i++)
+	{
+		s = "";
+		
+		for (j in plates[i].contents)
+		{
+			a = ingredientClasses[j];
+			
+			s += plates[i].contents[j] + " " + a.unit + " " + a.name + "<br/>";
+		}
+		
+		if (s == "")
+		{
+			s = "(empty)";
+		}
+		
+		setText("plate" + i + "_contents", s);
+	}
 }
 
 function updateDisplay()
@@ -100,12 +188,12 @@ function init()
 	
 	interactionClasses.push(new Interaction({
 		inputSubstances: [
-			{ substance: substanceClasses["red"], ratio: 1 },
-			{ substance: substanceClasses["yellow"], ratio: 1 }
+			{ substance: "red", ratio: 1 },
+			{ substance: "yellow", ratio: 1 }
 		],
 		outputSubstances: [
-			{ substance: substanceClasses["orange"], ratio: 1.7 },
-			{ substance: substanceClasses["air"], ratio: 0.3 }
+			{ substance: "orange", ratio: 1.7 },
+			{ substance: "air", ratio: 0.3 }
 		],
 		speed: 0.5 // units per minute
 	}));
@@ -114,6 +202,7 @@ function init()
 		name: "Rose Petal",
 		icon: "rosepetal.png",
 		unit: "tbsp",
+		unlocked: true,
 		substances: [
 			{ substance: substanceClasses["red"], amount: 1 }
 		]
@@ -123,7 +212,11 @@ function init()
 	plates.push(new Plate);
 	plates.push(new Plate);
 	
+	ingredientClasses["rosepetal"].countInventory = 3;
+	
 	selectPlate(0);
+	
+	updateDisplayPlates();
 	
 	window.setInterval(tick, 100);
 }

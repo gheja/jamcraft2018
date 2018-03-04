@@ -12,6 +12,13 @@ class Ingredient
 		this.substances = [];
 		this.unlocked = false;
 		
+		this.countInventory = 0;
+		this.countGarden = 0;
+		this.countMerchant = 0;
+		
+		this.chanceGarden = 0;
+		this.chanceMerchant = 0;
+		
 		for (k in params)
 		{
 			if (this.hasOwnProperty(k))
