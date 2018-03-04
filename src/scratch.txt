@@ -1,0 +1,50 @@
+var rating_strings = {
+	"rate_done_critical"
+	"rate_done_1": [ "", "", "", ],
+	"rate_done_2"
+	"rate_done_3"
+	"rate_done_4"
+	"rate_done_5"
+	"rate_done_best"
+	"rate_declined_angry"
+	"rate_declined_normal"
+	"rate_failed_angry"
+	"rate_failed_normal"
+};
+
+[went_to_witch]
+I went to the witch
+Visited the witch
+
+asked for a potion as
+asked for a potion because
+
+[wanted]
+I wanted
+what I wanted is
+
+[but]
+but
+and then
+
+[explode]
+<target> to explode
+
+[explode_done]
+<target> exploded
+suddenly <target> exploded
+
+[unexpectedly]
+unexpectedly.
+out of the blue!
+
+[as_expected]
+just as expected!
+just as I expected!
+exactly as advertised!
+exactly as I wanted!
+I couldn't be more happy!
+
+[worst]
+Worst potion ever!
+Do not waste your money here.

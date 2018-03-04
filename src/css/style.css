@@ -1,0 +1,16 @@
+body
+html
+{
+	padding: 0;
+	margin: 0;
+}
+
+#messages
+{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	height: 200px;
+	background: rgba(255, 255, 0, 0.25);
+}

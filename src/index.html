@@ -1,0 +1,128 @@
+<html>
+	<head>
+		<title>Witch Stuff - a JamCraft2018 entry</title>
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/consts.js"></script>
+		<script type="text/javascript" src="js/lib.js"></script>
+		<script type="text/javascript" src="js/cauldron.js"></script>
+		<script type="text/javascript" src="js/ingredient.js"></script>
+		<script type="text/javascript" src="js/interaction.js"></script>
+		<script type="text/javascript" src="js/substance.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td>
+					A<br/>
+					<button onclick="addStuff('A'); return false">+</button> <button onclick="removeStuff('A'); return false">-</button>
+				</td>
+				<td>
+					B<br/>
+					<button onclick="addStuff('B'); return false">+</button> <button onclick="removeStuff('B'); return false">-</button>
+				</td>
+				<td>
+					C<br/>
+					<button onclick="addStuff('C'); return false">+</button> <button onclick="removeStuff('C'); return false">-</button>
+				</td>
+				<td>
+					D<br/>
+					<button onclick="addStuff('D'); return false">+</button> <button onclick="removeStuff('D'); return false">-</button>
+				</td>
+			<tr/>
+			<tr>
+				<td>
+					Plate<div id="plate1"></div>
+					<button onclick="usePlate(1); return false;">v</button>
+				</td>
+				<td>
+					Plate<div id="plate2"></div>
+					<button onclick="usePlate(2); return false;">v</button>
+				</td>
+				<td>
+					Plate<div id="plate3"></div>
+					<button onclick="usePlate(3); return false;">v</button>
+				</td>
+			</tr>
+		</table>
+		
+		<hr/>
+		
+		Target temperature: <span id="temperature_target">-</span>
+		<button onclick="cauldron.adjustTemperatureTarget(+10); return false;">+</button>
+		<button onclick="cauldron.adjustTemperatureTarget(-10); return false;">-</button><br/>
+		
+		Temperature: <span id="temperature_current">-</span><br/>
+		Status: <span id="cauldron_status">-</span><br/>
+		Time: <span id="cooking_time">-</span><br/>
+		<br/>
+		
+		<button onclick="cauldron.done(); return false;">done</button><br/>
+		<br/>
+		
+		Contents:<br/>
+		<div id="cauldron1"></div>
+		
+		<hr/>
+		
+		Ingredient "A":<br/>
+		- amount: 1 teaspoon<br/>
+		- contains: 3 units of "a"<br/>
+		<br/>
+		
+		Ingredient "B":<br/>
+		- amount: 1 teaspoon<br/>
+		- contains: 3 units of "b"<br/>
+		<br/>
+		
+		Ingredient "C":<br/>
+		- amount: 1 teaspoon<br/>
+		- contains: 2 units of "b", 1 unit of "c"<br/>
+		<br/>
+		
+		Ingredient "D":<br/>
+		- amount: 1 teaspoon<br/>
+		- contains: 1 unit of "d", 3 units of "x"<br/>
+		<br/>
+		
+		<hr/>
+		Element "a":<br/>
+		- reactive between: 70-80 deg C<br/>
+		- evaporates above: -<br/>
+		<br/>
+		
+		Element "b":<br/>
+		- reactive between: 70-90 deg C<br/>
+		- evaporates above: -<br/>
+		<br/>
+		
+		Element "c":<br/>
+		- reactive between: -<br/>
+		- evaporates above: -<br/>
+		<br/>
+		
+		Element "d":<br/>
+		- reactive between: 50-80 deg C<br/>
+		- evaporates above: 90<br/>
+		<br/>
+		
+		Element "e":<br/>
+		- reactive between: -<br/>
+		- evaporates above: -<br/>
+		<br/>
+		
+		Element "x":<br/>
+		- reactive between: -<br/>
+		- evaporates above: 90 deg C<br/>
+		<br/>
+		
+		<hr/>
+		
+		Reaction 1:<br/>
+		- in: 2 units of "a" + 1 units of "d"<br/>
+		- out: 2 units of "e", 1 unit of "b"<br/>
+		- speed: 3 units / hour<br/>
+		
+		<div id="messages"></div>
+	</body>
+</html>
