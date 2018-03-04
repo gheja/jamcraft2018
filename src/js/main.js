@@ -5,13 +5,55 @@ let substanceClasses = [];
 let interactionClasses = [];
 let ingredientClasses = [];
 let cauldron = new Cauldron;
+let plates = [];
+
+function selectPlate(n)
+{
+	let i;
+	
+	for (i=0; i<plates.length; i++)
+	{
+		plates[i].selected = (i == n);
+		
+		get("button_plate_" + i).disabled = (i == n);
+	}
+}
+
+function usePlate(n)
+{
+	if (cauldron.status == CAULDRON_REMOVED)
+	{
+		logMessage("No cauldron in use.", MESSAGE_FAIL);
+		return;
+	}
+	
+	plates[n].use();
+}
 
 function updateDisplay()
 {
 	setText('temperature_target', cauldron.temperatureTarget + " &deg;C");
-	setText('temperature_current', cauldron.temperature + " &deg;C");
-	setText('cauldron_status', cauldron.temperatureTarget <= 20 ? "off" : "heating");
+	if (cauldron.status == CAULDRON_REMOVED)
+	{
+		setText('temperature_current', "-");
+	}
+	else
+	{
+		setText('temperature_current', cauldron.temperature + " &deg;C");
+	}
+	if (cauldron.status == CAULDRON_REMOVED)
+	{
+		setText('cauldron_status', "no cauldron");
+	}
+	else
+	{
+		setText('cauldron_status', cauldron.temperatureTarget <= 20 ? "off" : "heating");
+	}
+	
 	setText('cooking_time', toHoursMinutes(cauldron.cookTime));
+	
+	get("button_cauldron_prepare").disabled = (cauldron.status != CAULDRON_REMOVED);
+	get("button_cauldron_done").disabled = (cauldron.status == CAULDRON_REMOVED);
 }
 
 function tick()
@@ -20,7 +62,8 @@ function tick()
 	
 	cauldron.tick();
 	
-	console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
+	// console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
+	setText('time', toTime(tickCount, true));
 	
 	updateDisplay();
 }
@@ -75,6 +118,12 @@ function init()
 			{ substance: substanceClasses["red"], amount: 1 }
 		]
 	});
+	
+	plates.push(new Plate);
+	plates.push(new Plate);
+	plates.push(new Plate);
+	
+	selectPlate(0);
 	
 	window.setInterval(tick, 100);
 }

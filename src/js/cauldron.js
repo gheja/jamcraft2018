@@ -1,5 +1,9 @@
 "use strict";
 
+const CAULDRON_REMOVED = 0;
+const CAULDRON_READY = 1;
+const CAULDRON_COOKING = 2;
+
 class Cauldron
 {
 	constructor()
@@ -7,6 +11,7 @@ class Cauldron
 		this.temperature = 20;
 		this.temperatureTarget = 20;
 		this.cookTime = 0;
+		this.status = CAULDRON_REMOVED;
 	}
 	
 	start()
@@ -14,9 +19,17 @@ class Cauldron
 		this.cookTime = 0;
 	}
 	
+	prepare()
+	{
+		this.status = CAULDRON_READY;
+		this.cookTime = 0;
+		this.temperature = 20;
+	}
+	
 	stop()
 	{
 		this.temperatureTarget = 20;
+		this.status = CAULDRON_REMOVED;
 	}
 	
 	storePotion()
@@ -35,7 +48,6 @@ class Cauldron
 	{
 		this.stop();
 		this.storePotion();
-		this.cookTime = 0;
 	}
 	
 	adjustTemperatureTarget(d)
@@ -47,6 +59,11 @@ class Cauldron
 	
 	tick()
 	{
+		if (this.status != CAULDRON_READY && this.status != CAULDRON_COOKING)
+		{
+			return;
+		}
+		
 		if (this.temperature > 20)
 		{
 			this.cookTime += 1;

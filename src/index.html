@@ -8,9 +8,14 @@
 		<script type="text/javascript" src="js/ingredient.js"></script>
 		<script type="text/javascript" src="js/interaction.js"></script>
 		<script type="text/javascript" src="js/substance.js"></script>
+		<script type="text/javascript" src="js/plate.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 	</head>
 	<body>
+		<span id="time">-</span>
+		
+		<hr/>
+		
 		<table>
 			<tr>
 				<td>
@@ -32,16 +37,19 @@
 			<tr/>
 			<tr>
 				<td>
-					Plate<div id="plate1"></div>
+					Plate<div id="plate_contents_0"></div>
+					<button id="button_plate_0" onclick="selectPlate(0); return false;">select</button>
+					<button onclick="usePlate(0); return false;">v</button>
+				</td>
+				<td>
+					Plate<div id="plate_contents_1"></div>
+					<button id="button_plate_1" onclick="selectPlate(1); return false;">select</button>
 					<button onclick="usePlate(1); return false;">v</button>
 				</td>
 				<td>
-					Plate<div id="plate2"></div>
+					Plate<div id="plate_contents_2"></div>
+					<button id="button_plate_2" onclick="selectPlate(2); return false;">select</button>
 					<button onclick="usePlate(2); return false;">v</button>
-				</td>
-				<td>
-					Plate<div id="plate3"></div>
-					<button onclick="usePlate(3); return false;">v</button>
 				</td>
 			</tr>
 		</table>
@@ -57,7 +65,8 @@
 		Time: <span id="cooking_time">-</span><br/>
 		<br/>
 		
-		<button onclick="cauldron.done(); return false;">done</button><br/>
+		<button id="button_cauldron_prepare" onclick="cauldron.prepare(); return false;">prepare</button>
+		<button id="button_cauldron_done" onclick="cauldron.done(); return false;">done</button><br/>
 		<br/>
 		
 		Contents:<br/>
