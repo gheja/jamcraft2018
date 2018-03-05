@@ -4,13 +4,20 @@ body,
 html
 {
 	padding: 0;
-	margin: 32px 64px;
+	margin: 1em 2em;
 	background: #2e2626;
 	color: #9e9090;
 	font-family: Compassion, Arial;
-	font-size: 32px;
+	font-size: 16px;
+	line-height: 1.25em;
 	font-smooth: never;
 	-webkit-font-smoothing : none;
+}
+
+body
+{
+	padding-bottom: 8em;
+	text-shadow: 0.0625em 0.0625em #000000;
 }
 
 #messages
@@ -19,8 +26,8 @@ html
 	bottom: 0;
 	right: 0;
 	left: 0;
-	height: 200px;
-	padding: 32px;
+	height: 3em;
+	padding: 1em;
 	background: #403535;
 }
 
@@ -36,9 +43,49 @@ td
 
 hr
 {
+	margin: 0.5em 0;
+	padding: 0;
 	width: 100%;
-	border-top: 4px solid #403535;
+	border-top: 0.25em solid #403535;
 	border-right: 0;
 	border-bottom: 0;
 	border-left: 0;
+}
+
+button
+{
+	font-family: Compassion, Arial;
+	font-size: 1em;
+	margin: 0;
+	padding: 0 0.5em;
+	border-top: 0.125em solid #756161;
+	border-right: 0.125em solid #574848;
+	border-bottom: 0.125em solid #574848;
+	border-left: 0.125em solid #756161;
+	background: #665454;
+	/* color: #403535; */
+	color: #171313;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+button:focus,
+button:hover
+{
+	outline: 0;
+	color: #000000;
+	border: 0.125em solid #9e9090;
+	background: #856e6e;
+}
+
+button:disabled,
+button[disabled]
+{
+	color: #2e2a2a;
+	background: #4d4646;
+	border-top: 0.125em solid #5c5454;
+	border-right: 0.125em solid #3d3838;
+	border-bottom: 0.125em solid #3d3838;
+	border-left: 0.125em solid #5c5454;
+	cursor: default;
 }
