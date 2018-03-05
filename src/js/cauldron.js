@@ -17,6 +17,8 @@ class Cauldron
 		
 		this.substances = [];
 		
+		this.store = new Store;
+		
 		for (i in substanceClasses)
 		{
 			this.substances[i] = 0;
@@ -39,6 +41,7 @@ class Cauldron
 	{
 		this.temperatureTarget = 20;
 		this.status = CAULDRON_REMOVED;
+		this.store.clear();
 	}
 	
 	storePotion()

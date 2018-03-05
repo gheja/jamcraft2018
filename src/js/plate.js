@@ -4,26 +4,20 @@ class Plate
 {
 	constructor(params)
 	{
-		this.contents = [];
+		this.ingredients = [];
 		this.selected = false;
+		
+		this.store = new Store;
 	}
 	
 	use()
 	{
 		let i, j, a, count;
 		
-		for (i in this.contents)
+		for (i in this.store.ingredients)
 		{
-			count = this.contents[i];
-			
-			a = ingredientClasses[i];
-			
-			for (j in a.substances)
-			{
-				cauldron.substances[a.substances[j].name] += a.substances[j].amount * count;
-			}
+			// all of it
+			this.store.moveIngredient(cauldron.store, i, 9999);
 		}
-		
-		this.contents = [];
 	}
 }

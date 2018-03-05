@@ -7,9 +7,7 @@ let ingredientClasses = [];
 let cauldron = null;
 let plates = [];
 let currentPlate = null;
-// let inventory = [];
-
-let ingredientCount = [];
+let inventory = null;
 
 function addIngredient(n)
 {
@@ -23,19 +21,7 @@ function addIngredient(n)
 		return;
 	}
 	
-	if (ingredientClasses[n].countInventory == 0)
-	{
-		return;
-	}
-	
-	ingredient.countInventory--;
-	
-	if (!currentPlate.contents[n])
-	{
-		currentPlate.contents[n] = 0;
-	}
-	
-	currentPlate.contents[n]++;
+	inventory.store.moveIngredient(currentPlate.store, n, 1);
 	
 	updateDisplayPlates();
 }
@@ -52,19 +38,7 @@ function removeIngredient(n)
 		return;
 	}
 	
-	if (!currentPlate.contents[n] || currentPlate.contents[n] == 0)
-	{
-		return;
-	}
-	
-	ingredient.countInventory++;
-	
-	currentPlate.contents[n]--;
-	
-	if (currentPlate.contents[n] == 0)
-	{
-		delete currentPlate.contents[n];
-	}
+	currentPlate.store.moveIngredient(inventory.store, n, 1);
 	
 	updateDisplayPlates();
 }
@@ -96,34 +70,43 @@ function usePlate(n)
 	updateDisplayPlates();
 }
 
+function getContentsString(store)
+{
+	let i, a, count, s;
+	
+	s = "";
+	
+	for (i in store.ingredients)
+	{
+		a = ingredientClasses[i];
+		count = store.ingredients[i];
+		
+		if (count > 0)
+		{
+			s += count + " " + a.unit + " " + a.name + "<br/>";
+		}
+	}
+	
+	if (s == "")
+	{
+		s = "(empty)";
+	}
+	
+	return s;
+}
+
 function updateDisplayPlates()
 {
-	let i, j, s, a;
+	let i, j, s, a, count;
 	
 	for (i=0; i<plates.length; i++)
 	{
-		s = "";
-		
-		for (j in plates[i].contents)
-		{
-			a = ingredientClasses[j];
-			
-			s += plates[i].contents[j] + " " + a.unit + " " + a.name + "<br/>";
-		}
-		
-		if (s == "")
-		{
-			s = "(empty)";
-		}
-		
-		setText("plate" + i + "_contents", s);
+		setText("plate" + i + "_contents", getContentsString(plates[i].store));
 	}
 }
 
 function updateDisplay()
 {
-	let i, s;
-	
 	setText('temperature_target', cauldron.temperatureTarget + " &deg;C");
 	if (cauldron.status == CAULDRON_REMOVED)
 	{
@@ -147,17 +130,7 @@ function updateDisplay()
 	get("button_cauldron_prepare").disabled = (cauldron.status != CAULDRON_REMOVED);
 	get("button_cauldron_done").disabled = (cauldron.status == CAULDRON_REMOVED);
 	
-	s = "";
-	
-	for (i in cauldron.substances)
-	{
-		if (cauldron.substances[i] != 0)
-		{
-			s += cauldron.substances[i] + "x" + i + " ";
-		}
-	}
-	
-	setText("cauldron_content", s);
+	setText("cauldron_content", getContentsString(cauldron.store));
 }
 
 function tick()
@@ -224,13 +197,17 @@ function init()
 		]
 	});
 	
+	inventory = {
+		store: new Store
+	};
+	
 	cauldron = new Cauldron;
 	
 	plates.push(new Plate);
 	plates.push(new Plate);
 	plates.push(new Plate);
 	
-	ingredientClasses["rosepetal"].countInventory = 3;
+	inventory.store.createIngredient("rosepetal", 3);
 	
 	selectPlate(0);
 	
