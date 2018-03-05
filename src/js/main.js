@@ -92,6 +92,8 @@ function usePlate(n)
 	}
 	
 	plates[n].use();
+	
+	updateDisplayPlates();
 }
 
 function updateDisplayPlates()
@@ -120,6 +122,8 @@ function updateDisplayPlates()
 
 function updateDisplay()
 {
+	let i, s;
+	
 	setText('temperature_target', cauldron.temperatureTarget + " &deg;C");
 	if (cauldron.status == CAULDRON_REMOVED)
 	{
@@ -142,6 +146,18 @@ function updateDisplay()
 	
 	get("button_cauldron_prepare").disabled = (cauldron.status != CAULDRON_REMOVED);
 	get("button_cauldron_done").disabled = (cauldron.status == CAULDRON_REMOVED);
+	
+	s = "";
+	
+	for (i in cauldron.substances)
+	{
+		if (cauldron.substances[i] != 0)
+		{
+			s += cauldron.substances[i] + "x" + i + " ";
+		}
+	}
+	
+	setText("cauldron_content", s);
 }
 
 function tick()
@@ -204,7 +220,7 @@ function init()
 		unit: "tbsp",
 		unlocked: true,
 		substances: [
-			{ substance: substanceClasses["red"], amount: 1 }
+			{ name: "red", amount: 1 }
 		]
 	});
 	

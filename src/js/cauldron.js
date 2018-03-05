@@ -43,6 +43,8 @@ class Cauldron
 	
 	storePotion()
 	{
+		let i;
+		
 		if (this.temperature > 50)
 		{
 			logMessage("You tried to put the potion in a glass but it broke.", MESSAGE_FAIL);
@@ -50,6 +52,11 @@ class Cauldron
 		else
 		{
 			logMessage("Potion stored.", MESSAGE_NORMAL);
+		}
+		
+		for (i in this.substances)
+		{
+			this.substances[i] = 0;
 		}
 	}
 	
