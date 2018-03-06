@@ -14,10 +14,6 @@ class Plate
 	{
 		let i, j, a, count;
 		
-		for (i in this.store.ingredients)
-		{
-			// all of it
-			this.store.moveIngredient(cauldron.store, i, 9999);
-		}
+		this.store.moveAllItems(cauldron.store);
 	}
 }

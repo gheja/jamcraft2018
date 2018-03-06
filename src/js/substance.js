@@ -7,6 +7,7 @@ class Substance
 		let k;
 		
 		this.name = "?";
+		this.unit = "ml";
 		this.color = "#ff00ff";
 		this.description = "Unconfigured substance";
 		this.unlocked = false;

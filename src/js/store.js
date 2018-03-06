@@ -6,47 +6,51 @@ class Store
 	{
 		let i;
 		
-		this.ingredients = [];
-		this.substances = [];
+		this.items = [];
 		
-		for (i in substanceClasses)
+		for (i in itemClasses)
 		{
-			this.substances[i] = 0;
-		}
-		
-		for (i in ingredientClasses)
-		{
-			this.ingredients[i] = 0;
+			this.items[i] = 0;
 		}
 	}
 	
-	createIngredient(a, count)
+	createItem(a, count)
 	{
-		this.ingredients[a] += count;
+		this.items[a] += count;
 	}
 	
-	moveIngredient(target, a, count)
+	moveItem(target, a, count)
 	{
-		count = Math.min(count, this.ingredients[a]);
+		count = Math.min(count, this.items[a]);
 		
-		this.ingredients[a] -= count;
-		target.ingredients[a] += count;
+		this.items[a] -= count;
+		target.items[a] += count;
 	}
 	
-	destroyIngredient(a, count)
+	moveAllItems(target)
 	{
-		count = Math.min(count, this.ingredients[a]);
+		let i;
 		
-		this.ingredients[a] -= count;
+		for (i in this.items)
+		{
+			this.moveItem(target, i, this.items[i]);
+		}
+	}
+	
+	destroyItem(a, count)
+	{
+		count = Math.min(count, this.items[a]);
+		
+		this.items[a] -= count;
 	}
 	
 	clear()
 	{
 		let i;
 		
-		for (i in this.ingredients)
+		for (i in this.items)
 		{
-			this.destroyIngredient(i, 9999);
+			this.destroyItem(i, 9999);
 		}
 	}
 }

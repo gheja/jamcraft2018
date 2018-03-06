@@ -1,44 +1,50 @@
 "use strict";
 
 let tickCount;
-let substanceClasses = [];
+let itemClasses = [];
 let interactionClasses = [];
-let ingredientClasses = [];
 let cauldron = null;
 let plates = [];
 let currentPlate = null;
 let inventory = null;
 
+function round(x)
+{
+	x = Math.round(x * 10) / 10;
+	
+	return Math.floor(x) + "." + Math.floor(x * 10 % 10);
+}
+
 function addIngredient(n)
 {
-	let ingredient;
+	let item;
 	
-	ingredient = ingredientClasses[n];
+	item = itemClasses[n];
 	
-	if (!ingredient)
+	if (!item)
 	{
-		console.log("ERROR: could not find ingredient \"" + n + "\"");
+		console.log("ERROR: could not find item \"" + n + "\"");
 		return;
 	}
 	
-	inventory.store.moveIngredient(currentPlate.store, n, 1);
+	inventory.store.moveItem(currentPlate.store, n, 1);
 	
 	updateDisplayPlates();
 }
 
 function removeIngredient(n)
 {
-	let ingredient;
+	let item;
 	
-	ingredient = ingredientClasses[n];
+	item = itemClasses[n];
 	
-	if (!ingredient)
+	if (!item)
 	{
-		console.log("ERROR: could not find ingredient \"" + n + "\"");
+		console.log("ERROR: could not find item \"" + n + "\"");
 		return;
 	}
 	
-	currentPlate.store.moveIngredient(inventory.store, n, 1);
+	currentPlate.store.moveItem(inventory.store, n, 1);
 	
 	updateDisplayPlates();
 }
@@ -76,14 +82,14 @@ function getContentsString(store)
 	
 	s = "";
 	
-	for (i in store.ingredients)
+	for (i in store.items)
 	{
-		a = ingredientClasses[i];
-		count = store.ingredients[i];
+		a = itemClasses[i];
+		count = store.items[i];
 		
 		if (count > 0)
 		{
-			s += count + " " + a.unit + " " + a.name + "<br/>";
+			s += round(count) + " " + a.unit + " " + a.name + "<br/>";
 		}
 	}
 	
@@ -151,25 +157,25 @@ function init()
 	
 	tickCount = 0;
 	
-	substanceClasses["air"] = new Substance({
+	itemClasses["air"] = new Substance({
 		namse: "Air",
 		color: "#ffffff",
 		description: "",
 	});
 	
-	substanceClasses["red"] = new Substance({
+	itemClasses["red"] = new Substance({
 		namse: "red",
 		color: "#ee3300",
 		description: "",
 	});
 	
-	substanceClasses["yellow"] = new Substance({
+	itemClasses["yellow"] = new Substance({
 		namse: "yellow",
 		color: "#ffee33",
 		description: "",
 	});
 	
-	substanceClasses["orange"] = new Substance({
+	itemClasses["orange"] = new Substance({
 		namse: "orange",
 		color: "#ffbb00",
 		description: "",
@@ -187,11 +193,13 @@ function init()
 		speed: 0.5 // units per minute
 	}));
 	
-	ingredientClasses["rosepetal"] = new Ingredient({
+	itemClasses["rosepetal"] = new Ingredient({
 		name: "Rose Petal",
 		icon: "rosepetal.png",
 		unit: "tbsp",
 		unlocked: true,
+		dissolveTemperature: 30,
+		dissolveSpeed: 0.2, // units per minute
 		substances: [
 			{ name: "red", amount: 1 }
 		]
@@ -207,7 +215,7 @@ function init()
 	plates.push(new Plate);
 	plates.push(new Plate);
 	
-	inventory.store.createIngredient("rosepetal", 3);
+	inventory.store.createItem("rosepetal", 3);
 	
 	selectPlate(0);
 	

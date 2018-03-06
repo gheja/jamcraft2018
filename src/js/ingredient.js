@@ -18,6 +18,8 @@ class Ingredient
 		
 		this.chanceGarden = 0;
 		this.chanceMerchant = 0;
+		this.dissolveTemperature = 50;
+		this.dissolveSpeed = 1;
 		
 		for (k in params)
 		{

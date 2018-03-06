@@ -15,14 +15,7 @@ class Cauldron
 		this.cookTime = 0;
 		this.status = CAULDRON_REMOVED;
 		
-		this.substances = [];
-		
 		this.store = new Store;
-		
-		for (i in substanceClasses)
-		{
-			this.substances[i] = 0;
-		}
 	}
 	
 	start()
@@ -57,10 +50,7 @@ class Cauldron
 			logMessage("Potion stored.", MESSAGE_NORMAL);
 		}
 		
-		for (i in this.substances)
-		{
-			this.substances[i] = 0;
-		}
+		this.store.clear();
 	}
 	
 	done()
@@ -78,6 +68,8 @@ class Cauldron
 	
 	tick()
 	{
+		let i, a, j, item, count, ingredient, substance1, substance2;
+		
 		if (this.status != CAULDRON_READY && this.status != CAULDRON_COOKING)
 		{
 			return;
@@ -96,6 +88,30 @@ class Cauldron
 		if (this.temperature > this.temperatureTarget)
 		{
 			this.temperature += Math.min(-2, this.temperature - this.temperatureTarget);
+		}
+		
+		for (i in this.store.items)
+		{
+			count = this.store.items[i];
+			item = itemClasses[i];
+			
+			if (this.store.items[i] == 0)
+			{
+				continue;
+			}
+			
+			if (item instanceof Ingredient && this.temperature > item.dissolveTemperature)
+			{
+				a = item.dissolveSpeed * 0.5;
+				a = Math.min(a, count);
+				
+				this.store.destroyItem(i, a);
+				
+				for (j in item.substances)
+				{
+					this.store.createItem(item.substances[j].name, item.substances[j].amount * a);
+				}
+			}
 		}
 	}
 }
