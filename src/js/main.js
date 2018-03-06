@@ -183,12 +183,12 @@ function init()
 	
 	interactionClasses.push(new Interaction({
 		inputSubstances: [
-			{ substance: "red", ratio: 1 },
-			{ substance: "yellow", ratio: 1 }
+			{ name: "red", ratio: 0.5 },
+			{ name: "yellow", ratio: 0.5 }
 		],
 		outputSubstances: [
-			{ substance: "orange", ratio: 1.7 },
-			{ substance: "air", ratio: 0.3 }
+			{ name: "orange", ratio: 0.7 },
+			{ name: "air", ratio: 0.3 }
 		],
 		speed: 0.5 // units per minute
 	}));
@@ -205,6 +205,18 @@ function init()
 		]
 	});
 	
+	itemClasses["appleseed"] = new Ingredient({
+		name: "Apple Seed",
+		icon: "appleseed.png",
+		unit: "tbsp",
+		unlocked: true,
+		dissolveTemperature: 70,
+		dissolveSpeed: 0.1, // units per minute
+		substances: [
+			{ name: "yellow", amount: 1 }
+		]
+	});
+	
 	inventory = {
 		store: new Store
 	};
@@ -216,6 +228,7 @@ function init()
 	plates.push(new Plate);
 	
 	inventory.store.createItem("rosepetal", 3);
+	inventory.store.createItem("appleseed", 5);
 	
 	selectPlate(0);
 	

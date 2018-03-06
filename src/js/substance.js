@@ -1,5 +1,6 @@
 "use strict";
 
+// class Substance extends Item
 class Substance
 {
 	constructor(params)

@@ -44,6 +44,16 @@ class Store
 		this.items[a] -= count;
 	}
 	
+	round()
+	{
+		let i;
+		
+		for (i in this.items)
+		{
+			this.items[i] = Math.floor(this.items[i] * 1000) / 1000;
+		}
+	}
+	
 	clear()
 	{
 		let i;

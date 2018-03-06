@@ -1,5 +1,6 @@
 "use strict";
 
+// class Ingredient extends Item
 class Ingredient
 {
 	constructor(params)

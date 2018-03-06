@@ -113,5 +113,12 @@ class Cauldron
 				}
 			}
 		}
+		
+		for (i in interactionClasses)
+		{
+			interactionClasses[i].doInteraction(this.store, this.temperature);
+		}
+		
+		this.store.round();
 	}
 }
