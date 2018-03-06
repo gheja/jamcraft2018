@@ -9,6 +9,7 @@ class Interaction
 		this.inputSubstances = [];
 		this.outputSubstances = [];
 		this.speed = 0;
+		this.evaporation = false;
 		
 		for (k in params)
 		{
@@ -35,9 +36,19 @@ class Interaction
 				return;
 			}
 			
-			if (temperature < itemClasses[s.name].interactionTemperatureMin || temperature > itemClasses[s.name].interactionTemperatureMax)
+			if (!this.evaporation)
 			{
-				return;
+				if (temperature < itemClasses[s.name].interactionTemperatureMin || temperature > itemClasses[s.name].interactionTemperatureMax)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (temperature < itemClasses[s.name].evaporateTemperature)
+				{
+					return;
+				}
 			}
 			
 			a = Math.min(store.items[s.name], s.ratio * this.speed);

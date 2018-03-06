@@ -151,6 +151,32 @@ function tick()
 	updateDisplay();
 }
 
+function createEvaporationInteractions()
+{
+	let i, s;
+	
+	for (i in itemClasses)
+	{
+		s = itemClasses[i];
+		
+		if (!s.evaporateTemperature)
+		{
+			continue;
+		}
+		
+		interactionClasses.push(new Interaction({
+			inputSubstances: [
+				{ name: i, ratio: 1 }
+			],
+			outputSubstances: [
+				{ name: "air", ratio: 1 }
+			],
+			speed: 1, // units per minute
+			evaporation: true
+		}));
+	}
+}
+
 function init()
 {
 	let a;
@@ -167,18 +193,27 @@ function init()
 		name: "red",
 		color: "#ee3300",
 		description: "",
+		interactionTemperatureMin: 60,
+		interactionTemperatureMax: 70,
+		evaporateTemperature: 80
 	});
 	
 	itemClasses["yellow"] = new Substance({
 		name: "yellow",
 		color: "#ffee33",
 		description: "",
+		interactionTemperatureMin: 60,
+		interactionTemperatureMax: 70,
+		evaporateTemperature: 80
 	});
 	
 	itemClasses["orange"] = new Substance({
 		name: "orange",
 		color: "#ffbb00",
 		description: "",
+		interactionTemperatureMin: 0,
+		interactionTemperatureMax: 0,
+		evaporateTemperature: 300
 	});
 	
 	interactionClasses.push(new Interaction({
@@ -210,12 +245,14 @@ function init()
 		icon: "appleseed.png",
 		unit: "tbsp",
 		unlocked: true,
-		dissolveTemperature: 70,
+		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
 			{ name: "yellow", amount: 1 }
 		]
 	});
+	
+	createEvaporationInteractions();
 	
 	inventory = {
 		store: new Store
