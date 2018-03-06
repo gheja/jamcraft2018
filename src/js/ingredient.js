@@ -1,10 +1,11 @@
 "use strict";
 
-// class Ingredient extends Item
-class Ingredient
+class Ingredient extends Item
 {
 	constructor(params)
 	{
+		super();
+		
 		let k;
 		
 		this.name = "?";

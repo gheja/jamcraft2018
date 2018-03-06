@@ -171,7 +171,7 @@ function createEvaporationInteractions()
 			outputSubstances: [
 				{ name: "air", ratio: 1 }
 			],
-			speed: 1, // units per minute
+			speed: 0.1, // units per minute
 			evaporation: true
 		}));
 	}
@@ -184,7 +184,7 @@ function init()
 	tickCount = 0;
 	
 	itemClasses["air"] = new Substance({
-		name: "Air",
+		name: "air",
 		color: "#ffffff",
 		description: "",
 	});
@@ -225,7 +225,7 @@ function init()
 			{ name: "orange", ratio: 0.7 },
 			{ name: "air", ratio: 0.3 }
 		],
-		speed: 0.5 // units per minute
+		speed: 0.1 // units per minute
 	}));
 	
 	itemClasses["rosepetal"] = new Ingredient({
