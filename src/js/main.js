@@ -158,25 +158,25 @@ function init()
 	tickCount = 0;
 	
 	itemClasses["air"] = new Substance({
-		namse: "Air",
+		name: "Air",
 		color: "#ffffff",
 		description: "",
 	});
 	
 	itemClasses["red"] = new Substance({
-		namse: "red",
+		name: "red",
 		color: "#ee3300",
 		description: "",
 	});
 	
 	itemClasses["yellow"] = new Substance({
-		namse: "yellow",
+		name: "yellow",
 		color: "#ffee33",
 		description: "",
 	});
 	
 	itemClasses["orange"] = new Substance({
-		namse: "orange",
+		name: "orange",
 		color: "#ffbb00",
 		description: "",
 	});
