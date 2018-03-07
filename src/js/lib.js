@@ -92,3 +92,34 @@ function setText(name, text)
 	
 	obj.innerHTML = text;
 }
+
+function arrayPick(a)
+{
+	return a[Math.floor(Math.random() * a.length)];
+}
+
+function arrayPickChance(a)
+{
+	let i, total, r;
+	
+	total = 0;
+	
+	for (i in a)
+	{
+		total += a[i].chance;
+	}
+	
+	r = Math.floor(Math.random() * total);
+	
+	for (i in a)
+	{
+		r -= a[i].chance;
+		
+		if (r <= 0)
+		{
+			return a[i];
+		}
+	}
+	
+	return null;
+}
