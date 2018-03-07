@@ -7,6 +7,7 @@ class Store
 		let i;
 		
 		this.items = [];
+		this.objects = [];
 		
 		for (i in itemClasses)
 		{

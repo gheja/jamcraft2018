@@ -18,6 +18,7 @@ class Substance extends Item
 		this.interactionTemperatureMax = 70;
 		this.evaporateTemperature = 0;
 		this.hidden = false;
+		this.effect = "none";
 		
 		for (k in params)
 		{

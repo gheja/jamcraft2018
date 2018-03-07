@@ -34,12 +34,12 @@ class Cauldron
 	{
 		this.temperatureTarget = 20;
 		this.status = CAULDRON_REMOVED;
-		this.store.clear();
+		// this.store.clear();
 	}
 	
 	storePotion()
 	{
-		let i;
+		let i, tmp;
 		
 		if (this.temperature > 50)
 		{
@@ -47,6 +47,14 @@ class Cauldron
 		}
 		else
 		{
+			tmp = new ItemGlass;
+			this.store.moveAllItems(tmp.store);
+			
+			inventory.store.objects.push(tmp);
+			
+			console.log(tmp.describePurity());
+			console.log(tmp.describeEffect());
+			
 			logMessage("Potion stored.", MESSAGE_NORMAL);
 		}
 		
