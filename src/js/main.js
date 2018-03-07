@@ -89,9 +89,14 @@ function getContentsString(store)
 		a = itemClasses[i];
 		count = store.items[i];
 		
+		if (a.hidden)
+		{
+			continue;
+		}
+		
 		if (count > 0)
 		{
-			s += round(count) + " " + a.unit + " " + a.name + "<br/>";
+			s += round(count) + " " + a.unit + " " + a.title + "<br/>";
 		}
 	}
 	
