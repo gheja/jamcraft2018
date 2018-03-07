@@ -12,8 +12,6 @@ class Plate
 	
 	use()
 	{
-		let i, j, a, count;
-		
 		this.store.moveAllItems(cauldron.store);
 	}
 }
