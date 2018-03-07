@@ -5,7 +5,8 @@ html
 {
 	padding: 0;
 	margin: 1em 2em;
-	background: #2e2626;
+/* 	background: #2e2626; */
+	background: #0f0d0d;
 	color: #9e9090;
 	font-family: Compassion, Arial;
 	font-size: 16px;
@@ -20,16 +21,32 @@ body
 	text-shadow: 0.0625em 0.0625em #000000;
 }
 
-#messages
+#container
 {
 	position: fixed;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	height: 3em;
-	padding: 1em;
-	background: #403535;
+	left: 40px;
+	top: 40px;
+	width: 700px;
+	height: 450px;
+	background: #2e2626;
 }
+
+#messages
+{
+	position: absolute;
+	top: 400px;
+	padding: 8px;
+	width: 684px;
+	height: 34px;
+	overflow: hidden;
+	background: rgba(0,0,0,0.2);
+}
+
+.slot
+{
+	position: relative;
+}
+
 
 b, strong
 {
@@ -88,4 +105,52 @@ button[disabled]
 	border-bottom: 0.125em solid #3d3838;
 	border-left: 0.125em solid #5c5454;
 	cursor: default;
+}
+
+img
+{
+	image-rendering: pixelated;
+}
+
+#gfx_cauldron
+{
+	position: absolute;
+	left: 0px;
+	top: 220px;
+}
+
+#cauldron_wood,
+#cauldron_main,
+#cauldron_fire
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 84px;
+	height: 84px;
+}
+
+#box_cauldron
+{
+	position: absolute;
+	left: 100px;
+	top: 220px;
+	width: 300px;
+	height: 180px;
+}
+
+#description
+{
+	position: absolute;
+	left: 400px;
+	top: 220px;
+	width: 284px;
+	height: 160px;
+	padding: 8px;
+	background: rgba(0,0,0,0.2);
+}
+
+.fail
+{
+	color: #dd0000;
 }

@@ -137,6 +137,9 @@ function updateDisplay()
 	get("button_cauldron_done").disabled = (cauldron.status == CAULDRON_REMOVED);
 	
 	setText("cauldron_content", getContentsString(cauldron.store));
+	
+	get("cauldron_fire").style.display = ((cauldron.temperatureTarget > 20 && cauldron.status != CAULDRON_REMOVED) ? "block" : "none");
+	get("cauldron_main").style.display = (cauldron.status != CAULDRON_REMOVED ? "block" : "none");
 }
 
 function tick()
