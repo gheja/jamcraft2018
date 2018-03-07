@@ -8,6 +8,12 @@ function logMessage(s, format)
 	let obj;
 	
 	obj = get("messages");
+	
+	if (format == MESSAGE_FAIL)
+	{
+		s = "<span class=\"fail\">" + s + "</span>";
+	}
+	
 	obj.innerHTML = toTime(tickCount) + " " + s + "<br/>"  + obj.innerHTML;
 }
 
