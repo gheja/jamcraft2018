@@ -22,7 +22,7 @@ class Interaction
 	
 	doInteraction(store, temperature)
 	{
-		let i, a, s, minMultiplier;
+		let i, a, s, minMultiplier, status;
 		
 		// TODO: check speed
 		minMultiplier = this.speed;
@@ -77,6 +77,40 @@ class Interaction
 			
 			store.createItem(s.name, minMultiplier * s.ratio);
 		}
+		
+		status = "";
+		
+		// create description
+		if (!this.evaporation)
+		{
+			status += "Reaction: "
+			
+			for (i in this.inputSubstances)
+			{
+				s = this.inputSubstances[i];
+				
+				status += "<b>" + itemClasses[s.name].title + "</b> + ";
+			}
+			
+			status = status.substring(0, status.length - 3);
+				
+			status += " -> ";
+			
+			for (i in this.outputSubstances)
+			{
+				s = this.outputSubstances[i];
+				
+				status += "<b>" + itemClasses[s.name].title + "</b> + ";
+			}
+			
+			status = status.substring(0, status.length - 3);
+		}
+		else
+		{
+			status += "<b>" + itemClasses[this.inputSubstances[0].name].title + "</b> is evaporating.";
+		}
+		
+		currentDescription += status + "<br/>";
 	}
 	
 	checkInteractionsInStore(store)

@@ -8,6 +8,8 @@ let plates = [];
 let currentPlate = null;
 let inventory = null;
 
+let currentDescription = "";
+
 function round(x)
 {
 	x = Math.round(x * 10) / 10;
@@ -146,12 +148,31 @@ function tick()
 {
 	tickCount++;
 	
+	currentDescription = "";
+	
 	cauldron.tick();
 	
 	// console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
 	setText('time', toTime(tickCount, true));
 	
 	updateDisplay();
+	
+	if (currentDescription == "")
+	{
+		if (cauldron.status == CAULDRON_REMOVED)
+		{
+			currentDescription += "Press <b>Prepare</b> to prepare the cauldron for cooking.<br/><br/>";
+		}
+		
+		currentDescription += "Use <b>+</b> and <b>-</b> to adjust the fire. Each ingredient starts dissolving at a specific temperature. Substances react yadda-yadda...<br/><br/>";
+		
+		if (cauldron.status != CAULDRON_REMOVED)
+		{
+			currentDescription += "Press <b>Done</b> when your potion is ready.";
+		}
+	}
+	
+	setText("description", currentDescription);
 }
 
 function createEvaporationInteractions()
@@ -188,12 +209,16 @@ function init()
 	
 	itemClasses["air"] = new Substance({
 		name: "air",
+		title: "air",
 		color: "#ffffff",
 		description: "",
+		evaporateTemperature: 0,
+		hidden: true
 	});
 	
 	itemClasses["red"] = new Substance({
 		name: "red",
+		title: "red",
 		color: "#ee3300",
 		description: "",
 		interactionTemperatureMin: 60,
@@ -203,6 +228,7 @@ function init()
 	
 	itemClasses["yellow"] = new Substance({
 		name: "yellow",
+		title: "yellow",
 		color: "#ffee33",
 		description: "",
 		interactionTemperatureMin: 60,
@@ -212,6 +238,7 @@ function init()
 	
 	itemClasses["orange"] = new Substance({
 		name: "orange",
+		title: "orange",
 		color: "#ffbb00",
 		description: "",
 		interactionTemperatureMin: 0,
@@ -232,7 +259,8 @@ function init()
 	}));
 	
 	itemClasses["rosepetal"] = new Ingredient({
-		name: "Rose Petal",
+		name: "rosepetal",
+		title: "Rose Petal",
 		icon: "rosepetal.png",
 		unit: "tbsp",
 		unlocked: true,
@@ -244,7 +272,8 @@ function init()
 	});
 	
 	itemClasses["appleseed"] = new Ingredient({
-		name: "Apple Seed",
+		name: "appleseed",
+		title: "Apple Seed",
 		icon: "appleseed.png",
 		unit: "tbsp",
 		unlocked: true,

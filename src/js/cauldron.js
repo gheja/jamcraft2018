@@ -68,7 +68,9 @@ class Cauldron
 	
 	tick()
 	{
-		let i, a, j, item, count, ingredient, substance1, substance2;
+		let i, a, j, item, count, ingredient, substance1, substance2, status;
+		
+		status = "";
 		
 		if (this.status != CAULDRON_READY && this.status != CAULDRON_COOKING)
 		{
@@ -111,6 +113,8 @@ class Cauldron
 				{
 					this.store.createItem(item.substances[j].name, item.substances[j].amount * a);
 				}
+				
+				status += "<b>" + item.title + "</b> is dissolving.<br/>";
 			}
 		}
 		
@@ -120,5 +124,7 @@ class Cauldron
 		}
 		
 		this.store.round();
+		
+		currentDescription += status;
 	}
 }

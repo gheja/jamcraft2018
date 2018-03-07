@@ -9,13 +9,15 @@ class Substance extends Item
 		let k;
 		
 		this.name = "?";
+		this.title = "?";
 		this.unit = "ml";
 		this.color = "#ff00ff";
 		this.description = "Unconfigured substance";
 		this.unlocked = false;
-		this.interactionTemperatureMin = 0;
+		this.interactionTemperatureMin = 30;
 		this.interactionTemperatureMax = 70;
-		this.evaporateTemperature = 90;
+		this.evaporateTemperature = 0;
+		this.hidden = false;
 		
 		for (k in params)
 		{
