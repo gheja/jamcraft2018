@@ -7,7 +7,7 @@ let cauldron = null;
 let plates = [];
 let currentPlate = null;
 let inventory = null;
-
+let customer = null;
 let currentDescription = "";
 
 function round(x)
@@ -303,6 +303,9 @@ function init()
 	
 	inventory.store.createItem("rosepetal", 3);
 	inventory.store.createItem("appleseed", 5);
+	
+	customer = new Customer;
+	customer.setupNeed();
 	
 	selectPlate(0);
 	
