@@ -123,3 +123,13 @@ function arrayPickChance(a)
 	
 	return null;
 }
+
+function chance(x)
+{
+	return Math.floor() < x;
+}
+
+function clamp(x, min, max)
+{
+	return Math.max(min, Math.min(max, x));
+}
