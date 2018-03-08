@@ -52,8 +52,8 @@ class Cauldron
 			
 			inventory.store.objects.push(tmp);
 			
-			console.log(tmp.describePurity());
-			console.log(tmp.describeEffect());
+			console.log(tmp.store.describePotionQuality());
+			console.log(tmp.store.describePotionEffect());
 			
 			logMessage("Potion stored.", MESSAGE_NORMAL);
 		}
