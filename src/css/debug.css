@@ -1,0 +1,58 @@
+body
+{
+	background: #0f0d0d;
+}
+#container
+{
+	background: #000000;
+}
+
+#box_customers
+{
+	background: rgba(0,0,255,0.1);
+}
+
+#box_time
+{
+	background: rgba(255,255,0,0.1);
+}
+
+#box_ingredients
+{
+	background: rgba(255,0,255,0.1);
+}
+
+#box_plates
+{
+	background: rgba(255,255,0,0.1);
+}
+
+#box_cauldron
+{
+	background: rgba(255,0,0,0.1);
+}
+
+#box_description
+{
+	background: rgba(0,255,0,0.2);
+}
+
+#box_messages
+{
+	background: rgba(0,0,255,0.2);
+}
+
+#gfx_cauldron
+{
+	background: #ff00ff;
+}
+
+.customer
+{
+	background: rgba(0,0,0,0.2);
+}
+
+.customer_picture_background
+{
+	background: #ff00ff;
+}
