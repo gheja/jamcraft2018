@@ -178,6 +178,13 @@ function tick()
 	}
 	
 	setText("description", currentDescription);
+	
+	if (tickCount % 10 == 0)
+	{
+		customer.tick();
+	}
+	
+	setText("customer_text", "[" + customer.status + "] " + customer.currentText + " (" + customer.waitTime + " left)");
 }
 
 function createEvaporationInteractions()

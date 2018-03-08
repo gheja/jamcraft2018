@@ -1,5 +1,15 @@
 "use strict";
 
+const CUSTOMER_STATUS_AWAY = 0;
+const CUSTOMER_STATUS_RINGING = 1;
+const CUSTOMER_STATUS_SWEARING = 2;
+const CUSTOMER_STATUS_ASKING = 3;
+const CUSTOMER_STATUS_GOING = 4;
+const CUSTOMER_STATUS_WAITING = 5;
+const CUSTOMER_STATUS_BACK = 6;
+const CUSTOMER_STATUS_GOING2 = 7;
+const CUSTOMER_STATUS_USING = 8;
+
 class Customer
 {
 	constructor()
@@ -7,6 +17,12 @@ class Customer
 		this.name = "Customer";
 		this.mood = 0.5; // 0..1, grumpy..happy
 		this.confidence = 0.5;
+		this.status = CUSTOMER_STATUS_AWAY;
+		this.waitTime = 0;
+		this.ringAnswered = false;
+		this.orderAccepted = false;
+		this.potion = null;
+		this.currentText = "";
 		
 		this.need = {
 			effect: null,
@@ -188,5 +204,129 @@ class Customer
 			points: points,
 			comment: this.replacePlaceholders(feedback)
 		};
+	}
+	
+	setupNextWait()
+	{
+		this.status = CUSTOMER_STATUS_AWAY;
+		this.waitTime = 10;
+		this.ringAnswered = false;
+		this.orderAccepted = false;
+		this.potion = null;
+	}
+	
+	answerRing()
+	{
+		this.ringAnswered = true;
+		this.waitTime = 1;
+		this.tick();
+	}
+	
+	acceptOrder()
+	{
+		this.orderAccepted = true;
+		this.waitTime = 1;
+		this.tick();
+	}
+	
+	declineOrder()
+	{
+		this.orderAccepted = false;
+		this.waitTime = 1;
+		this.tick();
+	}
+	
+	giveFeedback()
+	{
+		let s
+		
+		s = this.ratePotion(this.potion[0], this.potion[1]);
+	}
+	
+	testGetRandomPotion()
+	{
+		this.potion = [ arrayPick([ "pure" ]), arrayPick([ "health", "love", "explode" ]) ];
+	}
+	
+	tick()
+	{
+		this.waitTime--;
+		
+		if (this.waitTime <= 0)
+		{
+			switch (this.status)
+			{
+				case CUSTOMER_STATUS_AWAY:
+					this.setupNeed();
+					this.status = CUSTOMER_STATUS_RINGING;
+					this.currentText = "*ring*";
+					this.waitTime = 10;
+				break;
+				
+				case CUSTOMER_STATUS_RINGING:
+					if (this.ringAnswered)
+					{
+						this.status = CUSTOMER_STATUS_ASKING;
+						this.currentText = this.describeNeed();
+						this.waitTime = 10;
+					}
+					else
+					{
+						// TODO: "do not disturb" mode?
+						this.status = CUSTOMER_STATUS_SWEARING;
+						this.currentText = "*$!#@!$";
+					}
+				break;
+				
+				case CUSTOMER_STATUS_SWEARING:
+					this.setupNextWait();
+				break;
+				
+				case CUSTOMER_STATUS_ASKING:
+					if (this.orderAccepted)
+					{
+						this.status = CUSTOMER_STATUS_GOING;
+						this.currentText = "Thanks, I'll be back.";
+						this.waitTime = 10;
+					}
+					else
+					{
+						this.status = CUSTOMER_STATUS_AWAY;
+						this.currentText = "OK, no problem, bye.";
+						this.setupNextWait();
+					}
+				break;
+				
+				case CUSTOMER_STATUS_GOING:
+					this.status = CUSTOMER_STATUS_WAITING;
+					this.currentText = "*waiting*";
+				break;
+				
+				case CUSTOMER_STATUS_WAITING:
+					this.status = CUSTOMER_STATUS_BACK;
+					this.currentText = "Hi, is he potion ready?";
+					this.waitTime = 30;
+				break;
+				
+				case CUSTOMER_STATUS_BACK:
+					// TODO: check if got potion or just stood there a few days
+					this.status = CUSTOMER_GOING2;
+					this.currentText = "Hi, is he potion ready?";
+					this.waitTime = 10;
+				break;
+				
+				case CUSTOMER_STATUS_GOING2:
+					this.currentText = "*away, will give feedback*";
+					this.waitTime = 10;
+				break;
+				
+				case CUSTOMER_STATUS_USING:
+					this.giveFeedback();
+					this.currentText = "*giving feedback*";
+					this.waitTime = 10;
+					this.setupNextWait();
+				break;
+			}
+		}
 	}
 }
