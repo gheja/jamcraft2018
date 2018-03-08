@@ -1,22 +1,23 @@
 @import url("compassion_by_eeve_somepx/stylesheet.css");
 
-body,
 html
 {
 	padding: 0;
+	margin: 0;
+}
+
+body
+{
+	padding: 0;
 	margin: 1em 2em;
-/* 	background: #2e2626; */
-	background: #0f0d0d;
+	background: #2e2626;
 	color: #9e9090;
 	font-family: Compassion, Arial;
 	font-size: 16px;
 	line-height: 1.25em;
 	font-smooth: never;
 	-webkit-font-smoothing : none;
-}
-
-body
-{
+	image-rendering: pixelated;
 	padding-bottom: 8em;
 	text-shadow: 0.0625em 0.0625em #000000;
 }
@@ -24,22 +25,11 @@ body
 #container
 {
 	position: fixed;
-	left: 40px;
-	top: 40px;
-	width: 700px;
-	height: 450px;
+	left: 10px;
+	top: 10px;
+	width: 1200px;
+	height: 600px;
 	background: #2e2626;
-}
-
-#messages
-{
-	position: absolute;
-	top: 400px;
-	padding: 8px;
-	width: 684px;
-	height: 34px;
-	overflow: hidden;
-	background: rgba(0,0,0,0.2);
 }
 
 .slot
@@ -107,16 +97,94 @@ button[disabled]
 	cursor: default;
 }
 
-img
+.left
 {
-	image-rendering: pixelated;
+	float: left;
 }
+
+/* TODO: scroll bar customization */
+
+#box_customers,
+#box_time,
+#box_ingredients,
+#box_plates,
+#box_cauldron,
+#box_description,
+#box_messages
+{
+	background: rgba(0,0,0,0.3);
+	position: absolute;
+	border-top: 2px solid #000000;
+}
+
+#box_customers
+{
+	left: 0px;
+	top: 120px;
+	width: 430px;
+	overflow-x: none;
+	overflow-y: auto;
+}
+
+#box_time
+{
+	left: 0px;
+	top: 0px;
+	width: 200px;
+	height: 120px;
+}
+
+#box_ingredients
+{
+	left: 432px;
+	top: 0px;
+	width: 500px;
+	height: 100px;
+}
+
+#box_plates
+{
+	left: 432px;
+	top: 100px;
+	width: 500px;
+	height: 100px;
+}
+
+#box_cauldron
+{
+	left: 432px;
+	top: 200px;
+	width: 500px;
+	height: 180px;
+}
+
+#box_description
+{
+	left: 432px;
+	top: 380px;
+	width: 500px;
+	height: 100px;
+}
+
+#box_messages
+{
+	left: 432px;
+	top: 480px;
+	width: 500px;
+	height: 100px;
+	overflow: hidden;
+}
+
+
+
 
 #gfx_cauldron
 {
-	position: absolute;
-	left: 0px;
-	top: 220px;
+	display: block;
+	width: 84px;
+	height: 84px;
+	float: left;
+	margin: 0 4px 0 0;
 }
 
 #cauldron_wood,
@@ -124,33 +192,56 @@ img
 #cauldron_fire
 {
 	position: absolute;
-	top: 0;
 	left: 0;
+	top: 0;
 	width: 84px;
 	height: 84px;
+	display: block;
 }
 
-#box_cauldron
+#cauldron_wood
 {
-	position: absolute;
-	left: 100px;
-	top: 220px;
-	width: 300px;
-	height: 180px;
+	background: url(../images/cauldron_wood.png);
 }
 
-#description
+#cauldron_main
 {
-	position: absolute;
-	left: 400px;
-	top: 220px;
-	width: 284px;
-	height: 160px;
-	padding: 8px;
-	background: rgba(0,0,0,0.2);
+	background: url(../images/cauldron_1.png);
+}
+
+#cauldron_fire
+{
+	background: url(../images/cauldron_fire.png);
 }
 
 .fail
 {
 	color: #dd0000;
+}
+
+.customer
+{
+	margin: 0 0 8px 0;
+	padding: 4px;
+	border: 2px solid #101010;
+	width: 400px;
+	height: 64px;
+	background: rgba(0,0,0,0.5);
+}
+
+.customer_picture_background
+{
+	display: block;
+	width: 64px;
+	height: 64px;
+	float: left;
+	margin: 0 8px 0 0;
+}
+
+.customer_picture
+{
+	background: url(../images/customer.png);
+	display: block;
+	width: 64px;
+	height: 64px;
 }

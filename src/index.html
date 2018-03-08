@@ -3,6 +3,7 @@
 		<title>Witch Stuff - a JamCraft2018 entry</title>
 		<link href="css/reset.css" rel="stylesheet" type="text/css" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
+<!-- 		<link href="css/debug.css" rel="stylesheet" type="text/css" /> -->
 		<script type="text/javascript" src="js/consts.js"></script>
 		<script type="text/javascript" src="js/lib.js"></script>
 		<script type="text/javascript" src="js/item.js"></script>
@@ -18,91 +19,139 @@
 	</head>
 	<body>
 		<div id="container">
-			<span id="time">-</span>
 			
-			<div id="customer_text">-</div>
-			<button onclick="customer.answerRing(); return false;">answer</button>
-			<button onclick="customer.acceptOrder(); return false;">accept</button>
-			<button onclick="customer.declineOrder(); return false;">decline</button>
-			<button onclick="customer.testGetRandomPotion(); return false;">potion</button>
-			
-			<hr/>
-			
-			<b>Ingredients</b>
-			<table>
-				<tr>
-					<td>
-						Rose petal (3 tbsp)<br/>
-						<button onclick="addIngredient('rosepetal'); return false">+</button> <button onclick="removeIngredient('rosepetal'); return false">-</button>
-					</td>
-					<td>
-						Apple seed (5 tbsp)<br/>
-						<button onclick="addIngredient('appleseed'); return false">+</button> <button onclick="removeIngredient('appleseed'); return false">-</button>
-					</td>
-					<td>
-						C<br/>
-						<button onclick="addIngredient('C'); return false">+</button> <button onclick="removeIngredient('C'); return false">-</button>
-					</td>
-					<td>
-						D<br/>
-						<button onclick="addIngredient('D'); return false">+</button> <button onclick="removeIngredient('D'); return false">-</button>
-					</td>
-				<tr/>
-			</table>
-			
-			<hr/>
-			
-			<b>Plates</b>
-			
-			<table>
-				<tr>
-					<td>
-						#1
-						<div id="plate0_contents"></div>
-						<button id="button_plate_0" onclick="selectPlate(0); return false;">select</button>
-						<button onclick="usePlate(0); return false;">v</button>
-					</td>
-					<td>
-						#2
-						<div id="plate1_contents"></div>
-						<button id="button_plate_1" onclick="selectPlate(1); return false;">select</button>
-						<button onclick="usePlate(1); return false;">v</button>
-					</td>
-					<td>
-						#3
-						<div id="plate2_contents"></div>
-						<button id="button_plate_2" onclick="selectPlate(2); return false;">select</button>
-						<button onclick="usePlate(2); return false;">v</button>
-					</td>
-				</tr>
-			</table>
-			
-			<hr/>
-			
-			<div id="box_cauldron">
-				<button id="button_cauldron_prepare" onclick="cauldron.prepare(); return false;">prepare</button>
-				<button id="button_cauldron_done" onclick="cauldron.done(); return false;">done</button><br/>
+			<div id="box_customers">
+				<div class="customer">
+					<div class="customer_picture_background" style="background: #0055bb;">
+						<div class="customer_picture">
+						</div>
+					</div>
+					<div class="customer_name">Customer</div>
+					<div id="customer_text">-</div>
+					
+					<button onclick="customer.answerRing(); return false;" class="button_answer">answer</button>
+					<button onclick="customer.acceptOrder(); return false;" class="button_accept">accept</button>
+					<button onclick="customer.declineOrder(); return false;" class="button_decline">decline</button>
+					<button onclick="customer.testGetRandomPotion(); return false;" class="button_potion">potion</button>
+				</div>
 				
-				Target temperature: <span id="temperature_target">-</span>
-				<button onclick="cauldron.adjustTemperatureTarget(+10); return false;">+</button>
-				<button onclick="cauldron.adjustTemperatureTarget(-10); return false;">-</button><br/>
+				<div class="customer">
+					<div class="customer_picture_background" style="background: #00bb00;">
+						<div class="customer_picture">
+						</div>
+					</div>
+					<div class="customer_name">Customer</div>
+					<div id="customer_text2">-</div>
+					
+					<button onclick="customer.answerRing(); return false;" class="button_answer">answer</button>
+					<button onclick="customer.acceptOrder(); return false;" class="button_accept">accept</button>
+					<button onclick="customer.declineOrder(); return false;" class="button_decline">decline</button>
+					<button onclick="customer.testGetRandomPotion(); return false;" class="button_potion">potion</button>
+				</div>
 				
-				Temperature: <span id="temperature_current">-</span><br/>
-				Status: <span id="cauldron_status">-</span><br/>
-				Time: <span id="cooking_time">-</span><br/>
-				<br/>
-				
-				<div id="cauldron_content"></div>
+				<div class="customer">
+					<div class="customer_picture_background" style="background: #aa3300;">
+						<div class="customer_picture">
+						</div>
+					</div>
+					<div class="customer_name">Customer</div>
+					<div id="customer_text2">-</div>
+					
+					<button onclick="customer.answerRing(); return false;" class="button_answer">answer</button>
+					<button onclick="customer.acceptOrder(); return false;" class="button_accept">accept</button>
+					<button onclick="customer.declineOrder(); return false;" class="button_decline">decline</button>
+					<button onclick="customer.testGetRandomPotion(); return false;" class="button_potion">potion</button>
+				</div>
 			</div>
 			
-			<div id="messages"></div>
+			<div id="box_time">
+				<div id="time">-</div>
+			</div>
 			
-			<div id="description"></div>
+			<div id="box_ingredients">
+				<b>Ingredients</b>
+				
+				<table>
+					<tr>
+						<td>
+							Rose petal (3 tbsp)<br/>
+							<button onclick="addIngredient('rosepetal'); return false">+</button> <button onclick="removeIngredient('rosepetal'); return false">-</button>
+						</td>
+						<td>
+							Apple seed (5 tbsp)<br/>
+							<button onclick="addIngredient('appleseed'); return false">+</button> <button onclick="removeIngredient('appleseed'); return false">-</button>
+						</td>
+						<td>
+							C<br/>
+							<button onclick="addIngredient('C'); return false">+</button> <button onclick="removeIngredient('C'); return false">-</button>
+						</td>
+						<td>
+							D<br/>
+							<button onclick="addIngredient('D'); return false">+</button> <button onclick="removeIngredient('D'); return false">-</button>
+						</td>
+					<tr/>
+				</table>
+			</div>
 			
-			<div id="gfx_cauldron">
-				<img src="images/cauldron_1.png" id="cauldron_main" />
-				<img src="images/cauldron_wood.png" id="cauldron_wood" />
-				<img src="images/cauldron_fire.png" id="cauldron_fire" />
+			<div id="box_plates">
+				<b>Plates</b>
+				
+				<table>
+					<tr>
+						<td>
+							#1
+							<div id="plate0_contents"></div>
+							<button id="button_plate_0" onclick="selectPlate(0); return false;">select</button>
+							<button onclick="usePlate(0); return false;">v</button>
+						</td>
+						<td>
+							#2
+							<div id="plate1_contents"></div>
+							<button id="button_plate_1" onclick="selectPlate(1); return false;">select</button>
+							<button onclick="usePlate(1); return false;">v</button>
+						</td>
+						<td>
+							#3
+							<div id="plate2_contents"></div>
+							<button id="button_plate_2" onclick="selectPlate(2); return false;">select</button>
+							<button onclick="usePlate(2); return false;">v</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div id="box_cauldron">
+				<div id="gfx_cauldron">
+					<div id="cauldron_main"></div>
+					<div id="cauldron_wood"></div>
+					<div id="cauldron_fire"></div>
+				</div>
+				
+				<div class="left">
+					<b>Cauldron</b>
+					
+					<button id="button_cauldron_prepare" onclick="cauldron.prepare(); return false;">prepare</button>
+					<button id="button_cauldron_done" onclick="cauldron.done(); return false;">done</button><br/>
+					
+					Target temperature: <span id="temperature_target">-</span>
+					<button onclick="cauldron.adjustTemperatureTarget(+10); return false;">+</button>
+					<button onclick="cauldron.adjustTemperatureTarget(-10); return false;">-</button><br/>
+					
+					Temperature: <span id="temperature_current">-</span><br/>
+					Status: <span id="cauldron_status">-</span><br/>
+					Time: <span id="cooking_time">-</span><br/>
+					<br/>
+					
+					<div id="cauldron_content"></div>
+				</div>
+			</div>
+			
+			<div id="box_messages">
+				<div id="messages"></div>
+			</div>
+			
+			<div id="box_description">
+				<div id="description"></div>
 			</div>
 		</div>
 	</body>
