@@ -209,7 +209,7 @@ class Customer
 	setupNextWait()
 	{
 		this.status = CUSTOMER_STATUS_AWAY;
-		this.waitTime = 10;
+		this.waitTime = 5;
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
@@ -240,12 +240,16 @@ class Customer
 	{
 		let s
 		
-		s = this.ratePotion(this.potion[0], this.potion[1]);
+		s = this.reactToPotion(this.potion[0], this.potion[1]);
+		
+		this.currentText = s.comment;
 	}
 	
 	testGetRandomPotion()
 	{
 		this.potion = [ arrayPick([ "pure" ]), arrayPick([ "health", "love", "explode" ]) ];
+		this.waitTime = 1;
+		this.tick();
 	}
 	
 	tick()
@@ -260,7 +264,7 @@ class Customer
 					this.setupNeed();
 					this.status = CUSTOMER_STATUS_RINGING;
 					this.currentText = "*ring*";
-					this.waitTime = 10;
+					this.waitTime = 3;
 				break;
 				
 				case CUSTOMER_STATUS_RINGING:
@@ -275,6 +279,7 @@ class Customer
 						// TODO: "do not disturb" mode?
 						this.status = CUSTOMER_STATUS_SWEARING;
 						this.currentText = "*$!#@!$";
+						this.waitTime = 3;
 					}
 				break;
 				
@@ -287,7 +292,7 @@ class Customer
 					{
 						this.status = CUSTOMER_STATUS_GOING;
 						this.currentText = "Thanks, I'll be back.";
-						this.waitTime = 10;
+						this.waitTime = 3;
 					}
 					else
 					{
@@ -300,30 +305,30 @@ class Customer
 				case CUSTOMER_STATUS_GOING:
 					this.status = CUSTOMER_STATUS_WAITING;
 					this.currentText = "*waiting*";
+					this.waitTime = 3;
 				break;
 				
 				case CUSTOMER_STATUS_WAITING:
 					this.status = CUSTOMER_STATUS_BACK;
 					this.currentText = "Hi, is he potion ready?";
-					this.waitTime = 30;
+					this.waitTime = 10;
 				break;
 				
 				case CUSTOMER_STATUS_BACK:
 					// TODO: check if got potion or just stood there a few days
-					this.status = CUSTOMER_GOING2;
-					this.currentText = "Hi, is he potion ready?";
-					this.waitTime = 10;
+					this.status = CUSTOMER_STATUS_GOING2;
+					this.currentText = "Thanks!";
+					this.waitTime = 3;
 				break;
 				
 				case CUSTOMER_STATUS_GOING2:
+					this.status = CUSTOMER_STATUS_USING;
 					this.currentText = "*away, will give feedback*";
-					this.waitTime = 10;
+					this.waitTime = 3;
 				break;
 				
 				case CUSTOMER_STATUS_USING:
 					this.giveFeedback();
-					this.currentText = "*giving feedback*";
-					this.waitTime = 10;
 					this.setupNextWait();
 				break;
 			}
