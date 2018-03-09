@@ -7,7 +7,7 @@ let cauldron = null;
 let plates = [];
 let currentPlate = null;
 let inventory = null;
-let customer = null;
+let customers = [];
 let currentDescription = "";
 
 function round(x)
@@ -151,6 +151,8 @@ function updateDisplay()
 
 function tick()
 {
+	let i;
+	
 	tickCount++;
 	
 	currentDescription = "";
@@ -181,10 +183,11 @@ function tick()
 	
 	if (tickCount % 10 == 0)
 	{
-		customer.tick();
+		for (i in customers)
+		{
+			customers[i].tick();
+		}
 	}
-	
-	setText("customer_text", "[" + customer.status + "] " + customer.currentText + " (" + customer.waitTime + " left)");
 }
 
 function createEvaporationInteractions()
@@ -215,7 +218,7 @@ function createEvaporationInteractions()
 
 function init()
 {
-	let a;
+	let a, b, i;
 	
 	tickCount = 0;
 	
@@ -308,13 +311,22 @@ function init()
 	plates.push(new Plate);
 	plates.push(new Plate);
 	
+	selectPlate(0);
+	
 	inventory.store.createItem("rosepetal", 3);
 	inventory.store.createItem("appleseed", 5);
 	
-	customer = new Customer;
-	customer.setupNeed();
+	for (i=0; i<CUSTOMER_COUNT_MAX; i++)
+	{
+		customers.push(new Customer(i));
+	}
 	
-	selectPlate(0);
+	for (i=0; i<CUSTOMER_COUNT_MAX; i++)
+	{
+		customers[i].setupNextWait();
+	}
+	
+	arrayShuffle(customers);
 	
 	updateDisplayPlates();
 	
