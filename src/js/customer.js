@@ -1,16 +1,16 @@
 "use strict";
 
-const CUSTOMER_STATUS_AWAY = 0;
-const CUSTOMER_STATUS_RINGING = 1;
-const CUSTOMER_STATUS_SWEARING = 2;
-const CUSTOMER_STATUS_ASKING = 3;
-const CUSTOMER_STATUS_GOING = 4;
-const CUSTOMER_STATUS_WAITING = 5;
-const CUSTOMER_STATUS_BACK = 6;
-const CUSTOMER_STATUS_GOING2 = 7;
-const CUSTOMER_STATUS_USING = 8;
-const CUSTOMER_STATUS_RESET = 9;
-const CUSTOMER_STATUS_STOPPED = 10;
+const CUSTOMER_STATE_AWAY = 0;
+const CUSTOMER_STATE_RINGING = 1;
+const CUSTOMER_STATE_SWEARING = 2;
+const CUSTOMER_STATE_ASKING = 3;
+const CUSTOMER_STATE_GOING = 4;
+const CUSTOMER_STATE_WAITING = 5;
+const CUSTOMER_STATE_BACK = 6;
+const CUSTOMER_STATE_GOING2 = 7;
+const CUSTOMER_STATE_USING = 8;
+const CUSTOMER_STATE_RESET = 9;
+const CUSTOMER_STATE_STOPPED = 10;
 
 class Customer
 {
@@ -19,7 +19,7 @@ class Customer
 		this.name = "Customer";
 		this.mood = 0.5; // 0..1, grumpy..happy
 		this.confidence = 0.5;
-		this.status = CUSTOMER_STATUS_AWAY;
+		this.state = CUSTOMER_STATE_AWAY;
 		this.waitTime = 0;
 		this.ringAnswered = false;
 		this.orderAccepted = false;
@@ -304,7 +304,7 @@ class Customer
 	
 	setupNextWait()
 	{
-		this.status = CUSTOMER_STATUS_AWAY;
+		this.state = CUSTOMER_STATE_AWAY;
 		this.waitTime = Math.floor(Math.random() * 10);
 		this.ringAnswered = false;
 		this.orderAccepted = false;
@@ -335,7 +335,7 @@ class Customer
 	dismiss()
 	{
 		this.hideDom();
-		this.status = CUSTOMER_STATUS_RESET;
+		this.state = CUSTOMER_STATE_RESET;
 		this.waitTime = 3;
 	}
 	
@@ -361,106 +361,106 @@ class Customer
 		
 		if (this.waitTime <= 0)
 		{
-			switch (this.status)
+			switch (this.state)
 			{
-				case CUSTOMER_STATUS_AWAY:
+				case CUSTOMER_STATE_AWAY:
 					this.setupNeed();
 					this.createDom();
-					this.status = CUSTOMER_STATUS_RINGING;
+					this.state = CUSTOMER_STATE_RINGING;
 					this.setText("*knock* *knock*");
 					this.waitTime = 3;
 					this.dom.image.style.background = this.color;
 				break;
 				
-				case CUSTOMER_STATUS_RINGING:
+				case CUSTOMER_STATE_RINGING:
 					if (this.ringAnswered)
 					{
-						this.status = CUSTOMER_STATUS_ASKING;
+						this.state = CUSTOMER_STATE_ASKING;
 						this.setText(this.describeNeed());
 						this.waitTime = 10;
 					}
 					else
 					{
 						// TODO: "do not disturb" mode?
-						this.status = CUSTOMER_STATUS_SWEARING;
+						this.state = CUSTOMER_STATE_SWEARING;
 						this.setText("*$!#@!$");
 						this.waitTime = 1;
 					}
 				break;
 				
-				case CUSTOMER_STATUS_SWEARING:
-						// this.status = CUSTOMER_STATUS_RESET;
+				case CUSTOMER_STATE_SWEARING:
+						// this.state = CUSTOMER_STATE_RESET;
 						this.dom.image.style.background = "#222222";
-						this.status = CUSTOMER_STATUS_STOPPED;
+						this.state = CUSTOMER_STATE_STOPPED;
 						this.waitTime = 3;
 				break;
 				
-				case CUSTOMER_STATUS_ASKING:
+				case CUSTOMER_STATE_ASKING:
 					if (this.orderAccepted)
 					{
-						this.status = CUSTOMER_STATUS_GOING;
+						this.state = CUSTOMER_STATE_GOING;
 						this.dom.name.innerHTML += " (" + this.need.effect + ")";
 						this.setText("Thanks, I'll be back.");
 					}
 					else
 					{
-						this.status = CUSTOMER_STATUS_RESET;
+						this.state = CUSTOMER_STATE_RESET;
 						this.setText("OK, no problem, bye.");
 					}
 					
 					this.waitTime = 3;
 				break;
 				
-				case CUSTOMER_STATUS_GOING:
-					this.status = CUSTOMER_STATUS_WAITING;
+				case CUSTOMER_STATE_GOING:
+					this.state = CUSTOMER_STATE_WAITING;
 					this.setText("*away*");
 					this.waitTime = 3;
 					
 					this.dom.image.style.background = "#222222";
 				break;
 				
-				case CUSTOMER_STATUS_WAITING:
-					this.status = CUSTOMER_STATUS_BACK;
+				case CUSTOMER_STATE_WAITING:
+					this.state = CUSTOMER_STATE_BACK;
 					this.setText("Hi, is he potion ready?");
 					this.waitTime = 10;
 					
 					this.dom.image.style.background = this.color;
 				break;
 				
-				case CUSTOMER_STATUS_BACK:
+				case CUSTOMER_STATE_BACK:
 					
 					// TODO: check if got potion or just stood there a few days
 					if (this.potion)
 					{
-						this.status = CUSTOMER_STATUS_GOING2;
+						this.state = CUSTOMER_STATE_GOING2;
 						this.setText("Thanks!");
 					}
 					else
 					{
-						this.status = CUSTOMER_STATUS_SWEARING;
+						this.state = CUSTOMER_STATE_SWEARING;
 						this.setText("*$!#@!$");
 					}
 					this.waitTime = 1;
 				break;
 				
-				case CUSTOMER_STATUS_GOING2:
+				case CUSTOMER_STATE_GOING2:
 					this.dom.image.style.background = "#222222";
-					this.status = CUSTOMER_STATUS_USING;
+					this.state = CUSTOMER_STATE_USING;
 					this.setText("*away, will give feedback*");
 					this.waitTime = 3;
 				break;
 				
-				case CUSTOMER_STATUS_STOPPED:
+				case CUSTOMER_STATE_STOPPED:
 					this.setText("");
 				break;
 				
-				case CUSTOMER_STATUS_USING:
+				case CUSTOMER_STATE_USING:
 					this.giveFeedback();
-					this.status = CUSTOMER_STATUS_RESET;
+					this.state = CUSTOMER_STATE_RESET;
 					this.waitTime = 1;
 				break;
 				
-				case CUSTOMER_STATUS_RESET:
+				case CUSTOMER_STATE_RESET:
 					this.dom.image.style.background = "#222222";
 					this.setText("");
 					this.setupNextWait();
