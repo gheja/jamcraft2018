@@ -10,6 +10,7 @@ const CUSTOMER_STATUS_BACK = 6;
 const CUSTOMER_STATUS_GOING2 = 7;
 const CUSTOMER_STATUS_USING = 8;
 const CUSTOMER_STATUS_RESET = 9;
+const CUSTOMER_STATUS_STOPPED = 10;
 
 class Customer
 {
@@ -163,7 +164,7 @@ class Customer
 		
 		b = document.createElement("button");
 		b.innerHTML = "dismiss";
-		b.onclick = this.hideDom.bind(this);
+		b.onclick = this.dismiss.bind(this);
 		a.appendChild(b);
 		
 		b = document.createElement("br");
@@ -177,24 +178,22 @@ class Customer
 	
 	hideDom()
 	{
-		// this.dom.root.style.display = "none";
 		this.dom.root.style.animationName = "slideout";
 		this.dom.root.addEventListener("webkitAnimationEnd", this.destroyDom.bind(this), false);
 	}
 	
 	destroyDom()
 	{
-		this.dom.root.style.display = "none";
-		// get("box_customers").removeChild(this.dom.root);
-		// this.dom.root = null;
-		// this.dom.text = null;
+		get("box_customers").removeChild(this.dom.root);
+		this.dom.root = null;
+		this.dom.text = null;
 	}
 	
 	setText(s)
 	{
 		if (this.dom.text)
 		{
-			this.dom.text.innerHTML = s;
+			this.dom.text.innerHTML = s + "&nbsp;";
 		}
 	}
 	
@@ -333,6 +332,13 @@ class Customer
 		this.tick();
 	}
 	
+	dismiss()
+	{
+		this.hideDom();
+		this.status = CUSTOMER_STATUS_RESET;
+		this.waitTime = 3;
+	}
+	
 	giveFeedback()
 	{
 		let s
@@ -383,7 +389,9 @@ class Customer
 				break;
 				
 				case CUSTOMER_STATUS_SWEARING:
-						this.status = CUSTOMER_STATUS_RESET;
+						// this.status = CUSTOMER_STATUS_RESET;
+						this.dom.image.style.background = "#222222";
+						this.status = CUSTOMER_STATUS_STOPPED;
 						this.waitTime = 3;
 				break;
 				
@@ -442,16 +450,20 @@ class Customer
 					this.waitTime = 3;
 				break;
 				
+				case CUSTOMER_STATUS_STOPPED:
+					this.setText("");
+				break;
+				
 				case CUSTOMER_STATUS_USING:
 					this.giveFeedback();
-					this.setupNextWait();
+					this.status = CUSTOMER_STATUS_RESET;
+					this.waitTime = 1;
 				break;
 				
 				case CUSTOMER_STATUS_RESET:
 					this.dom.image.style.background = "#222222";
 					this.setText("");
-					// this.hideDom();
-					// this.setupNextWait();
+					this.setupNextWait();
 				break;
 			}
 		}
