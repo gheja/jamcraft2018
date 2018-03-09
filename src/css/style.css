@@ -22,30 +22,9 @@ body
 	text-shadow: 0.0625em 0.0625em #000000;
 }
 
-#container
-{
-	position: fixed;
-	left: 10px;
-	top: 10px;
-	width: 1200px;
-	height: 600px;
-	background: #2e2626;
-}
-
-.slot
-{
-	position: relative;
-}
-
-
 b, strong
 {
 	color: #fff;
-}
-
-td
-{
-	padding: 0 48px 0 0;
 }
 
 hr
@@ -97,12 +76,52 @@ button[disabled]
 	cursor: default;
 }
 
+::-webkit-scrollbar-track
+{
+	background: rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background: rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-thumb
+{
+	background: #665454;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+	background: #856e6e;
+}
+
+#container
+{
+	position: fixed;
+	left: 10px;
+	top: 10px;
+	width: 1200px;
+	height: 600px;
+	background: #2e2626;
+}
+
+.slot
+{
+	position: relative;
+}
+
+
+td
+{
+	padding: 0 48px 0 0;
+}
+
 .left
 {
 	float: left;
 }
-
-/* TODO: scroll bar customization */
 
 #box_customers,
 #box_time,
