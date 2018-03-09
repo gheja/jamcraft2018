@@ -17,6 +17,18 @@ function round(x)
 	return Math.floor(x) + "." + Math.floor(x * 10 % 10);
 }
 
+function updateDebugFlag()
+{
+	if (get("debug_checkbox").checked)
+	{
+		document.body.className = "debug";
+	}
+	else
+	{
+		document.body.className = "";
+	}
+}
+
 function addIngredient(n)
 {
 	let item;

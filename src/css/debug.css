@@ -1,58 +1,59 @@
-body
+body.debug
 {
 	background: #0f0d0d;
 }
-#container
+
+body.debug #container
 {
 	background: #000000;
 }
 
-#box_customers
+body.debug #box_customers
 {
 	background: rgba(0,0,255,0.1);
 }
 
-#box_time
+body.debug #box_time
 {
 	background: rgba(255,255,0,0.1);
 }
 
-#box_ingredients
+body.debug #box_ingredients
 {
 	background: rgba(255,0,255,0.1);
 }
 
-#box_plates
+body.debug #box_plates
 {
 	background: rgba(255,255,0,0.1);
 }
 
-#box_cauldron
+body.debug #box_cauldron
 {
 	background: rgba(255,0,0,0.1);
 }
 
-#box_description
+body.debug #box_description
 {
 	background: rgba(0,255,0,0.2);
 }
 
-#box_messages
+body.debug #box_messages
 {
 	background: rgba(0,0,255,0.2);
 }
 
-#gfx_cauldron
+body.debug #gfx_cauldron
 {
 	background: #ff00ff;
 }
 
-.customer
+body.debug .customer
 {
-	background: rgba(0,0,0,0.2);
+	background: rgba(0,0,0,0.5);
 }
 
-.customer_picture_background
+body.debug .customer_picture_background
 {
 	background: #ff00ff;
 }

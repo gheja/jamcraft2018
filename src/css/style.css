@@ -285,3 +285,10 @@ button[disabled]
 	float: none;
 	clear: both;
 }
+
+#debug_checkbox
+{
+	position: fixed;
+	top: 0;
+	right: 0;
+}
