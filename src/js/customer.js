@@ -9,10 +9,11 @@ const CUSTOMER_STATUS_WAITING = 5;
 const CUSTOMER_STATUS_BACK = 6;
 const CUSTOMER_STATUS_GOING2 = 7;
 const CUSTOMER_STATUS_USING = 8;
+const CUSTOMER_STATUS_RESET = 9;
 
 class Customer
 {
-	constructor()
+	constructor(n)
 	{
 		this.name = "Customer";
 		this.mood = 0.5; // 0..1, grumpy..happy
@@ -22,13 +23,23 @@ class Customer
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
-		this.currentText = "";
+		
+		this.color = "hsl(" + (Math.floor(n / 2) * (360 / CUSTOMER_COUNT_MAX * 2)) + ", 90%, " + (n % 2 == 0 ? "30" : "50") + "%)";
+		
+		this.dom = {
+			root: null,
+			name: null,
+			text: null,
+			image: null,
+			progress: null
+		};
 		
 		this.need = {
 			effect: null,
 			subject: null,
 			effectTexts: null,
-			pronouns: null
+			pronouns: null,
+			text: null
 		};
 		
 		// TODO: I/me/myself - would be fun!
@@ -105,6 +116,88 @@ class Customer
 		};
 	}
 	
+	createDom()
+	{
+		let a, b, c;
+		
+		a = document.createElement("div");
+		a.className = "customer";
+		a.display = "block";
+		
+		b = document.createElement("div");
+		b.className = "customer_picture_background";
+		this.dom.image = b;
+		
+		c = document.createElement("div");
+		c.className = "customer_picture";
+		
+		b.appendChild(c);
+		a.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "customer_name";
+		b.innerHTML = "Customer Name";
+		a.appendChild(b);
+		this.dom.name = b;
+		
+		b = document.createElement("div");
+		b.className = "customer_text";
+		b.innerHTML = "Text";
+		a.appendChild(b);
+		this.dom.text = b;
+		
+		b = document.createElement("button");
+		b.innerHTML = "answer";
+		b.onclick = this.answerRing.bind(this);
+		a.appendChild(b);
+		
+		b = document.createElement("button");
+		b.innerHTML = "accept";
+		b.onclick = this.acceptOrder.bind(this);
+		a.appendChild(b);
+		
+		b = document.createElement("button");
+		b.innerHTML = "decline";
+		b.onclick = this.declineOrder.bind(this);
+		a.appendChild(b);
+		
+		b = document.createElement("button");
+		b.innerHTML = "dismiss";
+		b.onclick = this.hideDom.bind(this);
+		a.appendChild(b);
+		
+		b = document.createElement("br");
+		b.className = "clearer";
+		a.appendChild(b);
+		
+		this.dom.root = a;
+		
+		get("box_customers").appendChild(this.dom.root);
+	}
+	
+	hideDom()
+	{
+		// this.dom.root.style.display = "none";
+		this.dom.root.style.animationName = "slideout";
+		this.dom.root.addEventListener("webkitAnimationEnd", this.destroyDom.bind(this), false);
+	}
+	
+	destroyDom()
+	{
+		this.dom.root.style.display = "none";
+		// get("box_customers").removeChild(this.dom.root);
+		// this.dom.root = null;
+		// this.dom.text = null;
+	}
+	
+	setText(s)
+	{
+		if (this.dom.text)
+		{
+			this.dom.text.innerHTML = s;
+		}
+	}
+	
 	replacePlaceholders(text)
 	{
 		let i;
@@ -130,11 +223,13 @@ class Customer
 			"subject2": (chance(0.5) ? this.need.subject.subject2 : this.need.subject.she),
 			"suddenly": arrayPick(this.texts["suddenly"])
 		};
+		
+		this.need.text = this.replacePlaceholders(arrayPick(this.texts["need"]) + " " + this.need.effectTexts[0] + ".");
 	}
 	
 	describeNeed()
 	{
-		return this.replacePlaceholders(arrayPick(this.texts["need"]) + " " + this.need.effectTexts[0] + ".");
+		return this.need.text;
 	}
 	
 	reactToPotion(quality, effect)
@@ -200,6 +295,8 @@ class Customer
 			}
 		}
 		
+		// TODO: "3 out of 5 stars.", "3 stars.", "3/5"
+		
 		return {
 			points: points,
 			comment: this.replacePlaceholders(feedback)
@@ -209,7 +306,7 @@ class Customer
 	setupNextWait()
 	{
 		this.status = CUSTOMER_STATUS_AWAY;
-		this.waitTime = 5;
+		this.waitTime = Math.floor(Math.random() * 10);
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
@@ -242,7 +339,7 @@ class Customer
 		
 		s = this.reactToPotion(this.potion[0], this.potion[1]);
 		
-		this.currentText = s.comment;
+		this.setText(s.comment);
 	}
 	
 	testGetRandomPotion()
@@ -262,74 +359,99 @@ class Customer
 			{
 				case CUSTOMER_STATUS_AWAY:
 					this.setupNeed();
+					this.createDom();
 					this.status = CUSTOMER_STATUS_RINGING;
-					this.currentText = "*ring*";
+					this.setText("*knock* *knock*");
 					this.waitTime = 3;
+					this.dom.image.style.background = this.color;
 				break;
 				
 				case CUSTOMER_STATUS_RINGING:
 					if (this.ringAnswered)
 					{
 						this.status = CUSTOMER_STATUS_ASKING;
-						this.currentText = this.describeNeed();
+						this.setText(this.describeNeed());
 						this.waitTime = 10;
 					}
 					else
 					{
 						// TODO: "do not disturb" mode?
 						this.status = CUSTOMER_STATUS_SWEARING;
-						this.currentText = "*$!#@!$";
-						this.waitTime = 3;
+						this.setText("*$!#@!$");
+						this.waitTime = 1;
 					}
 				break;
 				
 				case CUSTOMER_STATUS_SWEARING:
-					this.setupNextWait();
+						this.status = CUSTOMER_STATUS_RESET;
+						this.waitTime = 3;
 				break;
 				
 				case CUSTOMER_STATUS_ASKING:
 					if (this.orderAccepted)
 					{
 						this.status = CUSTOMER_STATUS_GOING;
-						this.currentText = "Thanks, I'll be back.";
-						this.waitTime = 3;
+						this.dom.name.innerHTML += " (" + this.need.effect + ")";
+						this.setText("Thanks, I'll be back.");
 					}
 					else
 					{
-						this.status = CUSTOMER_STATUS_AWAY;
-						this.currentText = "OK, no problem, bye.";
-						this.setupNextWait();
+						this.status = CUSTOMER_STATUS_RESET;
+						this.setText("OK, no problem, bye.");
 					}
+					
+					this.waitTime = 3;
 				break;
 				
 				case CUSTOMER_STATUS_GOING:
 					this.status = CUSTOMER_STATUS_WAITING;
-					this.currentText = "*waiting*";
+					this.setText("*away*");
 					this.waitTime = 3;
+					
+					this.dom.image.style.background = "#222222";
 				break;
 				
 				case CUSTOMER_STATUS_WAITING:
 					this.status = CUSTOMER_STATUS_BACK;
-					this.currentText = "Hi, is he potion ready?";
+					this.setText("Hi, is he potion ready?");
 					this.waitTime = 10;
+					
+					this.dom.image.style.background = this.color;
 				break;
 				
 				case CUSTOMER_STATUS_BACK:
+					
 					// TODO: check if got potion or just stood there a few days
-					this.status = CUSTOMER_STATUS_GOING2;
-					this.currentText = "Thanks!";
-					this.waitTime = 3;
+					if (this.potion)
+					{
+						this.status = CUSTOMER_STATUS_GOING2;
+						this.setText("Thanks!");
+					}
+					else
+					{
+						this.status = CUSTOMER_STATUS_SWEARING;
+						this.setText("*$!#@!$");
+					}
+					this.waitTime = 1;
 				break;
 				
 				case CUSTOMER_STATUS_GOING2:
+					this.dom.image.style.background = "#222222";
 					this.status = CUSTOMER_STATUS_USING;
-					this.currentText = "*away, will give feedback*";
+					this.setText("*away, will give feedback*");
 					this.waitTime = 3;
 				break;
 				
 				case CUSTOMER_STATUS_USING:
 					this.giveFeedback();
 					this.setupNextWait();
+				break;
+				
+				case CUSTOMER_STATUS_RESET:
+					this.dom.image.style.background = "#222222";
+					this.setText("");
+					// this.hideDom();
+					// this.setupNextWait();
 				break;
 			}
 		}
