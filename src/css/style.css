@@ -67,6 +67,13 @@ button:hover
 button:disabled,
 button[disabled]
 {
+	opacity: 0.5;
+	filter: grayscale(100%);
+	background: #604040;
+	border: 2px solid #604040;
+	color: #201010;
+	cursor: default;
+/*
 	color: #2e2a2a;
 	background: #4d4646;
 	border-top: 0.125em solid #5c5454;
@@ -74,6 +81,7 @@ button[disabled]
 	border-bottom: 0.125em solid #3d3838;
 	border-left: 0.125em solid #5c5454;
 	cursor: default;
+*/
 }
 
 ::-webkit-scrollbar-track
