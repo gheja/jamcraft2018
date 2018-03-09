@@ -32,7 +32,11 @@ class Customer
 			name: null,
 			text: null,
 			image: null,
-			progress: null
+			progress: null,
+			button_answer: null,
+			button_accept: null,
+			button_decline: null,
+			button_dismiss: null
 		};
 		
 		this.need = {
@@ -40,6 +44,7 @@ class Customer
 			subject: null,
 			effectTexts: null,
 			pronouns: null,
+			image_grey: null,
 			text: null
 		};
 		
@@ -128,52 +133,78 @@ class Customer
 		b = document.createElement("div");
 		b.className = "customer_picture_background";
 		this.dom.image = b;
+		a.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "customer_picture_grey";
+		this.dom.image_grey = b;
+		a.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "customer_picture";
+		a.appendChild(b);
+		
 		
 		c = document.createElement("div");
-		c.className = "customer_picture";
-		
-		b.appendChild(c);
-		a.appendChild(b);
+		c.className = "customer_content";
 		
 		b = document.createElement("div");
 		b.className = "customer_name";
 		b.innerHTML = "Customer Name";
-		a.appendChild(b);
+		c.appendChild(b);
 		this.dom.name = b;
 		
 		b = document.createElement("div");
 		b.className = "customer_text";
 		b.innerHTML = "Text";
-		a.appendChild(b);
+		c.appendChild(b);
 		this.dom.text = b;
 		
 		b = document.createElement("button");
 		b.innerHTML = "answer";
 		b.onclick = this.answerRing.bind(this);
-		a.appendChild(b);
+		this.dom.button_answer = b;
+		c.appendChild(b);
 		
 		b = document.createElement("button");
 		b.innerHTML = "accept";
 		b.onclick = this.acceptOrder.bind(this);
-		a.appendChild(b);
+		this.dom.button_accept = b;
+		c.appendChild(b);
 		
 		b = document.createElement("button");
 		b.innerHTML = "decline";
 		b.onclick = this.declineOrder.bind(this);
-		a.appendChild(b);
+		this.dom.button_decline = b;
+		c.appendChild(b);
 		
 		b = document.createElement("button");
 		b.innerHTML = "dismiss";
 		b.onclick = this.dismiss.bind(this);
-		a.appendChild(b);
+		this.dom.button_dismiss = b;
+		c.appendChild(b);
 		
 		b = document.createElement("br");
 		b.className = "clearer";
-		a.appendChild(b);
+		c.appendChild(b);
+		
+		a.appendChild(c);
 		
 		this.dom.root = a;
 		
 		get("box_customers").appendChild(this.dom.root);
+	}
+	
+	activatePicture()
+	{
+		this.dom.image_grey.style.animationName = "hide";
+		this.dom.image_grey.style.background = "rgba(32,32,32,0)";
+	}
+	
+	deactivatePicture()
+	{
+		this.dom.image_grey.style.animationName = "show";
+		this.dom.image_grey.style.background = "rgba(32,32,32,1)";
 	}
 	
 	hideDom()
@@ -370,6 +401,7 @@ class Customer
 					this.setText("*knock* *knock*");
 					this.waitTime = 3;
 					this.dom.image.style.background = this.color;
+					this.activatePicture();
 				break;
 				
 				case CUSTOMER_STATE_RINGING:
@@ -390,7 +422,8 @@ class Customer
 				
 				case CUSTOMER_STATE_SWEARING:
 						// this.state = CUSTOMER_STATE_RESET;
-						this.dom.image.style.background = "#222222";
+						// this.dom.image.style.background = "#222222";
+						this.deactivatePicture();
 						this.state = CUSTOMER_STATE_STOPPED;
 						this.waitTime = 3;
 				break;
@@ -444,7 +477,8 @@ class Customer
 				break;
 				
 				case CUSTOMER_STATE_GOING2:
-					this.dom.image.style.background = "#222222";
+					// this.dom.image.style.background = "#222222";
+					this.deactivatePicture();
 					this.state = CUSTOMER_STATE_USING;
 					this.setText("*away, will give feedback*");
 					this.waitTime = 3;
@@ -461,11 +495,17 @@ class Customer
 				break;
 				
 				case CUSTOMER_STATE_RESET:
-					this.dom.image.style.background = "#222222";
+					// this.dom.image.style.background = "#222222";
+					this.deactivatePicture();
 					this.setText("");
 					this.setupNextWait();
 				break;
 			}
+			
+			this.dom.button_answer.disabled = (this.state != CUSTOMER_STATE_RINGING);
+			this.dom.button_accept.disabled = (this.state != CUSTOMER_STATE_ASKING);
+			this.dom.button_decline.disabled = (this.state != CUSTOMER_STATE_ASKING);
+			this.dom.button_dismiss.disabled = (this.state != CUSTOMER_STATE_STOPPED);
 		}
 	}
 }
