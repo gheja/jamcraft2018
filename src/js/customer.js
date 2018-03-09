@@ -25,7 +25,7 @@ class Customer
 		this.orderAccepted = false;
 		this.potion = null;
 		
-		this.color = "hsl(" + (Math.floor(n / 2) * (360 / CUSTOMER_COUNT_MAX * 2)) + ", 90%, " + (n % 2 == 0 ? "30" : "50") + "%)";
+		this.color = "hsl(" + (15 + Math.floor(n / 2) * (360 / CUSTOMER_COUNT_MAX * 2)) + ", 90%, " + (n % 2 == 0 ? "30" : "50") + "%)";
 		
 		this.dom = {
 			root: null,
