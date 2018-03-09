@@ -229,17 +229,20 @@ td
 
 #cauldron_wood
 {
-	background: url(../images/cauldron_wood.png);
+	background: url(../images/gfx.png);
+	background-position: -224px -146px;
 }
 
 #cauldron_main
 {
-	background: url(../images/cauldron_1.png);
+	background: url(../images/gfx.png);
+	background-position: -224px -228px;
 }
 
 #cauldron_fire
 {
-	background: url(../images/cauldron_fire.png);
+	background: url(../images/gfx.png);
+	background-position: -224px -64px;
 }
 
 .fail
