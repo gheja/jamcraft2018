@@ -374,6 +374,26 @@ td
 	background-position: -128px -64px;
 }
 
+.customer_progressbar_background
+{
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	width: 64px;
+	height: 4px;
+	background: rgba(0,0,0,0.33);
+}
+
+.customer_progressbar
+{
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	width: 64px;
+	height: 4px;
+	background: #fff;
+}
+
 .customer_content
 {
 	position: absolute;

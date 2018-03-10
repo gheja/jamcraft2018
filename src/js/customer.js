@@ -21,6 +21,7 @@ class Customer
 		this.confidence = 0.5;
 		this.state = CUSTOMER_STATE_AWAY;
 		this.waitTime = 0;
+		this.waitTimeTotal = 0;
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
@@ -143,6 +144,15 @@ class Customer
 		
 		b = document.createElement("div");
 		b.className = "customer_picture customer_picture_" + this.n;
+		a.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "customer_progressbar_background";
+		a.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "customer_progressbar";
+		this.dom.progressbar = b;
 		a.appendChild(b);
 		
 		
@@ -340,6 +350,7 @@ class Customer
 	setWaitTime(min, max)
 	{
 		this.waitTime = Math.floor(min + Math.random() * (max - min));
+		this.waitTimeTotal = this.waitTime;
 	}
 	
 	setupNextWait()
@@ -397,7 +408,23 @@ class Customer
 	
 	tick()
 	{
+		let a;
+		
 		this.waitTime--;
+		
+		if (this.waitTimeTotal > 0 && (this.state == CUSTOMER_STATE_RINGING || this.state == CUSTOMER_STATE_ASKING || this.state == CUSTOMER_STATE_WAITING || this.state == CUSTOMER_STATE_BACK))
+		{
+			a = Math.floor((this.waitTime / this.waitTimeTotal) * 64);
+		}
+		else
+		{
+			a = 0;
+		}
+		
+		if (this.dom.progressbar)
+		{
+			this.dom.progressbar.style.width = a + "px";
+		}
 		
 		if (this.waitTime <= 0)
 		{
