@@ -356,7 +356,7 @@ class Customer
 	setupNextWait()
 	{
 		this.state = CUSTOMER_STATE_AWAY;
-		this.setWaitTime(3, 20);
+		this.setWaitTime(30, 200);
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
@@ -387,7 +387,7 @@ class Customer
 	{
 		this.hideDom();
 		this.state = CUSTOMER_STATE_RESET;
-		this.setWaitTime(3, 3);
+		this.setWaitTime(30, 30);
 	}
 	
 	giveFeedback()
@@ -435,7 +435,7 @@ class Customer
 					this.createDom();
 					this.state = CUSTOMER_STATE_RINGING;
 					this.setText("*knock* *knock*");
-					this.setWaitTime(3, 3);
+					this.setWaitTime(30, 30);
 					this.dom.image.style.background = this.color;
 					this.activatePicture();
 				break;
@@ -445,7 +445,7 @@ class Customer
 					{
 						this.state = CUSTOMER_STATE_ASKING;
 						this.setText(this.describeNeed());
-						this.setWaitTime(10, 10);
+						this.setWaitTime(100, 100);
 					}
 					else
 					{
@@ -461,7 +461,7 @@ class Customer
 						// this.dom.image.style.background = "#222222";
 						this.deactivatePicture();
 						this.state = CUSTOMER_STATE_STOPPED;
-						this.setWaitTime(3, 3);
+						this.setWaitTime(30, 30);
 				break;
 				
 				case CUSTOMER_STATE_ASKING:
@@ -473,24 +473,25 @@ class Customer
 					}
 					else
 					{
-						this.state = CUSTOMER_STATE_RESET;
+						this.deactivatePicture();
+						this.state = CUSTOMER_STATE_STOPPED;
 						this.setText("OK, no problem, bye.");
 					}
 					
-					this.setWaitTime(3, 3);
+					this.setWaitTime(30, 30);
 				break;
 				
 				case CUSTOMER_STATE_GOING:
 					this.state = CUSTOMER_STATE_WAITING;
 					this.setText("*away*");
-					this.setWaitTime(3, 3);
+					this.setWaitTime(30, 30);
 					this.deactivatePicture();
 				break;
 				
 				case CUSTOMER_STATE_WAITING:
 					this.state = CUSTOMER_STATE_BACK;
 					this.setText("Hi, is he potion ready?");
-					this.setWaitTime(10, 20);
+					this.setWaitTime(100, 200);
 					this.activatePicture();
 				break;
 				
@@ -515,7 +516,7 @@ class Customer
 					this.deactivatePicture();
 					this.state = CUSTOMER_STATE_USING;
 					this.setText("*away, will give feedback*");
-					this.setWaitTime(3, 10);
+					this.setWaitTime(30, 100);
 				break;
 				
 				case CUSTOMER_STATE_STOPPED:

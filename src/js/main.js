@@ -193,12 +193,9 @@ function tick()
 	
 	setText("description", currentDescription);
 	
-	if (tickCount % 10 == 0)
+	for (i in customers)
 	{
-		for (i in customers)
-		{
-			customers[i].tick();
-		}
+		customers[i].tick();
 	}
 }
 
