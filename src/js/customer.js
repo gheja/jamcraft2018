@@ -24,6 +24,7 @@ class Customer
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
+		this.n = Math.floor(Math.random() * 3);
 		
 		this.color = "hsl(" + (15 + Math.floor(n / 2) * (360 / CUSTOMER_COUNT_MAX * 2)) + ", 90%, " + (n % 2 == 0 ? "30" : "50") + "%)";
 		
@@ -141,7 +142,7 @@ class Customer
 		a.appendChild(b);
 		
 		b = document.createElement("div");
-		b.className = "customer_picture";
+		b.className = "customer_picture customer_picture_" + this.n;
 		a.appendChild(b);
 		
 		

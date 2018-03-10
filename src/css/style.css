@@ -352,10 +352,26 @@ td
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	background: url(../images/customer.png);
+	background: url(../images/gfx.png);
+	background-position: 0px -64px;
 	display: block;
 	width: 64px;
 	height: 64px;
+}
+
+.customer_picture_0
+{
+	background-position: 0px -64px;
+}
+
+.customer_picture_1
+{
+	background-position: -64px -64px;
+}
+
+.customer_picture_2
+{
+	background-position: -128px -64px;
 }
 
 .customer_content
