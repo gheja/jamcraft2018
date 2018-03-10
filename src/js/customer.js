@@ -457,16 +457,14 @@ class Customer
 					this.state = CUSTOMER_STATE_WAITING;
 					this.setText("*away*");
 					this.setWaitTime(3, 3);
-					
-					this.dom.image.style.background = "#222222";
+					this.deactivatePicture();
 				break;
 				
 				case CUSTOMER_STATE_WAITING:
 					this.state = CUSTOMER_STATE_BACK;
 					this.setText("Hi, is he potion ready?");
 					this.setWaitTime(10, 20);
-					
-					this.dom.image.style.background = this.color;
+					this.activatePicture();
 				break;
 				
 				case CUSTOMER_STATE_BACK:
