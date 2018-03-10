@@ -221,7 +221,6 @@ class Customer
 	{
 		get("box_customers").removeChild(this.dom.root);
 		this.dom.root = null;
-		this.dom.text = null;
 	}
 	
 	setText(s)
@@ -337,10 +336,15 @@ class Customer
 		};
 	}
 	
+	setWaitTime(min, max)
+	{
+		this.waitTime = Math.floor(min + Math.random() * (max - min));
+	}
+	
 	setupNextWait()
 	{
 		this.state = CUSTOMER_STATE_AWAY;
-		this.waitTime = Math.floor(Math.random() * 10);
+		this.setWaitTime(3, 20);
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
@@ -349,21 +353,21 @@ class Customer
 	answerRing()
 	{
 		this.ringAnswered = true;
-		this.waitTime = 1;
+		this.setWaitTime(1, 1);
 		this.tick();
 	}
 	
 	acceptOrder()
 	{
 		this.orderAccepted = true;
-		this.waitTime = 1;
+		this.setWaitTime(1, 1);
 		this.tick();
 	}
 	
 	declineOrder()
 	{
 		this.orderAccepted = false;
-		this.waitTime = 1;
+		this.setWaitTime(1, 1);
 		this.tick();
 	}
 	
@@ -371,7 +375,7 @@ class Customer
 	{
 		this.hideDom();
 		this.state = CUSTOMER_STATE_RESET;
-		this.waitTime = 3;
+		this.setWaitTime(3, 3);
 	}
 	
 	giveFeedback()
@@ -386,7 +390,7 @@ class Customer
 	testGetRandomPotion()
 	{
 		this.potion = [ arrayPick([ "pure" ]), arrayPick([ "health", "love", "explode" ]) ];
-		this.waitTime = 1;
+		this.setWaitTime(1, 1);
 		this.tick();
 	}
 	
@@ -403,7 +407,7 @@ class Customer
 					this.createDom();
 					this.state = CUSTOMER_STATE_RINGING;
 					this.setText("*knock* *knock*");
-					this.waitTime = 3;
+					this.setWaitTime(3, 3);
 					this.dom.image.style.background = this.color;
 					this.activatePicture();
 				break;
@@ -413,14 +417,14 @@ class Customer
 					{
 						this.state = CUSTOMER_STATE_ASKING;
 						this.setText(this.describeNeed());
-						this.waitTime = 10;
+						this.setWaitTime(10, 10);
 					}
 					else
 					{
 						// TODO: "do not disturb" mode?
 						this.state = CUSTOMER_STATE_SWEARING;
 						this.setText("*$!#@!$");
-						this.waitTime = 1;
+						this.setWaitTime(1, 1);
 					}
 				break;
 				
@@ -429,7 +433,7 @@ class Customer
 						// this.dom.image.style.background = "#222222";
 						this.deactivatePicture();
 						this.state = CUSTOMER_STATE_STOPPED;
-						this.waitTime = 3;
+						this.setWaitTime(3, 3);
 				break;
 				
 				case CUSTOMER_STATE_ASKING:
@@ -445,13 +449,13 @@ class Customer
 						this.setText("OK, no problem, bye.");
 					}
 					
-					this.waitTime = 3;
+					this.setWaitTime(3, 3);
 				break;
 				
 				case CUSTOMER_STATE_GOING:
 					this.state = CUSTOMER_STATE_WAITING;
 					this.setText("*away*");
-					this.waitTime = 3;
+					this.setWaitTime(3, 3);
 					
 					this.dom.image.style.background = "#222222";
 				break;
@@ -459,7 +463,7 @@ class Customer
 				case CUSTOMER_STATE_WAITING:
 					this.state = CUSTOMER_STATE_BACK;
 					this.setText("Hi, is he potion ready?");
-					this.waitTime = 10;
+					this.setWaitTime(10, 20);
 					
 					this.dom.image.style.background = this.color;
 				break;
@@ -477,7 +481,7 @@ class Customer
 						this.state = CUSTOMER_STATE_SWEARING;
 						this.setText("*$!#@!$");
 					}
-					this.waitTime = 1;
+					this.setWaitTime(1, 1);
 				break;
 				
 				case CUSTOMER_STATE_GOING2:
@@ -485,7 +489,7 @@ class Customer
 					this.deactivatePicture();
 					this.state = CUSTOMER_STATE_USING;
 					this.setText("*away, will give feedback*");
-					this.waitTime = 3;
+					this.setWaitTime(3, 10);
 				break;
 				
 				case CUSTOMER_STATE_STOPPED:
@@ -495,7 +499,7 @@ class Customer
 				case CUSTOMER_STATE_USING:
 					this.giveFeedback();
 					this.state = CUSTOMER_STATE_RESET;
-					this.waitTime = 1;
+					this.setWaitTime(1, 1);
 				break;
 				
 				case CUSTOMER_STATE_RESET:
