@@ -162,24 +162,28 @@ class Customer
 		
 		b = document.createElement("button");
 		b.innerHTML = "answer";
+		b.className = "button_answer";
 		b.onclick = this.answerRing.bind(this);
 		this.dom.button_answer = b;
 		c.appendChild(b);
 		
 		b = document.createElement("button");
 		b.innerHTML = "accept";
+		b.className = "button_accept";
 		b.onclick = this.acceptOrder.bind(this);
 		this.dom.button_accept = b;
 		c.appendChild(b);
 		
 		b = document.createElement("button");
 		b.innerHTML = "decline";
+		b.className = "button_decline";
 		b.onclick = this.declineOrder.bind(this);
 		this.dom.button_decline = b;
 		c.appendChild(b);
 		
 		b = document.createElement("button");
 		b.innerHTML = "dismiss";
+		b.className = "button_dismiss";
 		b.onclick = this.dismiss.bind(this);
 		this.dom.button_dismiss = b;
 		c.appendChild(b);
