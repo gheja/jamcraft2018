@@ -11,6 +11,7 @@ let inventory = null;
 let customers = [];
 let currentDescription = "";
 let speed = 0;
+let nextScreen = "";
 
 function round(x)
 {
@@ -41,6 +42,51 @@ function setSpeed(n)
 	}
 	
 	speed = n;
+}
+
+function switchScreen()
+{
+	function setDisplay(a, mode)
+	{
+		let i;
+		
+		for (i in a)
+		{
+			get(a[i]).style.display = mode;
+		}
+	}
+	
+	setDisplay([
+		"box_customers",
+		"box_cauldron",
+		"box_ingredients",
+		"box_plates"
+	], "none");
+	
+	switch (nextScreen)
+	{
+		case "home":
+			setDisplay([
+				"box_customers",
+				"box_cauldron",
+				"box_ingredients",
+				"box_plates"
+			], "block");
+		break;
+	}
+}
+
+function goScreen(x)
+{
+	let obj;
+	
+	obj = get("crossfade");
+	obj.style.animationName = "crossfade";
+	obj.addEventListener("webkitAnimationEnd", function(element) { element.target.style.animationName = ""; });
+	
+	nextScreen = x;
+	
+	window.setTimeout(function() { switchScreen(); }, 250);
 }
 
 function addIngredient(n)

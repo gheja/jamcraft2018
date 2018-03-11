@@ -427,3 +427,49 @@ td
 	top: 0;
 	right: 0;
 }
+
+@keyframes crossfade
+{
+	0%
+	{
+		top: 100%;
+		height: 0%;
+		opacity: 0.75;
+	}
+	
+	40%
+	{
+		top: 0%;
+		height: 100%;
+		opacity: 1.0;
+	}
+	
+	60%
+	{
+		top: 0%;
+		height: 100%;
+		opacity: 1.0;
+	}
+	
+	100%
+	{
+		top: 0%;
+		height: 0%;
+		opacity: 0.75;
+	}
+}
+
+#crossfade
+{
+	position: fixed;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 0%;
+	background: #111111;
+	
+	animation-duration: 0.5s;
+	animation-name: slidein;
+	animation-timing-function: ease-in-out;
+	animation-fill-mode: forwards;
+}
