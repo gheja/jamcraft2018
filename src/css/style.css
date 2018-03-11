@@ -473,3 +473,99 @@ td
 	animation-timing-function: ease-in-out;
 	animation-fill-mode: forwards;
 }
+
+#box_feedbacks
+{
+	position: absolute;
+	top: 100px;
+	left: 20px;
+	width: 400px;
+	height: 20px;
+	background: #ff00ff;
+}
+
+#feedbacks_head
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 400px;
+	height: 20px;
+	background: #ffffff;
+}
+
+#feedbacks
+{
+	position: absolute;
+	top: 20px;
+	left: 0;
+	background: #00ff00;
+	height: 200px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.feedback
+{
+	margin: 0 0 4px 0;
+	position: relative;
+	width: 400px;
+	height: 64px;
+	background: #6f3700;
+}
+
+.feedback_content
+{
+	position: absolute;
+	top: 0px;
+	left: 70px;
+}
+
+.rating_background
+{
+	position: absolute;
+	top: 5px;
+	left: 0px;
+	background: url(../images/gfx.png);
+	background-position: -160px -32px;
+	height: 11px;
+	width: 55px;
+}
+
+.rating_foreground
+{
+	position: absolute;
+	top: 5px;
+	left: 0;
+	background: url(../images/gfx.png);
+	background-position: -160px -43px;
+	height: 11px;
+	width: 33px;
+}
+
+.rating2_foreground
+{
+	position: absolute;
+	top: 5px;
+	left: 0;
+	background: url(../images/gfx.png);
+	background-position: -160px -54px;
+	height: 11px;
+	width: 30px;
+}
+
+.feedback_title
+{
+	position: absolute;
+	top: 0;
+	left: 60px;
+	width: 270px;
+}
+
+.feedback_text
+{
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	width: 330px;
+}
