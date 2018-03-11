@@ -18,6 +18,11 @@ body.debug #box_time
 	background: rgba(255,255,0,0.1);
 }
 
+body.debug #box_navigation
+{
+	background: rgba(0,255,255,0.1);
+}
+
 body.debug #box_ingredients
 {
 	background: rgba(255,0,255,0.1);

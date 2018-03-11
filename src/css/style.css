@@ -132,6 +132,7 @@ td
 }
 
 #box_customers,
+#box_navigation,
 #box_time,
 #box_ingredients,
 #box_plates,
@@ -159,6 +160,14 @@ td
 	left: 0px;
 	top: 0px;
 	width: 200px;
+	height: 120px;
+}
+
+#box_navigation
+{
+	left: 200px;
+	top: 0px;
+	width: 230px;
 	height: 120px;
 }
 
