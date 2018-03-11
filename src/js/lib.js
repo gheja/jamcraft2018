@@ -54,9 +54,7 @@ function toTime(x, trimMinute)
 	m = Math.floor(a % (3600) / 60);
 	s = a % 60;
 	
-	// return d + "d " + lead(h, 2) + ":" + lead(m, 2) + ":" + lead(s, 2);
-	
-	return "day " + (d + 1) + ", "+ lead(h, 2) + ":" + lead(Math.floor(m / 10) * 10, 2);
+	return "day " + (d + 1) + ", "+ lead(h, 2) + ":" + lead(m, 2);
 }
 
 function toF(x)
