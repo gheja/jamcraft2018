@@ -1,6 +1,7 @@
 "use strict";
 
 let tickCount;
+let tickSkipCount;
 let itemClasses = [];
 let interactionClasses = [];
 let cauldron = null;
@@ -9,6 +10,7 @@ let currentPlate = null;
 let inventory = null;
 let customers = [];
 let currentDescription = "";
+let speed = 0;
 
 function round(x)
 {
@@ -27,6 +29,18 @@ function updateDebugFlag()
 	{
 		document.body.className = "";
 	}
+}
+
+function setSpeed(n)
+{
+	let i;
+	
+	for (i=0; i<5; i++)
+	{
+		get("button_speed_" + i).disabled = (i == n);
+	}
+	
+	speed = n;
 }
 
 function addIngredient(n)
@@ -164,6 +178,35 @@ function updateDisplay()
 function tick()
 {
 	let i;
+	
+	tickSkipCount++;
+	
+	switch (speed)
+	{
+		case 0:
+			return;
+		break;
+		
+		case 1:
+			if (tickSkipCount < 6)
+			{
+				return;
+			}
+			tickSkipCount = 0;
+		break;
+		
+		case 2:
+			if (tickSkipCount < 3)
+			{
+				return;
+			}
+			tickSkipCount = 0;
+		break;
+		
+		case 3:
+			tickSkipCount = 0;
+		break;
+	}
 	
 	tickCount++;
 	
@@ -339,7 +382,9 @@ function init()
 	
 	updateDisplayPlates();
 	
-	window.setInterval(tick, 100);
+	setSpeed(1);
+	
+	window.setInterval(tick, 50);
 }
 
 window.onload = init;
