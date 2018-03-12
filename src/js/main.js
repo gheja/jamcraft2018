@@ -12,6 +12,7 @@ let customers = [];
 let currentDescription = "";
 let speed = 0;
 let nextScreen = "";
+let profile = null;
 
 function round(x)
 {
@@ -425,6 +426,9 @@ function init()
 	}
 	
 	arrayShuffle(customers);
+	
+	profile = new Profile;
+	profile.update();
 	
 	updateDisplayPlates();
 	

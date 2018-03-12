@@ -396,7 +396,7 @@ class Customer
 		
 		s = this.reactToPotion(this.potion[0], this.potion[1]);
 		
-		this.setText(s.comment);
+		profile.receiveFeedback(s.rating, s.text, this);
 	}
 	
 	testGetRandomPotion()
