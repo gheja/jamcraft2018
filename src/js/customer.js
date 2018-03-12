@@ -278,11 +278,11 @@ class Customer
 	
 	reactToPotion(quality, effect)
 	{
-		let feedback, r, r2, a, points;
+		let feedback, r, r2, a, rating;
 		
 		feedback = arrayPick(this.texts["rating_needed"]) + " " + this.need.effectTexts[0] + " ";
 		
-		points = 3 + (this.mood - 0.5) * 2;
+		rating = 3 + (this.mood - 0.5) * 2;
 		
 		// success
 		if (this.need.effect == effect)
@@ -315,17 +315,17 @@ class Customer
 			if (chance(0.5))
 			{
 				feedback += " " + arrayPick(this.texts["rating_thanks"]) + arrayPick([ ".", "!" ]);
-				points += 1;
+				rating += 1;
 			}
 			
-			points += 2;
+			rating += (1 + Math.random() * 1);
 		}
 		// failure
 		else
 		{
 			a = arrayPick(this.texts["effect_" + effect]);
 			
-			points -= 2;
+			rating -= (1 + Math.random() * 1);
 			
 			feedback += " " + arrayPick(this.texts["rating_fail"]) + " " + a[2];
 			
@@ -342,8 +342,8 @@ class Customer
 		// TODO: "3 out of 5 stars.", "3 stars.", "3/5"
 		
 		return {
-			points: points,
-			comment: this.replacePlaceholders(feedback)
+			rating: clamp(Math.round(rating), 1, 5),
+			text: this.replacePlaceholders(feedback)
 		};
 	}
 	
