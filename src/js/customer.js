@@ -371,6 +371,7 @@ class Customer
 	
 	acceptOrder()
 	{
+		logMessage("Accepted: <b>" + (this.need.effect) + "</b> for <b>" + this.name +"</b>.", MESSAGE_NORMAL);
 		this.orderAccepted = true;
 		this.setWaitTime(1, 1);
 		this.tick();
