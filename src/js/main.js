@@ -13,6 +13,7 @@ let currentDescription = "";
 let speed = 0;
 let nextScreen = "";
 let profile = null;
+let names = [];
 
 function round(x)
 {
@@ -414,6 +415,9 @@ function init()
 	
 	inventory.store.createItem("rosepetal", 3);
 	inventory.store.createItem("appleseed", 5);
+	
+	names = getAllVariations('(Z,K,W,B,N,En,Ew,An,Ar)(ub,or,er,eer,et,ak)(a,e,o)(r,t,n,w)(,ak,an,un,uk,ux,on,ik,arks,oot,as,ak,ax,ek,es,o,os,on,ok,ox)');
+	arrayShuffle(names);
 	
 	for (i=0; i<CUSTOMER_COUNT_MAX; i++)
 	{
