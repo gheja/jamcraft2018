@@ -432,6 +432,8 @@ function init()
 	arrayShuffle(customers);
 	
 	profile = new Profile;
+	
+	profile.setup();
 	profile.update();
 	
 	updateDisplayPlates();
