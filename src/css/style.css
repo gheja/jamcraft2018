@@ -209,8 +209,19 @@ td
 	top: 480px;
 	width: 500px;
 	height: 100px;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	transition: height 0.5s, top 0.5s;
+	background: #eecc88;
+	text-shadow: -0.0625em -0.0625em rgba(255,255,255,0.5);
+	color: #996622;
+}
+
+#box_messages b,
+#box_messages strong
+{
+	color: #553311;
+	text-shadow: -0.0625em -0.0625em rgba(255,255,255,0.8);
 }
 
 #box_messages:hover
@@ -221,6 +232,10 @@ td
 
 
 
+#messages
+{
+	width: 470px;
+}
 
 #gfx_cauldron
 {
@@ -498,6 +513,12 @@ td
 	transition: top 0.5s, height 0.5s;
 }
 
+#box_feedbacks.extended
+{
+	height: 40px;
+	top: 542px;
+}
+
 #box_feedbacks:hover
 {
 	top: 260px;
@@ -512,6 +533,11 @@ td
 	width: 430px;
 	height: 22px;
 	background: #613003;
+}
+
+#box_feedbacks.extended #feedbacks_head
+{
+	height: 42px;
 }
 
 #feedbacks
