@@ -2,6 +2,7 @@
 
 const MESSAGE_NORMAL = 0;
 const MESSAGE_FAIL = 1;
+const MESSAGE_WARNING = 2;
 
 function logMessage(s, format)
 {
@@ -12,6 +13,10 @@ function logMessage(s, format)
 	if (format == MESSAGE_FAIL)
 	{
 		s = "<span class=\"fail\">" + s + "</span>";
+	}
+	else if (format == MESSAGE_WARNING)
+	{
+		s = "<span class=\"warning\">" + s + "</span>";
 	}
 	
 	obj.innerHTML = toTime(tickCount) + " " + s + "<br/>"  + obj.innerHTML;

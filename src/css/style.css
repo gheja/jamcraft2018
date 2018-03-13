@@ -266,6 +266,11 @@ td
 	color: #dd0000;
 }
 
+.warning
+{
+	color: #ee5500;
+}
+
 @keyframes slidein
 {
 	from

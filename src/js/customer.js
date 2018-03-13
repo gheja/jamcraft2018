@@ -26,6 +26,7 @@ class Customer
 		this.orderAccepted = false;
 		this.potion = null;
 		this.profilePictureNumber = Math.floor(Math.random() * 3);
+		this.dismissed = false;
 		
 		this.color = "hsl(" + (15 + Math.floor(n / 2) * (360 / CUSTOMER_COUNT_MAX * 2)) + ", 90%, " + (n % 2 == 0 ? "30" : "50") + "%)";
 		
@@ -269,6 +270,8 @@ class Customer
 		};
 		
 		this.need.text = this.replacePlaceholders(arrayPick(this.texts["need"]) + " " + this.need.effectTexts[0] + ".");
+		
+		this.dismissed = false;
 	}
 	
 	describeNeed()
@@ -353,7 +356,7 @@ class Customer
 		this.waitTimeTotal = this.waitTime;
 	}
 	
-	setupNextWait()
+	setupNextVisit()
 	{
 		this.state = CUSTOMER_STATE_AWAY;
 		this.setWaitTime(30, 200);
@@ -387,8 +390,15 @@ class Customer
 	dismiss()
 	{
 		this.hideDom();
-		this.state = CUSTOMER_STATE_RESET;
-		this.setWaitTime(30, 30);
+		this.dismissed = true;
+		
+		this.deactivatePicture();
+		
+		if (this.state == CUSTOMER_STATE_STOPPED)
+		{
+			this.state = CUSTOMER_STATE_RESET;
+			this.setWaitTime(30, 30);
+		}
 	}
 	
 	giveFeedback()
@@ -396,6 +406,8 @@ class Customer
 		let s
 		
 		s = this.reactToPotion(this.potion[0], this.potion[1]);
+		
+		this.mood += (s.rating - 3) / 10;
 		
 		profile.receiveFeedback(s.rating, s.text, this);
 	}
@@ -451,7 +463,9 @@ class Customer
 					else
 					{
 						// TODO: "do not disturb" mode?
+						logMessage("A customer just got tired of knocking.", MESSAGE_WARNING);
 						this.state = CUSTOMER_STATE_SWEARING;
+						this.mood -= 0.1;
 						this.setText("*$!#@!$");
 						this.setWaitTime(1, 1);
 					}
@@ -479,69 +493,88 @@ class Customer
 						this.setText("OK, no problem, bye.");
 					}
 					
-					this.setWaitTime(30, 30);
+					this.setWaitTime(10, 10);
 				break;
 				
 				case CUSTOMER_STATE_GOING:
 					this.state = CUSTOMER_STATE_WAITING;
 					this.setText("*away*");
-					this.setWaitTime(30, 30);
+					this.setWaitTime(30, 100);
 					this.deactivatePicture();
 				break;
 				
 				case CUSTOMER_STATE_WAITING:
 					this.state = CUSTOMER_STATE_BACK;
 					this.setText("Hi, is he potion ready?");
-					this.setWaitTime(100, 200);
+					this.setWaitTime(100, 100);
 					this.activatePicture();
+					this.testGetRandomPotion();
 				break;
 				
 				case CUSTOMER_STATE_BACK:
-					
 					// TODO: check if got potion or just stood there a few days
 					if (this.potion)
 					{
 						this.state = CUSTOMER_STATE_GOING2;
 						this.setText("Thanks!");
+						this.mood += 0.1;
 					}
 					else
 					{
+						logMessage("A customer just got dissapointed.", MESSAGE_WARNING);
 						this.state = CUSTOMER_STATE_SWEARING;
 						this.setText("*$!#@!$");
+						this.mood -= 0.2;
 					}
 					this.setWaitTime(1, 1);
 				break;
 				
 				case CUSTOMER_STATE_GOING2:
-					// this.dom.image.style.background = "#222222";
 					this.deactivatePicture();
 					this.state = CUSTOMER_STATE_USING;
 					this.setText("*away, will give feedback*");
 					this.setWaitTime(30, 100);
 				break;
 				
-				case CUSTOMER_STATE_STOPPED:
-					this.setText("");
-				break;
-				
 				case CUSTOMER_STATE_USING:
 					this.giveFeedback();
-					this.state = CUSTOMER_STATE_RESET;
+					this.setText("*done*");
+					
+					if (this.dismissed)
+					{
+						this.state = CUSTOMER_STATE_RESET;
+					}
+					else
+					{
+						this.state = CUSTOMER_STATE_STOPPED;
+					}
+					
+					this.setWaitTime(1, 1);
+				break;
+				
+				case CUSTOMER_STATE_STOPPED:
+					if (this.dismissed)
+					{
+						this.state = CUSTOMER_STATE_RESET;
+					}
 					this.setWaitTime(1, 1);
 				break;
 				
 				case CUSTOMER_STATE_RESET:
-					// this.dom.image.style.background = "#222222";
 					this.deactivatePicture();
 					this.setText("");
-					this.setupNextWait();
+					this.setupNextVisit();
 				break;
 			}
 			
 			this.dom.button_answer.disabled = (this.state != CUSTOMER_STATE_RINGING);
 			this.dom.button_accept.disabled = (this.state != CUSTOMER_STATE_ASKING);
 			this.dom.button_decline.disabled = (this.state != CUSTOMER_STATE_ASKING);
-			this.dom.button_dismiss.disabled = (this.state != CUSTOMER_STATE_STOPPED);
+			this.dom.button_dismiss.disabled = (
+				this.state != CUSTOMER_STATE_STOPPED &&
+				this.state != CUSTOMER_STATE_RESET &&
+				this.state != CUSTOMER_STATE_USING
+			);
 		}
 	}
 }
