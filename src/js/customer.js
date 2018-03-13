@@ -16,7 +16,7 @@ class Customer
 {
 	constructor(n)
 	{
-		this.name = "Customer";
+		this.name = names.pop();
 		this.mood = 0.5; // 0..1, grumpy..happy
 		this.confidence = 0.5;
 		this.state = CUSTOMER_STATE_AWAY;
@@ -162,7 +162,7 @@ class Customer
 		
 		b = document.createElement("div");
 		b.className = "customer_name";
-		b.innerHTML = "Customer Name";
+		b.innerHTML = this.name;
 		c.appendChild(b);
 		this.dom.name = b;
 		
