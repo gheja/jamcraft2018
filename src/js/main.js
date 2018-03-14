@@ -13,6 +13,7 @@ let currentDescription = "";
 let speed = 0;
 let nextScreen = "";
 let profile = null;
+let helper = null;
 let names = [];
 
 function round(x)
@@ -627,6 +628,7 @@ function init()
 	}
 	
 	profile = new Profile;
+	helper = new Helper;
 	
 	profile.setup();
 	profile.update();
