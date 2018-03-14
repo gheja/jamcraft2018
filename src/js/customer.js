@@ -257,7 +257,32 @@ class Customer
 	
 	setupNeed()
 	{
-		this.need.effect = arrayPick([ "health", "love", "explode" ]);
+		let unlockedEffects, i, item;
+		
+		unlockedEffects = [];
+		
+		for (i in itemClasses)
+		{
+			item = itemClasses[i];
+			
+			if (item instanceof Substance)
+			{
+				if (item.unlocked && item.effect != "none")
+				{
+					unlockedEffects.push(item.effect);
+				}
+			}
+		}
+		
+		if (unlockedEffects.length == 0)
+		{
+			console.log("No substances unlocked.");
+			return;
+		}
+		
+		console.log(unlockedEffects);
+		
+		this.need.effect = arrayPick(unlockedEffects);
 		this.need.effectTexts = arrayPick(this.texts["effect_" + this.need.effect]);
 		this.need.subject = arrayPick(this.subjectVariations);
 		
