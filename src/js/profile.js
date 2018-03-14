@@ -13,6 +13,21 @@ class Profile
 		
 		this.competitorRatings1 = [];
 		this.competitorRatings2 = [];
+		this.noWitchFeedbacksYet = true;
+		
+		this.witchRatingsNeutral = [
+			"That was okay.",
+			"Meh.",
+			""
+		];
+		
+		this.witchRatingsPositive = [
+			"Haha!",
+			"Hahahahaha!",
+			"Nice one!",
+			"Deserved!",
+			"Great one!"
+		];
 	}
 	
 	setup()
@@ -27,7 +42,7 @@ class Profile
 		for (i=0; i<count; i++)
 		{
 			this.competitorRatings1.push((Math.pow(Math.random(), 0.7) + Math.random() * 0.1 - 0.1) * 4 + 1);
-			this.competitorRatings2.push((Math.pow(Math.random(), 0.7) + Math.random() * 0.1 - 0.1) * 4 + 1);
+			this.competitorRatings2.push((Math.pow(Math.random(), 0.7) + Math.random() * 0.1 - 0.1) * 3 + 2);
 		}
 	}
 	
@@ -69,8 +84,10 @@ class Profile
 			}
 		};
 		
-		// if (...)
-		arr.witchFeedbackEnabled = true;
+		if (this.feedbacks.length > 6)
+		{
+			arr.witchFeedbackEnabled = true;
+		}
 		
 		a = document.createElement("div");
 		a.className = "feedback";
@@ -115,6 +132,12 @@ class Profile
 		logMessage("New feedback of <b>" + rating + " stars</b> received from <b>" + customer.name +"</b>.", MESSAGE_NORMAL);
 		this.feedbacks.push(arr);
 		this.update();
+		
+		if (this.feedbacks.length == 5)
+		{
+			// TODO
+			helper.showAtObject("Looks you have just got enough feedback to ...", get("feedbacks"));
+		}
 	}
 	
 	update()
@@ -169,6 +192,17 @@ class Profile
 			get("feedback_total_stars").style.width = Math.floor(this.rating1 / 5 * 55) + "px";
 			setText("feedback_total_text", "<b>" + round(this.rating1) + "</b>/5.0 (" + count1 + " feedbacks), <b>#" + this.rank1 + "</b> of " + (this.competitorRatings1.length + 1));
 		}
+		
+		if (count1 < 5)
+		{
+			get("feedback_witch_total_stars").style.width = "0px";
+			setText("feedback_witch_total_text", "Awaiting " + (5 - count1) + " more feedback.");
+		}
+		else
+		{
+			get("feedback_witch_total_stars").style.width = Math.floor(this.rating1 / 5 * 55) + "px";
+			setText("feedback_witch_total_text", "<b>" + round(this.rating1) + "</b>/5.0 (" + count1 + " feedbacks), <b>#" + this.rank1 + "</b> of " + (this.competitorRatings1.length + 1));
+		}
 	}
 	
 	tick()
@@ -181,7 +215,7 @@ class Profile
 		{
 			feedback = this.feedbacks[i];
 			
-			if (feedback.witchFeedbackTimeLeft !== null && feedback.witchFeedbackTimeLeft > 0)
+			if (feedback.witchFeedbackEnabled && feedback.witchFeedbackTimeLeft > 0)
 			{
 				feedback.witchFeedbackTimeLeft--;
 				
@@ -190,12 +224,12 @@ class Profile
 					if (feedback.effectWanted == feedback.effectGot)
 					{
 						rating = 3;
-						text = "Meh.";
+						text = arrayPick(this.witchRatingsNeutral);
 					}
 					else
 					{
 						rating = 5;
-						text = "Haha!";
+						text = arrayPick(this.witchRatingsPositive);
 					}
 					
 					feedback.witchRating = rating;
@@ -224,15 +258,24 @@ class Profile
 		c.appendChild(b);
 		
 					feedback.dom.root.appendChild(c);
+					feedback.dom.root.className += " feedback_extended";
 					
 					changed = true;
-					console.log(text);
 				}
 			}
 		}
 		
 		if (changed)
 		{
+			if (this.noWitchFeedbacksYet)
+			{
+				this.noWitchFeedbacksYet = false;
+				
+				// TODO
+				get("box_feedbacks").className += " extended";
+				helper.showAtObject("Oh, look, a fellow witch has commented!", get("feedbacks"));
+			}
+			
 			this.update();
 		}
 	}

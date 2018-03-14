@@ -554,13 +554,25 @@ td
 	overflow-y: auto;
 }
 
+#box_feedbacks.extended #feedbacks
+{
+	top: 42px;
+	height: 278px;
+}
+
 .feedback
 {
 	margin: 0 0 4px 0;
 	position: relative;
 	width: 400px;
-	min-height: 100px;
+	height: 80px;
 	background: #331a02;
+	transition: height 0.5s;
+}
+
+.feedback_extended
+{
+	height: 130px;
 }
 
 .feedback_content
@@ -573,8 +585,11 @@ td
 .feedback_content_witch
 {
 	position: absolute;
-	top: 80px;
+	top: 82px;
 	left: 0px;
+	width: 400px;
+	height: 48px;
+	background: #661155;
 }
 
 .rating_background
