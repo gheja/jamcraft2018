@@ -644,23 +644,102 @@ td
 .ingredient
 {
 	float: left;
-	width: 50px;
-	background: #ff00ff;
+	width: 32px;
+	background: #121212;
+}
+
+.ingredient button
+{
+	padding: 0;
+	width: 32px;
 }
 
 .ingredient_picture
 {
 	width: 32px;
 	height: 32px;
-	background: #00ffff;
+	background: url(../images/gfx.png);
 }
 
 .ingredient_picture_rosepetal
 {
-	background: #00ff00;
+	background-position: -0px -141px;
+}
+
+.ingredient_picture_cactusspines
+{
+	background-position: -32px -141px;
+}
+
+.ingredient_picture_rosethorn
+{
+	background-position: -64px -141px;
+}
+
+.ingredient_picture_pinecone
+{
+	background-position: -96px -141px;
+}
+
+.ingredient_picture_lavender
+{
+	background-position: -128px -141px;
+}
+
+.ingredient_picture_jasminebud
+{
+	background-position: -160px -141px;
+}
+
+.ingredient_picture_mustardseed
+{
+	background-position: -192px -141px;
+}
+
+.ingredient_picture_appleseed
+{
+	background-position: -0px -173px;
+}
+
+
+
+.ingredient_picture_batwings
+{
+	background-position: -32px -173px;
+}
+
+.ingredient_picture_cricket
+{
+	background-position: -64px -173px;
+}
+
+.ingredient_picture_driedbeetle
+{
+	background-position: -96px -173px;
+}
+
+.ingredient_picture_komodoscale
+{
+	background-position: -128px -173px;
+}
+
+.ingredient_picture_seashell
+{
+	background-position: -160px -173px;
+}
+
+.ingredient_picture_snakeskin
+{
+	background-position: -192px -173px;
+}
+
+.ingredient_picture_wingofladybug
+{
+	background-position: -0px -205px;
 }
 
 .ingredient_counter
 {
 	color: #fff;
+	text-align: center;
 }
