@@ -118,6 +118,9 @@ button[disabled]
 .slot
 {
 	position: relative;
+	width: 32px;
+	height: 32px;
+	background: rgba(0,0,0,0.25);
 }
 
 
@@ -278,12 +281,12 @@ td
 
 .fail
 {
-	color: #dd0000;
+	color: #cc0000;
 }
 
 .warning
 {
-	color: #ee5500;
+	color: #ee5511;
 }
 
 @keyframes slidein
@@ -614,4 +617,28 @@ td
 	top: 20px;
 	left: 0px;
 	width: 330px;
+}
+
+.ingredient
+{
+	float: left;
+	width: 48px;
+	background: #ff00ff;
+}
+
+.ingredient_picture
+{
+	width: 32px;
+	height: 32px;
+	background: #00ffff;
+}
+
+.ingredient_picture_rosepetal
+{
+	background: #00ff00;
+}
+
+.ingredient_counter
+{
+	color: #fff;
 }

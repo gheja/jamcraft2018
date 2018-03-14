@@ -151,6 +151,21 @@ function clamp(x, min, max)
 	return Math.max(min, Math.min(max, x));
 }
 
+function createDomElement(tagName, className)
+{
+	let obj;
+	
+	obj = document.createElement(tagName);
+	obj.className = className;
+	
+	return obj;
+}
+
+function createDiv(className)
+{
+	return createDomElement("div", className);
+}
+
 function getAllVariations(recipe)
 {
 	var i, depth, item, lists, current_list, indexes, variations, finished;

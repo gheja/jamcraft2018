@@ -91,67 +91,6 @@ function goScreen(x)
 	window.setTimeout(function() { switchScreen(); }, 250);
 }
 
-function addIngredient(n)
-{
-	let item;
-	
-	item = itemClasses[n];
-	
-	if (!item)
-	{
-		console.log("ERROR: could not find item \"" + n + "\"");
-		return;
-	}
-	
-	inventory.store.moveItem(currentPlate.store, n, 1);
-	
-	updateDisplayPlates();
-}
-
-function removeIngredient(n)
-{
-	let item;
-	
-	item = itemClasses[n];
-	
-	if (!item)
-	{
-		console.log("ERROR: could not find item \"" + n + "\"");
-		return;
-	}
-	
-	currentPlate.store.moveItem(inventory.store, n, 1);
-	
-	updateDisplayPlates();
-}
-
-function selectPlate(n)
-{
-	let i;
-	
-	currentPlate = plates[n];
-	
-	for (i=0; i<plates.length; i++)
-	{
-		plates[i].selected = (i == n);
-		
-		get("button_plate_" + i).disabled = (i == n);
-	}
-}
-
-function usePlate(n)
-{
-	if (cauldron.status == CAULDRON_REMOVED)
-	{
-		logMessage("No cauldron in use.", MESSAGE_FAIL);
-		return;
-	}
-	
-	plates[n].use();
-	
-	updateDisplayPlates();
-}
-
 function getContentsString(store)
 {
 	let i, a, count, s;
@@ -316,11 +255,95 @@ function createEvaporationInteractions()
 	}
 }
 
+// When a new Substance gets unlocked, you need to find the Igredient that
+// contains that Substance. We have to unlock it here.
+function updateUnlockedIngredients()
+{
+	let i, j, n, ok, item, substance;
+	
+	for (i in itemClasses)
+	{
+		item = itemClasses[i];
+		
+		if (item instanceof Ingredient)
+		{
+			ok = true;
+			
+			for (j in item.substances)
+			{
+				substance = item.substances[j];
+				
+				if (!itemClasses[substance.name].unlocked)
+				{
+					ok = false;
+				}
+			}
+			
+			if (ok)
+			{
+				item.unlocked = true;
+				item.update();
+			}
+		}
+	}
+}
+
+// When a new Substance gets unlocked, you will also be able to create the
+// Substance made of unlocked ones. Unlock them here.
+function updateUnlockedSubstances()
+{
+	let i, j, n, ok, interaction, substance;
+	
+	for (i in interactionClasses)
+	{
+		interaction = interactionClasses[i];
+		
+		ok = true;
+		
+		for (j in interaction.inputSubstances)
+		{
+			substance = interaction.inputSubstances[j];
+			
+			if (!itemClasses[substance.name].unlocked)
+			{
+				ok = false;
+			}
+		}
+		
+		if (ok)
+		{
+			for (j in interaction.outputSubstances)
+			{
+				substance = interaction.outputSubstances[j];
+				
+				itemClasses[substance.name].unlocked = true;
+			}
+		}
+	}
+}
+
+function unlockItem(name)
+{
+	itemClasses[name].unlocked = true;
+	// itemClasses[name].update;
+	updateUnlockedSubstances();
+	updateUnlockedIngredients();
+}
+
 function init()
 {
 	let a, b, i;
 	
 	tickCount = 0;
+	
+	for (i in itemClasses)
+	{
+		if (itemClasses[i] instanceof Ingredient)
+		{
+			itemClasses[i].setup();
+			itemClasses[i].update();
+		}
+	}
 	
 	itemClasses["air"] = new Substance({
 		name: "air",
@@ -336,6 +359,7 @@ function init()
 		title: "red",
 		color: "#ee3300",
 		description: "",
+		effect: "health",
 		interactionTemperatureMin: 60,
 		interactionTemperatureMax: 70,
 		evaporateTemperature: 80
@@ -346,6 +370,7 @@ function init()
 		title: "yellow",
 		color: "#ffee33",
 		description: "",
+		effect: "none",
 		interactionTemperatureMin: 60,
 		interactionTemperatureMax: 70,
 		evaporateTemperature: 80
@@ -356,6 +381,7 @@ function init()
 		title: "orange",
 		color: "#ffbb00",
 		description: "",
+		effect: "love",
 		interactionTemperatureMin: 0,
 		interactionTemperatureMax: 0,
 		evaporateTemperature: 300
@@ -378,7 +404,6 @@ function init()
 		title: "Rose Petal",
 		icon: "rosepetal.png",
 		unit: "tbsp",
-		unlocked: true,
 		dissolveTemperature: 30,
 		dissolveSpeed: 0.2, // units per minute
 		substances: [
@@ -391,7 +416,6 @@ function init()
 		title: "Apple Seed",
 		icon: "appleseed.png",
 		unit: "tbsp",
-		unlocked: true,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -411,10 +435,9 @@ function init()
 	plates.push(new Plate);
 	plates.push(new Plate);
 	
-	selectPlate(0);
-	
 	inventory.store.createItem("rosepetal", 3);
 	inventory.store.createItem("appleseed", 5);
+	
 	
 	names = getAllVariations('(Z,K,W,B,N,En,Ew,An,Ar)(ub,or,er,eer,et,ak)(a,e,o)(r,t,n,w)(,ak,an,un,uk,ux,on,ik,arks,oot,as,ak,ax,ek,es,o,os,on,ok,ox)');
 	arrayShuffle(names);
@@ -427,6 +450,23 @@ function init()
 	for (i=0; i<CUSTOMER_COUNT_MAX; i++)
 	{
 		customers[i].setupNextVisit();
+	}
+	
+	plates[0].select();
+	
+	for (i in itemClasses)
+	{
+		if (itemClasses[i] instanceof Ingredient)
+		{
+			itemClasses[i].setup();
+			itemClasses[i].update();
+		}
+	}
+	
+	for (i in plates)
+	{
+		plates[i].setup();
+		plates[i].update();
 	}
 	
 	arrayShuffle(customers);
