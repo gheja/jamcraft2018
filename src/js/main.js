@@ -585,15 +585,16 @@ function init()
 		store: new Store
 	};
 	
+	inventory.store.createItem("rosepetal", 3);
+	inventory.store.createItem("appleseed", 5);
+	
 	cauldron = new Cauldron;
 	
 	plates.push(new Plate);
 	plates.push(new Plate);
 	plates.push(new Plate);
 	
-	inventory.store.createItem("rosepetal", 3);
-	inventory.store.createItem("appleseed", 5);
-	
+	plates[0].select();
 	
 	names = getAllVariations('(Z,K,W,B,N,En,Ew,An,Ar)(ub,or,er,eer,et,ak)(a,e,o)(r,t,n,w)(,ak,an,un,uk,ux,on,ik,arks,oot,as,ak,ax,ek,es,o,os,on,ok,ox)');
 	arrayShuffle(names);
@@ -607,8 +608,7 @@ function init()
 	{
 		customers[i].setupNextVisit();
 	}
-	
-	plates[0].select();
+	arrayShuffle(customers);
 	
 	for (i in itemClasses)
 	{
@@ -625,12 +625,11 @@ function init()
 		plates[i].update();
 	}
 	
-	arrayShuffle(customers);
-	
 	profile = new Profile;
 	
 	profile.setup();
 	profile.update();
+	unlockItem("red");
 	
 	updateDisplayPlates();
 	
