@@ -62,13 +62,13 @@ class Ingredient extends Item
 		
 		b = createDomElement("button", "ingredient_minus");
 		b.onclick = this.removeFromPlate.bind(this);
-		b.innerHTML = "-";
+		b.innerHTML = "&#9650;";
 		this.dom.buttonMinus = b;
 		a.appendChild(b);
 		
 		b = createDomElement("button", "ingredient_plus");
 		b.onclick = this.addToPlate.bind(this);
-		b.innerHTML = "+";
+		b.innerHTML = "&#9660;";
 		this.dom.buttonPlus = b;
 		a.appendChild(b);
 		
