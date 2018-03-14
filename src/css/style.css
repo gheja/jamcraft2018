@@ -570,6 +570,13 @@ td
 	left: 70px;
 }
 
+.feedback_content_witch
+{
+	position: absolute;
+	top: 80px;
+	left: 0px;
+}
+
 .rating_background
 {
 	position: absolute;

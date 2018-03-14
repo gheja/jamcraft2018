@@ -200,6 +200,7 @@ function tick()
 	currentDescription = "";
 	
 	cauldron.tick();
+	profile.tick();
 	
 	// console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
 	setText('time', toTime(tickCount, true));

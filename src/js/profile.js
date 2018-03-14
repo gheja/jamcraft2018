@@ -57,11 +57,24 @@ class Profile
 			text: text,
 			customerName: customer.name,
 			customerColor: customer.color,
-			customerPictureNumber: customer.profilePictureNumber
+			customerPictureNumber: customer.profilePictureNumber,
+			effectWanted: customer.need.effect,
+			effectGot: customer.potion[1],
+			witchFeedbackEnabled: false,
+			witchRating: 0,
+			witchText: "",
+			witchFeedbackTimeLeft: 50,
+			dom: {
+				root: null
+			}
 		};
+		
+		// if (...)
+		arr.witchFeedbackEnabled = true;
 		
 		a = document.createElement("div");
 		a.className = "feedback";
+		arr.dom.root = a;
 		
 		b = document.createElement("div");
 		b.className = "customer_picture_background";
@@ -155,6 +168,72 @@ class Profile
 		{
 			get("feedback_total_stars").style.width = Math.floor(this.rating1 / 5 * 55) + "px";
 			setText("feedback_total_text", "<b>" + round(this.rating1) + "</b>/5.0 (" + count1 + " feedbacks), <b>#" + this.rank1 + "</b> of " + (this.competitorRatings1.length + 1));
+		}
+	}
+	
+	tick()
+	{
+		let i, feedback, rating, text, changed, a, b, c;
+		
+		changed = false;
+		
+		for (i in this.feedbacks)
+		{
+			feedback = this.feedbacks[i];
+			
+			if (feedback.witchFeedbackTimeLeft !== null && feedback.witchFeedbackTimeLeft > 0)
+			{
+				feedback.witchFeedbackTimeLeft--;
+				
+				if (feedback.witchFeedbackTimeLeft == 0)
+				{
+					if (feedback.effectWanted == feedback.effectGot)
+					{
+						rating = 3;
+						text = "Meh.";
+					}
+					else
+					{
+						rating = 5;
+						text = "Haha!";
+					}
+					
+					feedback.witchRating = rating;
+					feedback.witchText = text;
+		
+		c = document.createElement("div");
+		c.className = "feedback_content_witch";
+		
+		b = document.createElement("div");
+		b.className = "rating_background";
+		c.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "rating2_foreground";
+		b.style.width = (Math.floor(rating) * 11) + "px";
+		c.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "feedback_title";
+		b.innerHTML = "from <b>Witch</b>";
+		c.appendChild(b);
+		
+		b = document.createElement("div");
+		b.className = "feedback_text";
+		b.innerHTML = text + "<br class=\"clearer\" />";
+		c.appendChild(b);
+		
+					feedback.dom.root.appendChild(c);
+					
+					changed = true;
+					console.log(text);
+				}
+			}
+		}
+		
+		if (changed)
+		{
+			this.update();
 		}
 	}
 	
