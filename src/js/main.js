@@ -656,6 +656,15 @@ function init()
 	}
 	arrayShuffle(customers);
 	
+	for (i in itemClasses)
+	{
+		if (itemClasses[i] instanceof Ingredient)
+		{
+			itemClasses[i].setup();
+		}
+	}
+	
+	
 	plates.push(new Plate);
 	plates.push(new Plate);
 	plates.push(new Plate);
@@ -663,16 +672,19 @@ function init()
 	for (i in plates)
 	{
 		plates[i].setup();
-		plates[i].update();
 	}
 	
 	plates[0].select();
+	
+	for (i in plates)
+	{
+		plates[i].update();
+	}
 	
 	for (i in itemClasses)
 	{
 		if (itemClasses[i] instanceof Ingredient)
 		{
-			itemClasses[i].setup();
 			itemClasses[i].update();
 		}
 	}
