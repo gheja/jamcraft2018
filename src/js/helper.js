@@ -57,7 +57,7 @@ class Helper
 		obj = document.createElement("div");
 		
 		obj.className = "helper";
-		obj.style.top = Math.round(y - 100) + "px";
+		obj.style.top = Math.round(y - 80) + "px";
 		obj.style.left = Math.round(x) + "px";
 		obj.innerHTML = s + "<span class=\"dim\"> | Click to close.</span>";
 		
