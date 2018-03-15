@@ -98,5 +98,7 @@ class Ingredient extends Item
 			this.dom.root.className = "ingredient ingredient_disabled";
 			this.dom.counter.dataset.tooltip = "You have no " + this.title + " left.";
 		}
+		
+		this.dom.picture.dataset.tooltip = this.dom.counter.dataset.tooltip;
 	}
 }

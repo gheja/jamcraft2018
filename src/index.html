@@ -70,10 +70,10 @@
 					Time: <span id="cooking_time">-</span><br/>
 					<br/>
 					
-					<button id="button_cauldron_prepare" onclick="cauldron.prepare(); return false;" data-tooltip="Put a clean cauldron on the fireplace with fresh water">prepare</button>
+					<button id="button_cauldron_prepare" onclick="cauldron.prepare(); return false;" data-tooltip="Put a clean cauldron on the fireplace with fresh water.">prepare</button>
 					<button onclick="cauldron.adjustTemperatureTarget(-10); return false;" data-tooltip="Derease temperature.">&#9660;</button>
 					<button onclick="cauldron.adjustTemperatureTarget(+10); return false;" data-tooltip="Increase temperature.">&#9650;</button>
-					<button id="button_cauldron_strain" onclick="cauldron.strain(); return false;" data-tooltip="Strain the leftover ingredients.">strain</button><br/>
+					<button id="button_cauldron_strain" onclick="cauldron.strain(); return false;" data-tooltip="Strain the leftover ingredients. This increases the purity of your potion and increases its effect.">strain</button><br/>
 					<button id="button_cauldron_done" onclick="cauldron.done(); return false;" data-tooltip="Put the contents of the cauldron in a glass.">done</button><br/>
 					
 					<div id="cauldron_content"></div>
