@@ -56,7 +56,8 @@ class Ingredient extends Item
 		this.dom.root = a;
 		
 		b = createDomElement("div", "ingredient_picture ingredient_picture_" + this.name);
-		b.dataset.tooltip = this.title + " (ingredient)";
+		b.dataset.tooltip = this.title;
+		this.dom.picture = b;
 		a.appendChild(b);
 		
 		b = createDomElement("div", "ingredient_counter");

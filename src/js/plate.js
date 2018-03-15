@@ -65,18 +65,21 @@ class Plate
 		this.dom.root = a;
 		
 		b = createDomElement("div", "plate_picture plate_picture_empty");
+		b.dataset.tooltip = "An empty plate.";
 		this.dom.picture = b;
 		a.appendChild(b);
 		
 		b = createDomElement("button", "plate_select");
 		b.onclick = this.select.bind(this);
 		b.innerHTML = "select";
+		b.dataset.tooltip = "Select this plate so the ingredients can be added to and removed from it.";
 		this.dom.select = b;
 		a.appendChild(b);
 		
 		b = createDomElement("button", "plate_use");
 		b.onclick = this.use.bind(this);
 		b.innerHTML = "&#9660;";
+		b.dataset.tooltip = "Put the contents of this plate into the cauldron.";
 		this.dom.use = b;
 		a.appendChild(b);
 		
@@ -85,18 +88,31 @@ class Plate
 	
 	update()
 	{
-		let i, empty, item;
+		let i, empty, item, s;
 		
 		empty = true;
+		s = "";
 		
 		for (i in this.store.items)
 		{
 			if (this.store.items[i] != 0)
 			{
 				empty = false;
-				break;
+				s += "&nbsp;- " + this.store.items[i] + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
 			}
 		}
+		
+		if (empty)
+		{
+			s = "An empty plate.";
+		}
+		else
+		{
+			s = "This plate contains...<br/>" + s;
+		}
+		
+		
+		this.dom.picture.dataset.tooltip = s;
 		
 		this.dom.select.disabled = (this == currentPlate);
 		this.dom.picture.className = "plate_picture" + (empty ? " plate_picture_empty" : "");
