@@ -50,7 +50,7 @@ class Cauldron
 			
 			for (i in this.store.items)
 			{
-				if (itemClasses[this.store.items[i]] instanceof Ingredient && this.store.items[i] > 0)
+				if (itemClasses[i] instanceof Ingredient && this.store.items[i] > 0)
 				{
 					this.store.destroyItem(i, 0.1);
 					n -= 0.1;
