@@ -42,6 +42,7 @@ button
 {
 	font-family: Compassion, Arial;
 	font-size: 1em;
+	line-height: 1em;
 	margin: 0;
 	padding: 0 0.5em;
 	border-top: 0.125em solid #756161;
@@ -593,8 +594,9 @@ td
 	top: 82px;
 	left: 0px;
 	width: 400px;
-	height: 48px;
-	background: #661155;
+	height: 46px;
+	background: #592448;
+	border-bottom: 2px solid #401a34;
 }
 
 .rating_background
@@ -747,4 +749,26 @@ td
 {
 	color: #fff;
 	text-align: center;
+}
+
+
+.plate
+{
+	float: left;
+	width: 100px;
+	height: 100px;
+}
+
+.plate_picture
+{
+	margin: 0 auto 4px auto;
+	width: 32px;
+	height: 32px;
+	background: url(../images/gfx.png);
+	background-position: -32px -32px;
+}
+
+.plate_picture_empty
+{
+	background-position: 0px -32px;
 }
