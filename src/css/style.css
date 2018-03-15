@@ -10,7 +10,7 @@ html
 body
 {
 	padding: 0;
-	margin: 1em 2em;
+	margin: 0;
 	color: #9e9090;
 	font-family: Compassion, Arial;
 	font-size: 16px;
@@ -113,10 +113,9 @@ button[disabled]
 
 #container
 {
-	position: fixed;
-	left: 10px;
-	top: 10px;
-	width: 1200px;
+	margin: 30px auto;
+	position: relative;
+	width: 930px;
 	height: 600px;
 }
 
@@ -291,7 +290,8 @@ td
 
 .warning
 {
-	color: #ee5511;
+	text-shadow: -0.0625em -0.0625em rgba(255,255,255,0.3);
+	color: #cf680f;
 }
 
 @keyframes slidein
