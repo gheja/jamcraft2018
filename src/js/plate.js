@@ -85,7 +85,7 @@ class Plate
 	
 	update()
 	{
-		let i, empty;
+		let i, empty, item;
 		
 		empty = true;
 		
@@ -100,5 +100,14 @@ class Plate
 		
 		this.dom.select.disabled = (this == currentPlate);
 		this.dom.picture.className = "plate_picture" + (empty ? " plate_picture_empty" : "");
+		for (i in itemClasses)
+		{
+			item = itemClasses[i];
+			
+			if (item instanceof Ingredient)
+			{
+				item.update();
+			}
+		}
 	}
 }
