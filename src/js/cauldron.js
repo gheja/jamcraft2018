@@ -37,6 +37,35 @@ class Cauldron
 		// this.store.clear();
 	}
 	
+	strain()
+	{
+		let i, n, left;
+		
+		n = 1.2;
+		left = 1;
+		
+		while (n > 0 && left > 0)
+		{
+			left = 0;
+			
+			for (i in this.store.items)
+			{
+				if (itemClasses[this.store.items[i]] instanceof Ingredient && this.store.items[i] > 0)
+				{
+					this.store.destroyItem(i, 0.1);
+					n -= 0.1;
+					
+					if (n <= 0)
+					{
+						break;
+					}
+					
+					left += this.store.items[i];
+				}
+			}
+		}
+	}
+	
 	storePotion()
 	{
 		let i, tmp;
