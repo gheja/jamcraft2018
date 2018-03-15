@@ -16,6 +16,7 @@ class Ingredient extends Item
 		this.chanceMerchant = 0;
 		this.dissolveTemperature = 50;
 		this.dissolveSpeed = 1;
+		this.assembledDescription = "";
 		
 		for (k in params)
 		{
@@ -48,7 +49,7 @@ class Ingredient extends Item
 	
 	setup()
 	{
-		let a, b, obj;
+		let a, b, obj, s, i;
 		
 		obj = get("ingredients");
 		
@@ -80,10 +81,23 @@ class Ingredient extends Item
 		a.appendChild(b);
 		
 		obj.appendChild(a);
+		
+		s = "";
+		
+		for (i in this.substances)
+		{
+			s += "<b>" + this.substances[i].name + "</b>, ";
+		}
+		
+		s = s.substr(0, s.length - 2);
+		
+		this.assembledDescription = "Contains " + s + ", dissolves at <b>" + this.dissolveTemperature + " &deg;C</b>.";
 	}
 	
 	update()
 	{
+		let tooltip;
+		
 		this.dom.root.style.display = (this.unlocked ? "block" : "none");
 		this.dom.buttonMinus.disabled = !(currentPlate.store.items[this.name] > 0);
 		this.dom.buttonPlus.disabled = !(inventory.store.items[this.name] > 0);
@@ -92,14 +106,17 @@ class Ingredient extends Item
 		if (inventory.store.items[this.name] > 0)
 		{
 			this.dom.root.className = "ingredient";
-			this.dom.counter.dataset.tooltip = "You have " + inventory.store.items[this.name] + " " + this.unit + " of " + this.title + ".";
+			tooltip = "You have " + inventory.store.items[this.name] + " " + this.unit + " of <b>" + this.title + "</b>.";
 		}
 		else
 		{
 			this.dom.root.className = "ingredient ingredient_disabled";
-			this.dom.counter.dataset.tooltip = "You have no " + this.title + " left.";
+			tooltip = "You have no <b>" + this.title + "</b> left.";
 		}
 		
-		this.dom.picture.dataset.tooltip = this.dom.counter.dataset.tooltip;
+		tooltip += "<br/><br/>" + this.assembledDescription;
+		
+		this.dom.counter.dataset.tooltip = tooltip;
+		this.dom.picture.dataset.tooltip = tooltip;
 	}
 }
