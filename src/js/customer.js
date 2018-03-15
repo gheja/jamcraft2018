@@ -145,6 +145,8 @@ class Customer
 		
 		b = document.createElement("div");
 		b.className = "customer_picture customer_picture_" + this.profilePictureNumber;
+		b.dataset.tooltip = "Customer";
+		this.dom.image_front = b;
 		a.appendChild(b);
 		
 		b = document.createElement("div");
@@ -175,6 +177,7 @@ class Customer
 		b = document.createElement("button");
 		b.innerHTML = "answer";
 		b.className = "button_answer";
+		b.dataset.tooltip = "Let the customer in and listen.";
 		b.onclick = this.answerRing.bind(this);
 		this.dom.button_answer = b;
 		c.appendChild(b);
@@ -182,6 +185,7 @@ class Customer
 		b = document.createElement("button");
 		b.innerHTML = "accept";
 		b.className = "button_accept";
+		b.dataset.tooltip = "Accept this order, the customer will return later for the completed order.";
 		b.onclick = this.acceptOrder.bind(this);
 		this.dom.button_accept = b;
 		c.appendChild(b);
@@ -189,6 +193,7 @@ class Customer
 		b = document.createElement("button");
 		b.innerHTML = "decline";
 		b.className = "button_decline";
+		b.dataset.tooltip = "Decline this order.";
 		b.onclick = this.declineOrder.bind(this);
 		this.dom.button_decline = b;
 		c.appendChild(b);
@@ -196,6 +201,7 @@ class Customer
 		b = document.createElement("button");
 		b.innerHTML = "dismiss";
 		b.className = "button_dismiss";
+		b.dataset.tooltip = "Hide this order.";
 		b.onclick = this.dismiss.bind(this);
 		this.dom.button_dismiss = b;
 		c.appendChild(b);
@@ -209,6 +215,8 @@ class Customer
 		this.dom.root = a;
 		
 		get("box_customers").appendChild(this.dom.root);
+		
+		registerAllTooltips();
 	}
 	
 	activatePicture()
@@ -475,6 +483,7 @@ class Customer
 					this.setText("*knock* *knock*");
 					this.setWaitTime(30, 30);
 					this.dom.image.style.background = this.color;
+					this.dom.image_front.dataset.tooltip = "Customer is knocking on your door.";
 					this.activatePicture();
 				break;
 				
@@ -483,12 +492,14 @@ class Customer
 					{
 						this.state = CUSTOMER_STATE_ASKING;
 						this.setText(this.describeNeed());
+						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
 						this.setWaitTime(100, 100);
 					}
 					else
 					{
 						// TODO: "do not disturb" mode?
 						logMessage("A customer just got tired of knocking.", MESSAGE_WARNING);
+						this.dom.image_front.dataset.tooltip = "Customer has left your door.";
 						this.state = CUSTOMER_STATE_SWEARING;
 						this.mood -= 0.1;
 						this.setText("*$!#@!$");
@@ -524,6 +535,7 @@ class Customer
 				case CUSTOMER_STATE_GOING:
 					this.state = CUSTOMER_STATE_WAITING;
 					this.setText("*away*");
+					this.dom.image_front.dataset.tooltip = "Customer is away, will return for the completed order.";
 					this.setWaitTime(30, 100);
 					this.deactivatePicture();
 				break;
@@ -531,6 +543,7 @@ class Customer
 				case CUSTOMER_STATE_WAITING:
 					this.state = CUSTOMER_STATE_BACK;
 					this.setText("Hi, is he potion ready?");
+					this.dom.image_front.dataset.tooltip = "Customer is waiting for the completed order. Put it in the slot on the right.";
 					this.setWaitTime(100, 100);
 					this.activatePicture();
 					this.testGetRandomPotion();
@@ -542,11 +555,13 @@ class Customer
 					{
 						this.state = CUSTOMER_STATE_GOING2;
 						this.setText("Thanks!");
+						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
 						this.mood += 0.1;
 					}
 					else
 					{
 						logMessage("A customer just got dissapointed.", MESSAGE_WARNING);
+						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
 						this.state = CUSTOMER_STATE_SWEARING;
 						this.setText("*$!#@!$");
 						this.mood -= 0.2;
@@ -558,12 +573,15 @@ class Customer
 					this.deactivatePicture();
 					this.state = CUSTOMER_STATE_USING;
 					this.setText("*away, will give feedback*");
+					this.dom.image_front.dataset.tooltip = "Customer went away. Should try your potion and leave a feedback soon.";
 					this.setWaitTime(30, 100);
+					this.dom.
 				break;
 				
 				case CUSTOMER_STATE_USING:
 					this.giveFeedback();
 					this.setText("*done*");
+					this.dom.image_front.dataset.tooltip = "Customer used the potion and left a feedback.";
 					
 					if (this.dismissed)
 					{
@@ -578,6 +596,7 @@ class Customer
 				break;
 				
 				case CUSTOMER_STATE_STOPPED:
+					this.dom.image_front.dataset.tooltip = "Customer is away.";
 					if (this.dismissed)
 					{
 						this.state = CUSTOMER_STATE_RESET;
