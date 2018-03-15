@@ -1,5 +1,8 @@
 "use strict";
 
+let _firstAnswer = true;
+let _firstAccept = true;
+
 const CUSTOMER_STATE_AWAY = 0;
 const CUSTOMER_STATE_RINGING = 1;
 const CUSTOMER_STATE_SWEARING = 2;
@@ -452,6 +455,16 @@ class Customer
 		this.tick();
 	}
 	
+	helperFirstAnswer()
+	{
+		helper.showAtObject("A customer is knocking on your door. Use this button to answer.", this.dom.button_answer);
+	}
+	
+	helperFirstAccept()
+	{
+		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept);
+	}
+	
 	tick()
 	{
 		let a;
@@ -485,6 +498,12 @@ class Customer
 					this.dom.image.style.background = this.color;
 					this.dom.image_front.dataset.tooltip = "Customer is knocking on your door.";
 					this.activatePicture();
+					
+					if (_firstAnswer)
+					{
+						window.setTimeout(this.helperFirstAnswer.bind(this), 700);
+						_firstAnswer = false;
+					}
 				break;
 				
 				case CUSTOMER_STATE_RINGING:
@@ -494,6 +513,12 @@ class Customer
 						this.setText(this.describeNeed());
 						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
 						this.setWaitTime(100, 100);
+						
+						if (_firstAccept)
+						{
+							window.setTimeout(this.helperFirstAccept.bind(this), 1000);
+							_firstAccept = false;
+						}
 					}
 					else
 					{
