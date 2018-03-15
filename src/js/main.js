@@ -587,16 +587,7 @@ function init()
 		store: new Store
 	};
 	
-	inventory.store.createItem("rosepetal", 3);
-	inventory.store.createItem("appleseed", 5);
-	
 	cauldron = new Cauldron;
-	
-	plates.push(new Plate);
-	plates.push(new Plate);
-	plates.push(new Plate);
-	
-	plates[0].select();
 	
 	names = getAllVariations('(Z,K,W,B,N,En,Ew,An,Ar)(ub,or,er,eer,et,ak)(a,e,o)(r,t,n,w)(,ak,an,un,uk,ux,on,ik,arks,oot,as,ak,ax,ek,es,o,os,on,ok,ox)');
 	arrayShuffle(names);
@@ -612,6 +603,18 @@ function init()
 	}
 	arrayShuffle(customers);
 	
+	plates.push(new Plate);
+	plates.push(new Plate);
+	plates.push(new Plate);
+	
+	for (i in plates)
+	{
+		plates[i].setup();
+		plates[i].update();
+	}
+	
+	plates[0].select();
+	
 	for (i in itemClasses)
 	{
 		if (itemClasses[i] instanceof Ingredient)
@@ -621,11 +624,8 @@ function init()
 		}
 	}
 	
-	for (i in plates)
-	{
-		plates[i].setup();
-		plates[i].update();
-	}
+	inventory.store.createItem("rosepetal", 3);
+	inventory.store.createItem("appleseed", 5);
 	
 	profile = new Profile;
 	helper = new Helper;
