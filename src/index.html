@@ -63,19 +63,19 @@
 				</div>
 				
 				<div class="left">
-					<b>Cauldron</b>
+					<b>Cauldron</b><br/>
 					
-					<button id="button_cauldron_prepare" onclick="cauldron.prepare(); return false;">prepare</button>
-					<button id="button_cauldron_done" onclick="cauldron.done(); return false;">done</button><br/>
-					
-					Target temperature: <span id="temperature_target">-</span>
-					<button onclick="cauldron.adjustTemperatureTarget(-10); return false;">&#9660;</button>
-					<button onclick="cauldron.adjustTemperatureTarget(+10); return false;">&#9650;</button><br/>
-					
-					Temperature: <span id="temperature_current">-</span><br/>
+					Temperature: <b><span id="temperature_current">-</span></b><br/>
+					Target temperature: <span id="temperature_target">-</span><br/>
 					Status: <span id="cauldron_status">-</span><br/>
 					Time: <span id="cooking_time">-</span><br/>
 					<br/>
+					
+					<button id="button_cauldron_prepare" onclick="cauldron.prepare(); return false;">prepare</button>
+					<button onclick="cauldron.adjustTemperatureTarget(-10); return false;">&#9660;</button>
+					<button onclick="cauldron.adjustTemperatureTarget(+10); return false;">&#9650;</button>
+					<button id="button_cauldron_done" onclick="cauldron.done(); return false;">done</button><br/>
+					
 					
 					<div id="cauldron_content"></div>
 				</div>
