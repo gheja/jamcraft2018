@@ -4,13 +4,13 @@ html
 {
 	padding: 0;
 	margin: 0;
+	background: url(../images/background.png)  #2e2626;
 }
 
 body
 {
 	padding: 0;
 	margin: 1em 2em;
-	background: #2e2626;
 	color: #9e9090;
 	font-family: Compassion, Arial;
 	font-size: 16px;
@@ -112,7 +112,6 @@ button[disabled]
 	top: 10px;
 	width: 1200px;
 	height: 600px;
-	background: #2e2626;
 }
 
 .slot
