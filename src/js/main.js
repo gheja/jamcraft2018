@@ -10,6 +10,7 @@ let currentPlate = null;
 let inventory = null;
 let customers = [];
 let currentDescription = "";
+let currentTooltip = "";
 let speed = 0;
 let nextScreen = "";
 let profile = null;
@@ -32,6 +33,42 @@ function updateDebugFlag()
 	else
 	{
 		document.body.className = "";
+	}
+}
+
+function clearTooltip()
+{
+	setTooltip("");
+}
+
+function setTooltipFromDom(e)
+{
+	setTooltip(e.target.dataset.tooltip);
+}
+
+function setTooltip(s)
+{
+	currentTooltip = s;
+}
+
+function registerAllTooltips()
+{
+	let i, array;
+	
+	array = document.getElementsByTagName("*");
+	
+	for (i in array)
+	{
+		if (array[i].dataset && array[i].dataset.tooltip)
+		{
+			if (!array[i].dataset.tooltipRegistered)
+			{
+				array[i].addEventListener("mouseover", setTooltipFromDom.bind());
+				array[i].addEventListener("mouseout", clearTooltip.bind());
+				
+				array[i].dataset.tooltipRegistered = true;
+			}
+		}
 	}
 }
 
@@ -200,18 +237,25 @@ function tick()
 	
 	updateDisplay();
 	
-	if (currentDescription == "")
+	if (currentTooltip != "")
 	{
-		if (cauldron.status == CAULDRON_REMOVED)
+		currentDescription = currentTooltip;
+	}
+	else
+	{
+		if (currentDescription == "")
 		{
-			currentDescription += "Press <b>Prepare</b> to prepare the cauldron for cooking.<br/><br/>";
-		}
-		
-		currentDescription += "Use <b>+</b> and <b>-</b> to adjust the fire. Each ingredient starts dissolving at a specific temperature. Substances react yadda-yadda...<br/><br/>";
-		
-		if (cauldron.status != CAULDRON_REMOVED)
-		{
-			currentDescription += "Press <b>Done</b> when your potion is ready.";
+			if (cauldron.status == CAULDRON_REMOVED)
+			{
+				currentDescription += "Press <b>Prepare</b> to prepare the cauldron for cooking.<br/><br/>";
+			}
+			
+			currentDescription += "Use <b>+</b> and <b>-</b> to adjust the fire. Each ingredient starts dissolving at a specific temperature. Substances react yadda-yadda...<br/><br/>";
+			
+			if (cauldron.status != CAULDRON_REMOVED)
+			{
+				currentDescription += "Press <b>Done</b> when your potion is ready.";
+			}
 		}
 	}
 	
@@ -629,6 +673,8 @@ function init()
 	updateDisplayPlates();
 	
 	setSpeed(1);
+	
+	registerAllTooltips();
 	
 	window.setInterval(tick, 50);
 }
