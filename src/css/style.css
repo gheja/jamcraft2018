@@ -119,6 +119,7 @@ button[disabled]
 	position: relative;
 	width: 1200px;
 	height: 600px;
+	background: rgba(0,0,0,0.2);
 }
 
 .slot
@@ -149,7 +150,7 @@ td
 #box_description,
 #box_messages
 {
-	background: rgba(0,0,0,0.3);
+	background: rgba(0,0,0,0.2);
 	position: absolute;
 	border-top: 2px solid #000000;
 }
@@ -159,7 +160,7 @@ td
 	left: 0px;
 	top: 120px;
 	width: 430px;
-	height: 438px;
+	height: 418px;
 	overflow-x: none;
 	overflow-y: auto;
 }
