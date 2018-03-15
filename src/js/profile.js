@@ -133,10 +133,14 @@ class Profile
 		this.feedbacks.push(arr);
 		this.update();
 		
-		if (this.feedbacks.length == 5)
+		if (this.feedbacks.length == 1)
+		{
+			helper.showAtObject("You have just got your first feedback! Move the mouse on the bar below to see it.", get("feedbacks_head"));
+		}
+		else if (this.feedbacks.length == 5)
 		{
 			// TODO
-			helper.showAtObject("Looks you have just got enough feedback to ...", get("feedbacks"));
+			helper.showAtObject("Looks you have just got enough feedback to have your rank measured.", get("feedbacks_head"));
 		}
 	}
 	
@@ -273,7 +277,7 @@ class Profile
 				
 				// TODO
 				get("box_feedbacks").className += " extended";
-				helper.showAtObject("Oh, look, a fellow witch has commented!", get("feedbacks"));
+				helper.showAtObject("Oh, look, a fellow witch has commented on one of your feedbacks! Scroll down.", get("feedbacks_head"));
 			}
 			
 			this.update();
