@@ -104,11 +104,11 @@ class Plate
 		
 		if (empty)
 		{
-			s = "An empty plate.";
+			s = "An empty plate.<br/><br/>Use the plates to store ingredients waiting to be put in the cauldron.";
 		}
 		else
 		{
-			s = "This plate contains...<br/>" + s;
+			s = "This plate contains<br/>" + s;
 		}
 		
 		

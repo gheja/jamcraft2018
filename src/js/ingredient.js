@@ -91,7 +91,7 @@ class Ingredient extends Item
 		
 		s = s.substr(0, s.length - 2);
 		
-		this.assembledDescription = "Contains " + s + ", dissolves at <b>" + this.dissolveTemperature + " &deg;C</b>.";
+		this.assembledDescription = "Starts to dissolve at <b>" + this.dissolveTemperature + " &deg;C</b>, contains " + s + ".";
 	}
 	
 	update()
@@ -114,7 +114,7 @@ class Ingredient extends Item
 			tooltip = "You have no <b>" + this.title + "</b> left.";
 		}
 		
-		tooltip += "<br/><br/>" + this.assembledDescription;
+		tooltip += "<br/><br/>" + this.assembledDescription + "<br/><br/>Click for more info.";
 		
 		this.dom.counter.dataset.tooltip = tooltip;
 		this.dom.picture.dataset.tooltip = tooltip;

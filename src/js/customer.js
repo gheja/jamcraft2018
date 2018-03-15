@@ -204,7 +204,7 @@ class Customer
 		b = document.createElement("button");
 		b.innerHTML = "dismiss";
 		b.className = "button_dismiss";
-		b.dataset.tooltip = "Hide this order.";
+		b.dataset.tooltip = "Hide this visit.<br/><br/>The customer might come back later with a new order.";
 		b.onclick = this.dismiss.bind(this);
 		this.dom.button_dismiss = b;
 		c.appendChild(b);
