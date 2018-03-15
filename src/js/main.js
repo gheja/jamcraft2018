@@ -143,14 +143,6 @@ function updateDisplay()
 	{
 		setText('temperature_current', cauldron.temperature + " &deg;C");
 	}
-	if (cauldron.status == CAULDRON_REMOVED)
-	{
-		setText('cauldron_status', "no cauldron");
-	}
-	else
-	{
-		setText('cauldron_status', cauldron.temperatureTarget <= 20 ? "off" : "heating");
-	}
 	
 	setText('cooking_time', toHoursMinutes(cauldron.cookTime));
 	
