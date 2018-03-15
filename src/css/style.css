@@ -148,7 +148,8 @@ td
 #box_plates,
 #box_cauldron,
 #box_description,
-#box_messages
+#box_messages,
+#box_codex
 {
 	background: rgba(0,0,0,0.2);
 	position: absolute;
@@ -238,6 +239,18 @@ td
 {
 	top: 260px;
 	height: 320px;
+}
+
+#box_codex
+{
+	top: 120px;
+	left: 300px;
+	width: 600px;
+	height: 440px;
+	overflow-x: none;
+	overflow-y: auto;
+	background: #eecc99;
+	display: none;
 }
 
 

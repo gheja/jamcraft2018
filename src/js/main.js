@@ -105,7 +105,9 @@ function switchScreen()
 		"box_customers",
 		"box_cauldron",
 		"box_ingredients",
-		"box_plates"
+		"box_plates",
+		"box_description",
+		"box_codex"
 	], "none");
 	
 	switch (nextScreen)
@@ -115,7 +117,14 @@ function switchScreen()
 				"box_customers",
 				"box_cauldron",
 				"box_ingredients",
+				"box_description",
 				"box_plates"
+			], "block");
+		break;
+		
+		case "codex":
+			setDisplay([
+				"box_codex"
 			], "block");
 		break;
 	}
