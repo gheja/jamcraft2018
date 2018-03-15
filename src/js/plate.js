@@ -58,8 +58,6 @@ class Plate
 	{
 		let a, b, obj;
 		
-		return;
-		
 		obj = get("plates");
 		
 		a = createDiv("plate");
@@ -76,7 +74,7 @@ class Plate
 		
 		b = createDomElement("button", "plate_use");
 		b.onclick = this.use.bind(this);
-		b.innerHTML = "V";
+		b.innerHTML = "&#9660;";
 		this.dom.select = b;
 		a.appendChild(b);
 		
