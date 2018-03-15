@@ -84,6 +84,12 @@ button[disabled]
 */
 }
 
+::selection
+{
+	background: rgba(0,0,0,0.5);
+	color: inherit;
+}
+
 ::-webkit-scrollbar-track
 {
 	background: rgba(0,0,0,0.2);
