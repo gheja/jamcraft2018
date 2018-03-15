@@ -115,7 +115,10 @@ class Plate
 		this.dom.picture.dataset.tooltip = s;
 		
 		this.dom.select.disabled = (this == currentPlate);
+		this.dom.use.disabled = empty;
+		
 		this.dom.picture.className = "plate_picture" + (empty ? " plate_picture_empty" : "");
+		
 		for (i in itemClasses)
 		{
 			item = itemClasses[i];
