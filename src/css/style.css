@@ -117,7 +117,7 @@ button[disabled]
 {
 	margin: 30px auto;
 	position: relative;
-	width: 930px;
+	width: 1200px;
 	height: 600px;
 }
 
@@ -283,6 +283,15 @@ td
 {
 	background: url(../images/gfx.png);
 	background-position: -224px -64px;
+}
+
+#cauldron_content
+{
+	position: absolute;
+	top: 20px;
+	left: 300px;
+	width: 200px;
+	height: 140px;
 }
 
 .fail
