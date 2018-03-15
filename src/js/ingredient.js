@@ -56,20 +56,24 @@ class Ingredient extends Item
 		this.dom.root = a;
 		
 		b = createDomElement("div", "ingredient_picture ingredient_picture_" + this.name);
+		b.dataset.tooltip = this.title + " (ingredient)";
 		a.appendChild(b);
 		
 		b = createDomElement("div", "ingredient_counter");
+		b.dataset.tooltip = "You have x " + this.unit + " of " + this.title + ".";
 		this.dom.counter = b;
 		a.appendChild(b);
 		
 		b = createDomElement("button", "ingredient_minus");
 		b.onclick = this.removeFromPlate.bind(this);
+		b.dataset.tooltip = "Remove 1 " + this.unit + " " + this.title + " from the selected plate.";
 		b.innerHTML = "&#9650;";
 		this.dom.buttonMinus = b;
 		a.appendChild(b);
 		
 		b = createDomElement("button", "ingredient_plus");
 		b.onclick = this.addToPlate.bind(this);
+		b.dataset.tooltip = "Put 1 " + this.unit + " " + this.title + " from the selected plate.";
 		b.innerHTML = "&#9660;";
 		this.dom.buttonPlus = b;
 		a.appendChild(b);
@@ -83,5 +87,14 @@ class Ingredient extends Item
 		this.dom.buttonMinus.disabled = !(currentPlate.store.items[this.name] > 0);
 		this.dom.buttonPlus.disabled = !(inventory.store.items[this.name] > 0);
 		this.dom.counter.innerHTML = inventory.store.items[this.name];
+		
+		if (inventory.store.items[this.name] > 0)
+		{
+			this.dom.counter.dataset.tooltip = "You have " + inventory.store.items[this.name] + " " + this.unit + " of " + this.title + ".";
+		}
+		else
+		{
+			this.dom.counter.dataset.tooltip = "You have no " + this.title + " left.";
+		}
 	}
 }
