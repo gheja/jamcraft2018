@@ -1,7 +1,7 @@
 "use strict";
 
-let tickCount;
-let tickSkipCount;
+let tickCount = 0;
+let tickSkipCount = 0;
 let itemClasses = [];
 let interactionClasses = [];
 let cauldron = null;
@@ -194,55 +194,63 @@ function updateDisplay()
 
 function tick()
 {
-	let i;
+	let i, skip;
 	
 	tickSkipCount++;
 	
+	skip = true;
+	
 	switch (speed)
 	{
-		case 0:
-			return;
+		case 0:	// paused
+		
 		break;
 		
-		case 1:
-			if (tickSkipCount < 6)
+		case 1: // normal
+			if (tickSkipCount >= 6)
 			{
-				return;
+				skip = false;
+				tickSkipCount = 0;
 			}
-			tickSkipCount = 0;
 		break;
 		
-		case 2:
-			if (tickSkipCount < 3)
+		case 2: // fast
+			if (tickSkipCount >= 3)
 			{
-				return;
+				skip = false;
+				tickSkipCount = 0;
 			}
-			tickSkipCount = 0;
 		break;
 		
-		case 3:
-			tickSkipCount = 0;
+		case 3: // faster
+			skip = false;
+		break;
+		
+		case 4: // sleeping
+			skip = false;
 		break;
 	}
 	
-	tickCount++;
-	
-	currentDescription = "";
-	
-	cauldron.tick();
-	profile.tick();
-	
-	// console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
-	setText('time', toTime(tickCount, true));
-	
-	updateDisplay();
-	
-	if (currentTooltip != "")
+	if (!skip)
 	{
-		currentDescription = currentTooltip;
-	}
-	else
-	{
+		tickCount++;
+		
+		currentDescription = "";
+		
+		cauldron.tick();
+		profile.tick();
+		
+		for (i in customers)
+		{
+			customers[i].tick();
+		}
+		
+		// console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
+		setText('time', toTime(tickCount, true));
+		
+		updateDisplay();
+		
+		
 		if (currentDescription == "")
 		{
 			if (cauldron.status == CAULDRON_REMOVED)
@@ -259,11 +267,15 @@ function tick()
 		}
 	}
 	
-	setText("description", currentDescription);
-	
-	for (i in customers)
+	if (currentTooltip != "")
 	{
-		customers[i].tick();
+		setText("description", currentTooltip);
+		get("description").className = "tooltip";
+	}
+	else
+	{
+		setText("description", currentDescription);
+		get("description").className = "";
 	}
 }
 

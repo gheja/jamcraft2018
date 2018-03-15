@@ -799,3 +799,12 @@ td
 {
 	color: #92a182;
 }
+
+#description
+{
+}
+
+#description.tooltip
+{
+	color: #f0e053;
+}
