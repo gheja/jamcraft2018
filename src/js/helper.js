@@ -13,6 +13,12 @@ class Helper
 	
 	destroy(obj)
 	{
+		// when event fired more than once...
+		if (!obj || !obj.parentNode)
+		{
+			return;
+		}
+		
 		obj.parentNode.removeChild(obj);
 	}
 	
