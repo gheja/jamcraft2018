@@ -772,3 +772,30 @@ td
 {
 	background-position: 0px -32px;
 }
+
+#helper
+{
+	margin-top: 20px;
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	height: 64px;
+	width: 320px;
+	background: url(../images/gfx.png);
+	background-position: 0px -311px;
+	color: #ffffff;
+	padding: 6px 8px;
+	opacity: 0.0;
+	transition: opacity 0.3s, margin-top 0.3s;
+}
+
+#helper:hover, .active
+{
+	margin-top: 0;
+	opacity: 1.0;
+}
+
+#helper .dim
+{
+	color: #92a182;
+}
