@@ -66,6 +66,11 @@ function registerAllTooltips()
 				array[i].addEventListener("mouseover", setTooltipFromDom.bind());
 				array[i].addEventListener("mouseout", clearTooltip.bind());
 				
+				// mouseout does not fire when the object is disabled,
+				// so if a button gets disabled during its click event
+				// the mouseout will not fire...
+				array[i].addEventListener("click", clearTooltip.bind());
+				
 				array[i].dataset.tooltipRegistered = true;
 			}
 		}
