@@ -124,11 +124,11 @@ function getContentsString(store)
 
 function updateDisplayPlates()
 {
-	let i, j, s, a, count;
+	let i;
 	
 	for (i=0; i<plates.length; i++)
 	{
-		setText("plate" + i + "_contents", getContentsString(plates[i].store));
+		plates[i].update();
 	}
 }
 

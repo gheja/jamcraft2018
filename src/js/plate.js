@@ -28,6 +28,7 @@ class Plate
 		}
 		
 		this.store.moveAllItems(cauldron.store);
+		this.update();
 	}
 	
 	select()
@@ -63,7 +64,8 @@ class Plate
 		a = createDiv("plate");
 		this.dom.root = a;
 		
-		b = createDomElement("div", "plate_picture_empty");
+		b = createDomElement("div", "plate_picture plate_picture_empty");
+		this.dom.picture = b;
 		a.appendChild(b);
 		
 		b = createDomElement("button", "plate_select");
@@ -75,7 +77,7 @@ class Plate
 		b = createDomElement("button", "plate_use");
 		b.onclick = this.use.bind(this);
 		b.innerHTML = "&#9660;";
-		this.dom.select = b;
+		this.dom.use = b;
 		a.appendChild(b);
 		
 		obj.appendChild(a);
@@ -83,13 +85,20 @@ class Plate
 	
 	update()
 	{
+		let i, empty;
 		
-		return;
+		empty = true;
 		
-		this.dom.root.style.display = (this.unlocked ? "block" : "none");
-		this.dom.buttonMinus = (currentPlate.store.items[this.name] > 0);
-		this.dom.buttonPlus = (inventory.store.items[this.name] > 0);
-		this.dom.counter.innerHTML = inventory.store.items[this.name];
-//			plates[i].dom.select.disabled = (plates[i] == currentPlate);
+		for (i in this.store.items)
+		{
+			if (this.store.items[i] != 0)
+			{
+				empty = false;
+				break;
+			}
+		}
+		
+		this.dom.select.disabled = (this == currentPlate);
+		this.dom.picture.className = "plate_picture" + (empty ? " plate_picture_empty" : "");
 	}
 }

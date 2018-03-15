@@ -36,12 +36,14 @@ class Ingredient extends Item
 	{
 		inventory.store.moveItem(currentPlate.store, this.name, 1);
 		this.update();
+		currentPlate.update();
 	}
 	
 	removeFromPlate()
 	{
 		currentPlate.store.moveItem(inventory.store, this.name, 1);
 		this.update();
+		currentPlate.update();
 	}
 	
 	setup()
