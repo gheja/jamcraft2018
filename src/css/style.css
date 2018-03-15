@@ -797,7 +797,7 @@ td
 	background-position: 0px -32px;
 }
 
-#helper
+.helper
 {
 	margin-top: 20px;
 	position: absolute;
@@ -813,13 +813,19 @@ td
 	transition: opacity 0.3s, margin-top 0.3s;
 }
 
-#helper:hover, .active
+.helper_active
 {
 	margin-top: 0;
-	opacity: 1.0;
+	opacity: 0.7;
 }
 
-#helper .dim
+.helper_active:hover
+{
+	opacity: 1.0;
+	z-index: 5000;
+}
+
+.helper .dim
 {
 	color: #92a182;
 }
