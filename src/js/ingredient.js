@@ -80,8 +80,8 @@ class Ingredient extends Item
 	update()
 	{
 		this.dom.root.style.display = (this.unlocked ? "block" : "none");
-		this.dom.buttonMinus = (currentPlate.store.items[this.name] > 0);
-		this.dom.buttonPlus = (inventory.store.items[this.name] > 0);
+		this.dom.buttonMinus.disabled = !(currentPlate.store.items[this.name] > 0);
+		this.dom.buttonPlus.disabled = !(inventory.store.items[this.name] > 0);
 		this.dom.counter.innerHTML = inventory.store.items[this.name];
 	}
 }
