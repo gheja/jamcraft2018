@@ -152,13 +152,17 @@ function getContentsString(store)
 		
 		if (count > 0)
 		{
-			s += round(count) + " " + a.unit + " " + a.title + "<br/>";
+			s += "&nbsp;- " + round(count) + " " + a.unit + " of <b>" + a.title + "</b><br/>";
 		}
 	}
 	
 	if (s == "")
 	{
-		s = "(empty)";
+		s = "Cauldron is empty.";
+	}
+	else
+	{
+		s = "Cauldron contents:<br/>" + s;
 	}
 	
 	return s;
