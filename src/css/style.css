@@ -667,6 +667,13 @@ td
 	width: 32px;
 	height: 32px;
 	background: url(../images/gfx.png);
+	transition: opacity 0.25s, filter 0.25s;
+}
+
+.ingredient_disabled .ingredient_picture
+{
+	opacity: 0.5;
+	filter: grayscale(100%);
 }
 
 .ingredient_picture_rosepetal
@@ -750,6 +757,13 @@ td
 {
 	color: #fff;
 	text-align: center;
+	transition: opacity 0.25s, filter 0.25s;
+}
+
+.ingredient_disabled .ingredient_counter
+{
+	opacity: 0.5;
+	filter: grayscale(100%);
 }
 
 

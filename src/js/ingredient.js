@@ -90,10 +90,12 @@ class Ingredient extends Item
 		
 		if (inventory.store.items[this.name] > 0)
 		{
+			this.dom.root.className = "ingredient";
 			this.dom.counter.dataset.tooltip = "You have " + inventory.store.items[this.name] + " " + this.unit + " of " + this.title + ".";
 		}
 		else
 		{
+			this.dom.root.className = "ingredient ingredient_disabled";
 			this.dom.counter.dataset.tooltip = "You have no " + this.title + " left.";
 		}
 	}
