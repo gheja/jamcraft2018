@@ -352,8 +352,13 @@ function updateUnlockedIngredients(announce)
 				}
 			}
 			
-			if (ok)
+			if (ok && !item.unlocked)
 			{
+				if (announce)
+				{
+					logMessage("<b>" + item.title + "</b> is now unlocked.", MESSAGE_NORMAL);
+				}
+				
 				last = item;
 				item.unlocked = true;
 				item.update();
@@ -361,7 +366,7 @@ function updateUnlockedIngredients(announce)
 		}
 	}
 	
-	if (announce && item != null)
+	if (announce && last != null)
 	{
 		helper.showAtObject("New ingredient. Check Codex for details.", last.dom.buttonPlus);
 	}
