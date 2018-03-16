@@ -74,7 +74,7 @@ class Profile
 			customerColor: customer.color,
 			customerPictureNumber: customer.profilePictureNumber,
 			effectWanted: customer.need.effect,
-			effectGot: customer.potion[1],
+			effectGot: customer.potion.effect,
 			witchFeedbackEnabled: false,
 			witchRating: 0,
 			witchText: "",
