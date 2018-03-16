@@ -16,6 +16,7 @@ class Slot
 		this.parent = null;
 		this.content = null;
 		this.contentClassName = "";
+		this.onChange = null;
 		
 		this.dom = {
 			slot: null,
@@ -65,9 +66,19 @@ class Slot
 		slot.contentClassName = this.contentClassName;
 		slot.update();
 		
+		if (slot.onChange)
+		{
+			slot.onChange.call();
+		}
+		
 		this.content = null;
 		this.contentClassName = "";
 		this.update();
+		
+		if (this.onChange)
+		{
+			this.onChange.call();
+		}
 	}
 	
 	snapPositionToSlot()
