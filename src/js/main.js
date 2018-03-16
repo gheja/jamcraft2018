@@ -499,7 +499,7 @@ function init()
 		title: "yellow",
 		color: "#ffee33",
 		description: "",
-		effect: "none",
+		effect: "nothing",
 		potionPrice: 20,
 		interactionTemperatureMin: 60,
 		interactionTemperatureMax: 70,

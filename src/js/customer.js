@@ -305,7 +305,7 @@ class Customer
 			
 			if (item instanceof Substance)
 			{
-				if (item.unlocked && item.effect != "none")
+				if (item.unlocked && item.effect != "nothing")
 				{
 					unlockedEffects.push({ "effect": item.effect, "potionPrice" : item.potionPrice });
 				}
