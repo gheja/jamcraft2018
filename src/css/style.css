@@ -235,6 +235,7 @@ td
 	background: #eecc88;
 	text-shadow: -0.0625em -0.0625em rgba(255,255,255,0.5);
 	color: #996622;
+	z-index: 5100;
 }
 
 #box_messages b,
