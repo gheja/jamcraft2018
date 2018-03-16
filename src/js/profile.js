@@ -225,9 +225,14 @@ class Profile
 				
 				if (feedback.witchFeedbackTimeLeft == 0)
 				{
-					if (feedback.effectWanted == feedback.effectGot)
+					if (feedback.effectGot == "nothing")
 					{
-						rating = 3;
+						rating = Math.round(2 + Math.random() * 1);
+						text = arrayPick(this.witchRatingsNeutral);
+					}
+					else if (feedback.effectWanted == feedback.effectGot)
+					{
+						rating = Math.round(3 + Math.random() * 1);
 						text = arrayPick(this.witchRatingsNeutral);
 					}
 					else
