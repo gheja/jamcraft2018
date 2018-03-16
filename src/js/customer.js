@@ -542,7 +542,7 @@ class Customer
 						this.state = CUSTOMER_STATE_ASKING;
 						this.setText(this.describeNeed());
 						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
-						this.setWaitTime(100, 100);
+						this.setWaitTime(300, 300);
 						
 						if (_firstAccept)
 						{
@@ -591,7 +591,7 @@ class Customer
 					this.state = CUSTOMER_STATE_WAITING;
 					this.setText("*away*");
 					this.dom.image_front.dataset.tooltip = "Customer is away, will return for the completed order.";
-					this.setWaitTime(30, 100);
+					this.setWaitTime(100, 100);
 					this.deactivatePicture();
 				break;
 				
