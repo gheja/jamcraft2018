@@ -451,7 +451,9 @@ class Customer
 	
 	givePotion()
 	{
-		//
+		this.potion = this.slot.content;
+		this.slot.locked = true;
+		this.updateButtons();
 	}
 	
 	dismiss()

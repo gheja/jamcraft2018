@@ -876,3 +876,21 @@ td
 {
 	color: #f0e053;
 }
+
+.item_glass_empty
+{
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	background: url(../images/gfx.png) #ff00ff;
+	background-position: -160px 0px;
+}
+
+.item_glass_full
+{
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	background: url(../images/gfx.png) #ee0000;
+	background-position: -128px 0px;
+}
