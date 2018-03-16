@@ -16,6 +16,7 @@ class Substance extends Item
 		this.evaporateTemperature = 0;
 		this.hidden = false;
 		this.effect = "none";
+		this.potionPrice = 0;
 		
 		for (k in params)
 		{

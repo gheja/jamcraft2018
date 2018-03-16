@@ -18,6 +18,7 @@ let helper = null;
 let names = [];
 let slots = [];
 let won = false;
+let gold = 0;
 
 function round(x)
 {
@@ -420,6 +421,7 @@ function init()
 	let a, b, i;
 	
 	tickCount = 0;
+	gold = 100;
 	
 	for (i in itemClasses)
 	{
@@ -445,6 +447,7 @@ function init()
 		color: "#ee3300",
 		description: "",
 		effect: "health",
+		potionPrice: 20,
 		interactionTemperatureMin: 60,
 		interactionTemperatureMax: 70,
 		evaporateTemperature: 80
@@ -456,6 +459,7 @@ function init()
 		color: "#ffee33",
 		description: "",
 		effect: "none",
+		potionPrice: 20,
 		interactionTemperatureMin: 60,
 		interactionTemperatureMax: 70,
 		evaporateTemperature: 80
@@ -467,6 +471,7 @@ function init()
 		color: "#ffbb00",
 		description: "",
 		effect: "love",
+		potionPrice: 40,
 		interactionTemperatureMin: 0,
 		interactionTemperatureMax: 0,
 		evaporateTemperature: 300
