@@ -17,6 +17,8 @@ class Slot
 		this.content = null;
 		this.contentClassName = "";
 		this.onChange = null;
+		this.slotTooltip = "Empty slot";
+		this.contentTooltip = "Item";
 		
 		this.dom = {
 			slot: null,
@@ -25,6 +27,7 @@ class Slot
 		
 		this.dragging = false;
 		this.locked = false;
+		this.cauldronTarget = false;
 		
 		for (k in params)
 		{
@@ -215,6 +218,7 @@ class Slot
 		a.style.top = this.y + "px";
 		a.style.width = this.width + "px";
 		a.style.height = this.height + "px";
+		a.dataset.tooltip = this.slotTooltip;
 		this.dom.slot = a;
 		this.parent.appendChild(a);
 		
@@ -223,6 +227,7 @@ class Slot
 		a.style.top = this.y + "px";
 		a.style.width = this.width + "px";
 		a.style.height = this.height + "px";
+		a.dataset.tooltip = this.contentTooltip;
 		a.addEventListener("mousedown", this.onMouseDown.bind(this));
 		a.addEventListener("mouseup", this.onMouseUp.bind(this));
 		this.dom.content = a;
@@ -240,6 +245,8 @@ class Slot
 			setDomParent(this.dom.content, this.parent);
 		}
 		
+		this.dom.slot.dataset.tooltip = this.slotTooltip;
+		
 		if (this.content == null)
 		{
 			this.dom.content.style.display = "none";
@@ -247,6 +254,7 @@ class Slot
 		else
 		{
 			this.dom.content.style.display = "block";
+			this.dom.content.dataset.tooltip = this.contentTooltip;
 		}
 	}
 }
