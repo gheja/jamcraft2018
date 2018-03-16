@@ -98,7 +98,7 @@ class Plate
 			if (this.store.items[i] != 0)
 			{
 				empty = false;
-				s += "&nbsp;- " + this.store.items[i] + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
+				s += "&nbsp;- " + round(this.store.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
 			}
 		}
 		

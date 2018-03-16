@@ -239,7 +239,7 @@ class Customer
 		
 		slots.push(this.slot);
 		
-		this.slot.dom.slot.dataset.tooltip = "Drag the potion you want to give to this customer into this slot.<br/><br/>After dragging it here click <b>Give</b> when the customer is around.";
+		this.slot.slotTooltip = "Drag the potion you want to give to this customer into this slot.<br/><br/>After dragging it here click <b>Give</b> when the customer is around.";
 		
 		get("box_customers").appendChild(this.dom.root);
 		
