@@ -42,7 +42,7 @@ class Helper
 		obj.className = "helper";
 		
 		// destroy the element
-		window.setTimeout(this.destroy.bind(this, obj), 1000);
+		window.setTimeout(this.destroy.bind(this, obj), 310);
 	}
 	
 	activate(obj)
