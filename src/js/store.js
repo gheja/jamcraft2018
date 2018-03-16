@@ -65,7 +65,7 @@ class Store
 		}
 	}
 	
-	describePotionQuality()
+	getPotionQuality()
 	{
 		let i, total;
 		
@@ -99,7 +99,7 @@ class Store
 		return "garbage";
 	}
 	
-	describePotionEffect()
+	getPotionEffect()
 	{
 		let i, tops, max, result, stuffs, a;
 		
@@ -135,5 +135,39 @@ class Store
 		a = arrayPickChance(stuffs);
 		
 		return itemClasses[a.name].effect;
+	}
+	
+	getPotionColor()
+	{
+		return "#ff0000";
+	}
+	
+	getPotionText()
+	{
+		let empty, s, i;
+		
+		empty = true;
+		s = "";
+		
+		for (i in this.items)
+		{
+			if (this.items[i] != 0)
+			{
+				empty = false;
+				s += "&nbsp;- " + round(this.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
+			}
+		}
+		
+		if (empty)
+		{
+			s = "Pure water.";
+		}
+		else
+		{
+			s = "The potion contains<br/>" + s;
+			s += "<br/>Quality: " + this.getPotionQuality();
+		}
+		
+		return s;
 	}
 }
