@@ -228,6 +228,19 @@ class Customer
 		
 		this.dom.root = a;
 		
+		this.slot = new Slot({
+			x: 430,
+			y: 4,
+			className: "slot",
+			dragGroup: 2,
+			parent: this.dom.root,
+			onChange: this.updateButtons.bind(this)
+		});
+		
+		slots.push(this.slot);
+		
+		this.slot.dom.slot.dataset.tooltip = "Drag the potion you want to give to this customer into this slot.<br/><br/>After dragging it here click <b>Give</b> when the customer is around.";
+		
 		get("box_customers").appendChild(this.dom.root);
 		
 		registerAllTooltips();
@@ -255,6 +268,8 @@ class Customer
 	{
 		get("box_customers").removeChild(this.dom.root);
 		this.dom.root = null;
+		arrayRemove(slots, this.slot);
+		this.slot = null;
 	}
 	
 	setText(s)
@@ -487,7 +502,8 @@ class Customer
 		this.dom.button_accept.disabled = (this.state != CUSTOMER_STATE_ASKING);
 		this.dom.button_decline.disabled = (this.state != CUSTOMER_STATE_ASKING);
 		this.dom.button_give.disabled = (
-			this.potion == null ||
+			this.slot == null ||
+			this.slot.content == null ||
 			(this.state != CUSTOMER_STATE_ASKING && this.state != CUSTOMER_STATE_BACK)
 		);
 		this.dom.button_dismiss.disabled = (
