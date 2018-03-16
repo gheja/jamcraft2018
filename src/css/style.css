@@ -132,6 +132,15 @@ button[disabled]
 	background-position: -0px 0px;
 }
 
+.slot_trash
+{
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	background: url(../images/gfx.png);
+	background-position: -32px 0px;
+}
+
 .slot_highlighted
 {
 	outline: 1px solid #dd6600;
