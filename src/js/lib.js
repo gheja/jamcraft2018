@@ -236,3 +236,17 @@ function setDomParent(obj, parent)
 	obj.parentNode.removeChild(obj);
 	parent.appendChild(obj);
 }
+
+function arrayRemove(arr, item)
+{
+	let i;
+	
+	for (i in arr)
+	{
+		if (arr[i] == item)
+		{
+			arr.splice(i, 1);
+			return;
+		}
+	}
+}

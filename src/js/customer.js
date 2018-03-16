@@ -46,6 +46,8 @@ class Customer
 			button_dismiss: null
 		};
 		
+		this.slot = null;
+		
 		this.need = {
 			effect: null,
 			subject: null,
