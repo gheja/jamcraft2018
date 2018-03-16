@@ -16,6 +16,8 @@ class Ingredient extends Item
 		this.chanceMerchant = 0;
 		this.dissolveTemperature = 50;
 		this.dissolveSpeed = 1;
+		this.buyAmount = 5;
+		this.buyCost = 5;
 		this.assembledDescription = "";
 		
 		for (k in params)
