@@ -728,7 +728,10 @@ function init()
 			y: 10 + (Math.floor(i / 4) * 42),
 			className: "slot",
 			dragGroup: 2,
-			parent: a
+			parent: a,
+			
+			content: { "purity": "pure", "effect": "nothing" },
+			contentClassName: "item_glass_empty"
 		}));
 	}
 	
