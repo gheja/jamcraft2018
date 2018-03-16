@@ -622,6 +622,13 @@ td
 	height: 298px;
 }
 
+.feedbacks_total_container
+{
+	position: relative;
+	display: block;
+	height: 20px;
+}
+
 .feedback
 {
 	margin: 0 0 8px 0;

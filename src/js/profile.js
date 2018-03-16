@@ -156,13 +156,13 @@ class Profile
 		for (i in this.feedbacks)
 		{
 			total1 += this.feedbacks[i].rating;
-			if (this.feedbacks[i].rating2 != 0)
+			count1++;
+			
+			if (this.feedbacks[i].witchRating != 0)
 			{
-				total2 += this.feedbacks[i].rating2;
+				total2 += this.feedbacks[i].witchRating;
 				count2++;
 			}
-			
-			count1++;
 		}
 		
 		if (count1 == 0)
@@ -197,15 +197,15 @@ class Profile
 			setText("feedback_total_text", "<b>" + round(this.rating1) + "</b>/5.0 (" + count1 + " feedbacks), <b>#" + this.rank1 + "</b> of " + (this.competitorRatings1.length + 1));
 		}
 		
-		if (count1 < 5)
+		if (count2 < 5)
 		{
 			get("feedback_witch_total_stars").style.width = "0px";
-			setText("feedback_witch_total_text", "Awaiting " + (5 - count1) + " more feedback.");
+			setText("feedback_witch_total_text", "Awaiting " + (5 - count2) + " more feedback.");
 		}
 		else
 		{
-			get("feedback_witch_total_stars").style.width = Math.floor(this.rating1 / 5 * 55) + "px";
-			setText("feedback_witch_total_text", "<b>" + round(this.rating1) + "</b>/5.0 (" + count1 + " feedbacks), <b>#" + this.rank1 + "</b> of " + (this.competitorRatings1.length + 1));
+			get("feedback_witch_total_stars").style.width = Math.floor(this.rating2 / 5 * 55) + "px";
+			setText("feedback_witch_total_text", "<b>" + round(this.rating2) + "</b>/5.0 (" + count2 + " feedbacks), <b>#" + this.rank2 + "</b> of " + (this.competitorRatings2.length + 1));
 		}
 	}
 	
