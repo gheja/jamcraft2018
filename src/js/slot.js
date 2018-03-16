@@ -49,6 +49,12 @@ class Slot
 		{
 			if (slots[i].dragGroup == this.dragGroup)
 			{
+				// skip slots that are already occupied
+				if (slots[i].content != null)
+				{
+					continue;
+				}
+				
 				pos2 = slots[i].dom.slot.getBoundingClientRect();
 				
 				if (x > pos2.x && x < pos2.x + pos2.width && y > pos2.y && y < pos2.y + pos2.width)
