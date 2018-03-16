@@ -399,6 +399,21 @@ function unlockItem(name)
 	updateUnlockedIngredients();
 }
 
+function cleanTrash()
+{
+	let i;
+	
+	for (i in slots)
+	{
+		if (slots[i].className == "slot_trash")
+		{
+			slots[i].content = null;
+			slots[i].contentClassName = "";
+			slots[i].update();
+		}
+	}
+}
+
 function init()
 {
 	let a, b, i;
@@ -734,6 +749,17 @@ function init()
 			contentTooltip: "An empty bottle.<br/><br/>Brew potions in the cauldron and then put it in one of the bottles with <b>done</b>."
 		}));
 	}
+	
+	slots.push(new Slot({
+		x: 68,
+		y: 230,
+		className: "slot_trash",
+		dragGroup: 2,
+		parent: a,
+		
+		onChange: cleanTrash.bind(),
+		slotTooltip: "Trash can. Drag items here to delete."
+	}));
 	
 	window.setInterval(tick, 50);
 	
