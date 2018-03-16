@@ -328,9 +328,11 @@ function createEvaporationInteractions()
 
 // When a new Substance gets unlocked, you need to find the Igredient that
 // contains that Substance. We have to unlock it here.
-function updateUnlockedIngredients()
+function updateUnlockedIngredients(announce)
 {
-	let i, j, n, ok, item, substance;
+	let i, j, n, ok, item, substance, last;
+	
+	last = null;
 	
 	for (i in itemClasses)
 	{
@@ -352,10 +354,16 @@ function updateUnlockedIngredients()
 			
 			if (ok)
 			{
+				last = item;
 				item.unlocked = true;
 				item.update();
 			}
 		}
+	}
+	
+	if (announce && item != null)
+	{
+		helper.showAtObject("New ingredient. Check Codex for details.", last.dom.buttonPlus);
 	}
 }
 
@@ -393,12 +401,12 @@ function updateUnlockedSubstances()
 	}
 }
 
-function unlockItem(name)
+function unlockItem(name, announce)
 {
 	itemClasses[name].unlocked = true;
 	// itemClasses[name].update;
 	updateUnlockedSubstances();
-	updateUnlockedIngredients();
+	updateUnlockedIngredients(announce);
 }
 
 function cleanTrash()
@@ -732,7 +740,7 @@ function init()
 	
 	profile.setup();
 	profile.update();
-	unlockItem("red");
+	unlockItem("red", false);
 	
 	updateDisplayPlates();
 	
