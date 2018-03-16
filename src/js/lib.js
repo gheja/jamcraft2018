@@ -230,3 +230,9 @@ function getAllVariations(recipe)
 	
 	return variations;
 }
+
+function setDomParent(obj, parent)
+{
+	obj.parentNode.removeChild(obj);
+	parent.appendChild(obj);
+}
