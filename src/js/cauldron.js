@@ -95,6 +95,8 @@ class Cauldron
 				return;
 			}
 			
+			this.store.finalize();
+			
 			slot.content = {
 				"quality": this.store.getPotionQuality(),
 				"effect": this.store.getPotionEffect(),

@@ -55,6 +55,16 @@ class Store
 		}
 	}
 	
+	finalize()
+	{
+		let i;
+		
+		for (i in this.items)
+		{
+			this.items[i] = parseFloat(round(this.items[i]));
+		}
+	}
+	
 	clear()
 	{
 		let i;
