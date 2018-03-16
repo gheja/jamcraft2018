@@ -95,15 +95,15 @@ class Cauldron
 				return;
 			}
 			
-			slot.contents = {
+			slot.content = {
 				"quality": this.store.getPotionQuality(),
 				"effect": this.store.getPotionEffect(),
 				"color": this.store.getPotionColor(),
 				"text": this.store.getPotionText()
 			};
 			
-			slot.dom.content.style.backgroundColor = slot.contents.color;
-			slot.contentTooltip = slot.contents.text;
+			slot.dom.content.style.backgroundColor = slot.content.color;
+			slot.contentTooltip = slot.content.text;
 			slot.contentClassName = "item_glass_full";
 			slot.update();
 			
