@@ -719,13 +719,16 @@ function init()
 	
 	registerAllTooltips();
 	
+	a = get("box_glasses")
+	
 	for (i=0; i<20; i++)
 	{
 		slots.push(new Slot({
-			x: 1032 + ((i % 4) * 42),
+			x: 4 + ((i % 4) * 42),
 			y: 10 + (Math.floor(i / 4) * 42),
 			className: "slot",
 			dragGroup: 2,
+			parent: a
 		}));
 	}
 	
