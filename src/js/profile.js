@@ -18,7 +18,11 @@ class Profile
 		this.witchRatingsNeutral = [
 			"That was okay.",
 			"Meh.",
-			""
+			"Wasn't that bad.",
+			"I've seen better.",
+			"Okay.",
+			"Nothing interesting.",
+			"I could do better."
 		];
 		
 		this.witchRatingsPositive = [
@@ -26,7 +30,10 @@ class Profile
 			"Hahahahaha!",
 			"Nice one!",
 			"Deserved!",
-			"Great one!"
+			"Great one!",
+			"Cheers!",
+			"Though about the same!",
+			"Just like I'd do!"
 		];
 	}
 	
