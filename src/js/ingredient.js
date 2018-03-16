@@ -35,6 +35,21 @@ class Ingredient extends Item
 		};
 	}
 	
+	buy()
+	{
+		if (gold < this.buyCost)
+		{
+			logMessage("You don't have enough golds to buy this.", MESSAGE_FAIL);
+			return;
+		}
+		
+		gold -= this.buyCost;
+		
+		inventory.store.items[this.name] += this.buyAmount;
+		
+		this.update();
+	}
+	
 	addToPlate()
 	{
 		inventory.store.moveItem(currentPlate.store, this.name, 1);
@@ -66,6 +81,13 @@ class Ingredient extends Item
 		b = createDomElement("div", "ingredient_counter");
 		b.dataset.tooltip = "You have x " + this.unit + " of " + this.title + ".";
 		this.dom.counter = b;
+		a.appendChild(b);
+		
+		b = createDomElement("button", "ingredient_buy");
+		b.onclick = this.buy.bind(this);
+		b.dataset.tooltip = "Buy " + this.buyAmount + " " + this.unit + " " + this.title + " for " + this.buyCost + " gold.";
+		b.innerHTML = "$";
+		this.dom.buttonBuy = b;
 		a.appendChild(b);
 		
 		b = createDomElement("button", "ingredient_minus");
