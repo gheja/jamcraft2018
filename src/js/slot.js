@@ -74,6 +74,7 @@ class Slot
 	{
 		slot.content = this.content;
 		slot.contentClassName = this.contentClassName;
+		slot.contentTooltip = this.contentTooltip;
 		slot.update();
 		
 		if (slot.onChange)
@@ -83,6 +84,7 @@ class Slot
 		
 		this.content = null;
 		this.contentClassName = "";
+		this.contentTooltip = "Item";
 		this.update();
 		
 		if (this.onChange)
