@@ -451,9 +451,12 @@ class Customer
 	
 	givePotion()
 	{
+		this.orderAccepted = true;
 		this.potion = this.slot.content;
 		this.slot.locked = true;
 		this.updateButtons();
+		this.setWaitTime(1, 1);
+		this.tick();
 	}
 	
 	dismiss()
@@ -479,13 +482,6 @@ class Customer
 		this.mood += (s.rating - 3) / 10;
 		
 		profile.receiveFeedback(s.rating, s.text, this);
-	}
-	
-	testGetRandomPotion()
-	{
-		this.potion = [ arrayPick([ "pure" ]), arrayPick([ "health", "love", "explode" ]) ];
-		this.setWaitTime(1, 1);
-		this.tick();
 	}
 	
 	helperFirstAnswer()
@@ -562,6 +558,7 @@ class Customer
 						this.state = CUSTOMER_STATE_ASKING;
 						this.setText(this.describeNeed());
 						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
+						this.dom.name.innerHTML += " (" + this.need.effect + ")";
 						this.setWaitTime(300, 300);
 						
 						if (_firstAccept)
@@ -593,9 +590,16 @@ class Customer
 				case CUSTOMER_STATE_ASKING:
 					if (this.orderAccepted)
 					{
-						this.state = CUSTOMER_STATE_GOING;
-						this.dom.name.innerHTML += " (" + this.need.effect + ")";
-						this.setText("Thanks, I'll be back.");
+						if (this.potion != null)
+						{
+							this.state = CUSTOMER_STATE_BACK;
+							this.setText("Thanks!");
+						}
+						else
+						{
+							this.state = CUSTOMER_STATE_GOING;
+							this.setText("Thanks, I'll be back.");
+						}
 					}
 					else
 					{
@@ -621,7 +625,6 @@ class Customer
 					this.dom.image_front.dataset.tooltip = "Customer is waiting for the completed order. Put it in the slot on the right.";
 					this.setWaitTime(100, 100);
 					this.activatePicture();
-					this.testGetRandomPotion();
 				break;
 				
 				case CUSTOMER_STATE_BACK:
