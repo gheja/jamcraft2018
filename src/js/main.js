@@ -140,7 +140,9 @@ function switchScreen()
 		"box_ingredients",
 		"box_plates",
 		"box_description",
-		"box_codex"
+		"box_codex",
+		"box_glasses",
+		"box_nothing"
 	], "none");
 	
 	switch (nextScreen)
@@ -151,13 +153,20 @@ function switchScreen()
 				"box_cauldron",
 				"box_ingredients",
 				"box_description",
-				"box_plates"
+				"box_plates",
+				"box_glasses"
 			], "block");
 		break;
 		
 		case "codex":
 			setDisplay([
 				"box_codex"
+			], "block");
+		break;
+		
+		default:
+			setDisplay([
+				"box_nothing"
 			], "block");
 		break;
 	}

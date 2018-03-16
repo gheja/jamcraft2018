@@ -165,7 +165,8 @@ td
 #box_description,
 #box_messages,
 #box_codex,
-#box_glasses
+#box_glasses,
+#box_nothing
 {
 	background: rgba(0,0,0,0.2);
 	position: absolute;
@@ -281,6 +282,21 @@ td
 	background: #eecc99;
 	text-shadow: -0.0625em -0.0625em rgba(255,255,255,0.5);
 	color: #996622;
+	display: none;
+}
+
+#box_nothing
+{
+	top: 300px;
+	left: 300px;
+	width: 600px;
+	height: 20px;
+	overflow-x: none;
+	overflow-y: auto;
+	background: rgba(0,0,0,0.5);
+	text-shadow: none;
+	text-align: center;
+	color: #dddddd;
 	display: none;
 }
 
