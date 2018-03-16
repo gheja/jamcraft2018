@@ -166,13 +166,15 @@ td
 #box_messages,
 #box_codex,
 #box_glasses,
-#box_nothing
+#box_nothing,
+#box_intro
 {
 	background: rgba(0,0,0,0.2);
 	position: absolute;
 	border-top: 2px solid rgba(0,0,0,0.6);
 	border-bottom: 2px solid rgba(0,0,0,0.2);
 	padding: 0 4px;
+	display: none;
 }
 
 #box_time
@@ -298,6 +300,21 @@ td
 	text-align: center;
 	color: #dddddd;
 	display: none;
+}
+
+#box_intro
+{
+	top: 200px;
+	left: 300px;
+	width: 600px;
+	height: 200px;
+	overflow-x: none;
+	overflow-y: auto;
+	background: rgba(0,0,0,0.5);
+	text-shadow: none;
+	text-align: center;
+	color: #dddddd;
+	display: block;
 }
 
 
@@ -591,6 +608,7 @@ td
 	background: #402200;
 	overflow: hidden;
 	transition: top 0.5s, height 0.5s;
+	display: none;
 }
 
 #box_feedbacks.extended
@@ -613,6 +631,7 @@ td
 	width: 508px;
 	height: 22px;
 	background: #402200;
+	overflow: hidden;
 }
 
 #box_feedbacks.extended #feedbacks_head

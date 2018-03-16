@@ -142,8 +142,16 @@ function switchScreen()
 		"box_description",
 		"box_codex",
 		"box_glasses",
-		"box_nothing"
+		"box_nothing",
+		"box_intro"
 	], "none");
+	
+	setDisplay([
+		"box_time",
+		"box_navigation",
+		"box_feedbacks",
+		"box_messages"
+	], "block");
 	
 	switch (nextScreen)
 	{
@@ -789,7 +797,7 @@ function init()
 	
 	updateDisplayPlates();
 	
-	setSpeed(1);
+	setSpeed(0);
 	
 	a = get("box_glasses")
 	
