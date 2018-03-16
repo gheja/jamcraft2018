@@ -20,7 +20,7 @@ let slots = [];
 let won = false;
 let gold = 0;
 let sells = 0;
-let ingredientUnlockOrder = [ "red", "orange", "brown" ];
+let ingredientUnlockOrder = [ "red", "yellow", "brown" ];
 
 function round(x)
 {
@@ -96,7 +96,7 @@ function setSpeed(n)
 
 function bumpSellCount()
 {
-	let unlock, i;
+	let unlock, i, a;
 	
 	unlock = false;
 	
@@ -111,9 +111,11 @@ function bumpSellCount()
 	{
 		for (i in ingredientUnlockOrder)
 		{
-			if (!itemClasses[i].unlocked)
+			a = ingredientUnlockOrder[i];
+			
+			if (!itemClasses[a].unlocked)
 			{
-				unlockItem(i, true);
+				unlockItem(a, true);
 				break;
 			}
 		}
