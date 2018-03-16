@@ -17,6 +17,7 @@ let profile = null;
 let helper = null;
 let names = [];
 let slots = [];
+let won = false;
 
 function round(x)
 {

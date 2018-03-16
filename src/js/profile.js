@@ -30,6 +30,23 @@ class Profile
 		];
 	}
 	
+	checkWin()
+	{
+		if (won)
+		{
+			return;
+		}
+		
+		if (this.rank1 > 10 && this.rank2 > 10)
+		{
+			return;
+		}
+		
+		won = true;
+		
+		helper.showAtObject("Congratulations! You are now in the Top 10! <span class=\"dim\">You can keep playing if you'd like to.</span>", get("feedbacks_head"));
+	}
+	
 	setup()
 	{
 		let i, count;
@@ -142,6 +159,8 @@ class Profile
 			// TODO
 			helper.showAtObject("Looks you have just got enough feedback to have your rank measured.", get("feedbacks_head"));
 		}
+		
+		this.checkWin();
 	}
 	
 	update()
