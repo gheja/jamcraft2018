@@ -205,13 +205,13 @@ td
 	left: 512px;
 	top: 0px;
 	width: 500px;
-	height: 120px;
+	height: 140px;
 }
 
 #box_plates
 {
 	left: 512px;
-	top: 128px;
+	top: 148px;
 	width: 500px;
 	height: 80px;
 }
@@ -219,7 +219,7 @@ td
 #box_cauldron
 {
 	left: 512px;
-	top: 216px;
+	top: 236px;
 	width: 500px;
 	height: 180px;
 }
@@ -227,16 +227,16 @@ td
 #box_description
 {
 	left: 512px;
-	top: 404px;
+	top: 424px;
 	width: 680px;
-	height: 142px;
+	height: 122px;
 }
 
 #box_messages
 {
 	left: 512px;
 	top: 554px;
-	width: 696px;
+	width: 680px;
 	height: 40px;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -265,7 +265,7 @@ td
 	left: 1024px;
 	top: 0px;
 	width: 168px;
-	height: 396px;
+	height: 416px;
 }
 
 
@@ -288,7 +288,7 @@ td
 
 #messages
 {
-	width: 470px;
+	width: 454px;
 }
 
 #gfx_cauldron
