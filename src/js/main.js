@@ -19,6 +19,8 @@ let names = [];
 let slots = [];
 let won = false;
 let gold = 0;
+let sells = 0;
+let ingredientUnlockOrder = [ "red", "orange", "brown" ];
 
 function round(x)
 {
@@ -90,6 +92,32 @@ function setSpeed(n)
 	}
 	
 	speed = n;
+}
+
+function bumpSellCount()
+{
+	let unlock, i;
+	
+	unlock = false;
+	
+	sells++;
+	
+	if (sells == 2 || sells % 5 == 0)
+	{
+		unlock = true;
+	}
+	
+	if (unlock)
+	{
+		for (i in ingredientUnlockOrder)
+		{
+			if (!itemClasses[i].unlocked)
+			{
+				unlockItem(i, true);
+				break;
+			}
+		}
+	}
 }
 
 function switchScreen()

@@ -460,6 +460,8 @@ class Customer
 		this.setWaitTime(1, 1);
 		this.tick();
 		
+		bumpSellCount();
+		
 		gold += this.need.price;
 		
 		logMessage("Gave potion to <b>" + this.name +"</b>, received <b>" + this.need.price + " gold</b>.", MESSAGE_NORMAL);

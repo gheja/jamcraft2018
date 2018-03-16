@@ -194,23 +194,25 @@ class Profile
 		if (count1 == 0)
 		{
 			this.rating1 = 0;
+			this.rank1 = 1000;
 		}
 		else
 		{
 			this.rating1 = total1 / count1;
+			this.rank1 = this.getRank(this.competitorRatings1, this.rating1);
 		}
 		
 		if (count2 == 0)
 		{
 			this.rating2 = 0;
+			this.rank2 = 1000;
 		}
 		else
 		{
 			this.rating2 = total2 / count2;
+			this.rank2 = this.getRank(this.competitorRatings2, this.rating2);
 		}
 		
-		this.rank1 = this.getRank(this.competitorRatings1, this.rating1);
-		this.rank2 = this.getRank(this.competitorRatings2, this.rating2);
 		
 		if (count1 < 5)
 		{
