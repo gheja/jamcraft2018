@@ -139,7 +139,7 @@ class Store
 				continue;
 			}
 			
-			stuffs.push({ name: i, chance: this.items[i] - 3 });
+			stuffs.push({ name: i, chance: this.items[i] });
 		}
 		
 		a = arrayPickChance(stuffs);
