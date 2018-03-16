@@ -24,6 +24,7 @@ class Slot
 		};
 		
 		this.dragging = false;
+		this.locked = false;
 		
 		for (k in params)
 		{
@@ -113,6 +114,11 @@ class Slot
 	
 	onMouseDown(e)
 	{
+		if (this.locked)
+		{
+			return;
+		}
+		
 		this.dragging = true;
 		this.highlightAllSlotsInDragGroup();
 		this.onMouseMove(e);
@@ -139,6 +145,11 @@ class Slot
 	onMouseUp(e)
 	{
 		let obj;
+		
+		if (this.locked)
+		{
+			return;
+		}
 		
 		this.dragging = false;
 		this.unhighlightAllSlots();
