@@ -42,6 +42,7 @@ class Customer
 			button_answer: null,
 			button_accept: null,
 			button_decline: null,
+			button_give: null,
 			button_dismiss: null
 		};
 		
@@ -199,6 +200,14 @@ class Customer
 		b.dataset.tooltip = "Decline this order.";
 		b.onclick = this.declineOrder.bind(this);
 		this.dom.button_decline = b;
+		c.appendChild(b);
+		
+		b = document.createElement("button");
+		b.innerHTML = "give";
+		b.className = "button_give";
+		b.dataset.tooltip = "Give the potion to the customer.";
+		b.onclick = this.givePotion.bind(this);
+		this.dom.button_give = b;
 		c.appendChild(b);
 		
 		b = document.createElement("button");
@@ -421,6 +430,11 @@ class Customer
 		this.orderAccepted = false;
 		this.setWaitTime(1, 1);
 		this.tick();
+	}
+	
+	givePotion()
+	{
+		//
 	}
 	
 	dismiss()
