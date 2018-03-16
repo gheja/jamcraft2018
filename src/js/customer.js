@@ -50,6 +50,7 @@ class Customer
 		
 		this.need = {
 			effect: null,
+			price: null,
 			subject: null,
 			effectTexts: null,
 			pronouns: null,
@@ -294,7 +295,7 @@ class Customer
 	
 	setupNeed()
 	{
-		let unlockedEffects, i, item;
+		let unlockedEffects, i, item, a;
 		
 		unlockedEffects = [];
 		
@@ -306,7 +307,7 @@ class Customer
 			{
 				if (item.unlocked && item.effect != "none")
 				{
-					unlockedEffects.push(item.effect);
+					unlockedEffects.push({ "effect": item.effect, "potionPrice" : item.potionPrice });
 				}
 			}
 		}
@@ -317,9 +318,10 @@ class Customer
 			return;
 		}
 		
-		console.log(unlockedEffects);
+		a = arrayPick(unlockedEffects);
 		
-		this.need.effect = arrayPick(unlockedEffects);
+		this.need.effect = a.effect;
+		this.need.price = Math.round(a.potionPrice * (1 + Math.random() * 0.2 - 0.1)); // +/- 20% random
 		this.need.effectTexts = arrayPick(this.texts["effect_" + this.need.effect]);
 		this.need.subject = arrayPick(this.subjectVariations);
 		
@@ -457,6 +459,10 @@ class Customer
 		this.updateButtons();
 		this.setWaitTime(1, 1);
 		this.tick();
+		
+		gold += this.need.price;
+		
+		logMessage("Gave potion to <b>" + this.name +"</b>, received <b>" + this.need.price + " gold</b>.", MESSAGE_NORMAL);
 	}
 	
 	dismiss()
@@ -559,7 +565,7 @@ class Customer
 						this.state = CUSTOMER_STATE_ASKING;
 						this.setText(this.describeNeed());
 						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
-						this.dom.name.innerHTML += " (" + this.need.effect + ")";
+						this.dom.name.innerHTML += " (" + this.need.effect + ", " + this.need.price + " gold)";
 						this.setWaitTime(300, 300);
 						
 						if (_firstAccept)
