@@ -477,7 +477,7 @@ class Customer
 	{
 		let s
 		
-		s = this.reactToPotion(this.potion[0], this.potion[1]);
+		s = this.reactToPotion(this.potion.quality, this.potion.effect);
 		
 		this.mood += (s.rating - 3) / 10;
 		
@@ -500,6 +500,7 @@ class Customer
 		this.dom.button_accept.disabled = (this.state != CUSTOMER_STATE_ASKING);
 		this.dom.button_decline.disabled = (this.state != CUSTOMER_STATE_ASKING);
 		this.dom.button_give.disabled = (
+			this.potion != null ||
 			this.slot == null ||
 			this.slot.content == null ||
 			(this.state != CUSTOMER_STATE_ASKING && this.state != CUSTOMER_STATE_BACK)
