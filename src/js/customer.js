@@ -423,7 +423,7 @@ class Customer
 	setupNextVisit()
 	{
 		this.state = CUSTOMER_STATE_AWAY;
-		this.setWaitTime(30, 200);
+		this.setWaitTime(50, 500);
 		this.ringAnswered = false;
 		this.orderAccepted = false;
 		this.potion = null;
