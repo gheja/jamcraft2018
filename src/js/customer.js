@@ -479,6 +479,22 @@ class Customer
 		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept);
 	}
 	
+	updateButtons()
+	{
+		this.dom.button_answer.disabled = (this.state != CUSTOMER_STATE_RINGING);
+		this.dom.button_accept.disabled = (this.state != CUSTOMER_STATE_ASKING);
+		this.dom.button_decline.disabled = (this.state != CUSTOMER_STATE_ASKING);
+		this.dom.button_give.disabled = (
+			this.potion == null ||
+			(this.state != CUSTOMER_STATE_ASKING && this.state != CUSTOMER_STATE_BACK)
+		);
+		this.dom.button_dismiss.disabled = (
+			this.state != CUSTOMER_STATE_STOPPED &&
+			this.state != CUSTOMER_STATE_RESET &&
+			this.state != CUSTOMER_STATE_USING
+		);
+	}
+	
 	tick()
 	{
 		let a;
@@ -650,14 +666,7 @@ class Customer
 				break;
 			}
 			
-			this.dom.button_answer.disabled = (this.state != CUSTOMER_STATE_RINGING);
-			this.dom.button_accept.disabled = (this.state != CUSTOMER_STATE_ASKING);
-			this.dom.button_decline.disabled = (this.state != CUSTOMER_STATE_ASKING);
-			this.dom.button_dismiss.disabled = (
-				this.state != CUSTOMER_STATE_STOPPED &&
-				this.state != CUSTOMER_STATE_RESET &&
-				this.state != CUSTOMER_STATE_USING
-			);
+			this.updateButtons();
 		}
 	}
 }
