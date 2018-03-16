@@ -13,6 +13,7 @@ class Slot
 		this.className = "";
 		this.dragGroup = 0;
 		
+		this.parent = null;
 		this.content = null;
 		this.contentClassName = "";
 		
@@ -73,6 +74,7 @@ class Slot
 	{
 		this.dom.content.style.left = this.dom.slot.style.left;
 		this.dom.content.style.top = this.dom.slot.style.top;
+		this.update();
 	}
 	
 	highlightAllSlotsInDragGroup()
@@ -105,6 +107,9 @@ class Slot
 		this.onMouseMove(e);
 		this.dom.content.style.zIndex = 5200;
 		
+		// move it to body temporarily - otherwise "overflow: hidden" would cut it
+		setDomParent(this.dom.content, document.body);
+		
 		if (e.stopPropagation)
 		{
 			e.stopPropagation();
@@ -129,7 +134,6 @@ class Slot
 		this.dom.content.style.zIndex = "";
 		
 		obj = this.getSlotBelow();
-		console.log(obj);
 		
 		if (obj != null)
 		{
@@ -165,11 +169,11 @@ class Slot
 			return;
 		}
 		
-		pos = get("container").getBoundingClientRect();
+		// object is now relative to body
 		
 		// TODO: dynamic width
-		this.dom.content.style.left = (e.pageX - pos.x - 16) + "px";
-		this.dom.content.style.top = (e.pageY - pos.y - 16) + "px";
+		this.dom.content.style.left = (e.pageX - 16) + "px";
+		this.dom.content.style.top = (e.pageY - 16) + "px";
 	}
 	
 	setup()
@@ -184,7 +188,7 @@ class Slot
 		a.style.width = this.width + "px";
 		a.style.height = this.height + "px";
 		this.dom.slot = a;
-		obj.appendChild(a);
+		this.parent.appendChild(a);
 		
 		a = createDomElement("div", this.contentClassName);
 		a.style.left = this.x + "px";
@@ -194,7 +198,7 @@ class Slot
 		a.addEventListener("mousedown", this.onMouseDown.bind(this));
 		a.addEventListener("mouseup", this.onMouseUp.bind(this));
 		this.dom.content = a;
-		obj.appendChild(a);
+		this.parent.appendChild(a);
 		
 		document.body.addEventListener("mousemove", this.onMouseMove.bind(this));
 	}
@@ -202,6 +206,11 @@ class Slot
 	update()
 	{
 		this.dom.content.className = this.contentClassName;
+		
+		if (this.dom.content.parentNode != this.parent)
+		{
+			setDomParent(this.dom.content, this.parent);
+		}
 		
 		if (this.content == null)
 		{
