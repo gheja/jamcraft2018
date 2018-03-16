@@ -68,7 +68,7 @@ class Cauldron
 	
 	storePotion()
 	{
-		let i, tmp;
+		let i, tmp, slot;
 		
 		if (this.temperature > 50)
 		{
@@ -76,13 +76,36 @@ class Cauldron
 		}
 		else
 		{
-			tmp = new ItemGlass;
-			this.store.moveAllItems(tmp.store);
+			slot = null;
 			
-			inventory.store.objects.push(tmp);
+			for (i in slots)
+			{
+				if (slots[i].content == null || slots[i].contentClassName != "item_glass_empty" || !slots[i].cauldronTarget)
+				{
+					continue;
+				}
+				
+				slot = slots[i];
+				break;
+			}
 			
-			console.log(tmp.store.describePotionQuality());
-			console.log(tmp.store.describePotionEffect());
+			if (slot == null)
+			{
+				logMessage("No more empty glasses left.", MESSAGE_FAIL);
+				return;
+			}
+			
+			slot.contents = {
+				"quality": this.store.getPotionQuality(),
+				"effect": this.store.getPotionEffect(),
+				"color": this.store.getPotionColor(),
+				"text": this.store.getPotionText()
+			};
+			
+			slot.dom.content.style.backgroundColor = slot.contents.color;
+			slot.contentTooltip = slot.contents.text;
+			slot.contentClassName = "item_glass_full";
+			slot.update();
 			
 			logMessage("Potion stored.", MESSAGE_NORMAL);
 		}

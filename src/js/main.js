@@ -717,8 +717,6 @@ function init()
 	
 	setSpeed(1);
 	
-	registerAllTooltips();
-	
 	a = get("box_glasses")
 	
 	for (i=0; i<20; i++)
@@ -729,13 +727,17 @@ function init()
 			className: "slot",
 			dragGroup: 2,
 			parent: a,
+			cauldronTarget: true,
 			
-			content: { "purity": "pure", "effect": "nothing" },
-			contentClassName: "item_glass_empty"
+			content: { "quality": "pure", "effect": "nothing", "color": "#ffffff" },
+			contentClassName: "item_glass_empty",
+			contentTooltip: "An empty bottle.<br/><br/>Brew potions in the cauldron and then put it in one of the bottles with <b>done</b>."
 		}));
 	}
 	
 	window.setInterval(tick, 50);
+	
+	registerAllTooltips();
 }
 
 window.onload = init;
