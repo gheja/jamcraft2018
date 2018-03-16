@@ -297,7 +297,8 @@ function tick()
 		}
 		
 		// console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
-		setText('time', toTime(tickCount, true));
+		setText("time", toTime(tickCount, true));
+		setText("gold", "<b>" + gold + " gold</b>");
 		
 		updateDisplay();
 		
