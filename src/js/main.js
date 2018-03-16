@@ -84,7 +84,7 @@ function setSpeed(n)
 {
 	let i;
 	
-	for (i=0; i<5; i++)
+	for (i=0; i<4; i++)
 	{
 		get("button_speed_" + i).disabled = (i == n);
 	}
