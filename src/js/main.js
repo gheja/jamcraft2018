@@ -16,6 +16,7 @@ let nextScreen = "";
 let profile = null;
 let helper = null;
 let names = [];
+let slots = [];
 
 function round(x)
 {
@@ -717,6 +718,16 @@ function init()
 	setSpeed(1);
 	
 	registerAllTooltips();
+	
+	for (i=0; i<20; i++)
+	{
+		slots.push(new Slot({
+			x: 1032 + ((i % 4) * 42),
+			y: 10 + (Math.floor(i / 4) * 42),
+			className: "slot",
+			dragGroup: 2,
+		}));
+	}
 	
 	window.setInterval(tick, 50);
 }
