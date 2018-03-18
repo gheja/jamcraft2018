@@ -292,5 +292,6 @@ function mixColors(arr)
 
 function hslaArrayToString(color)
 {
-	return "hsla(" + color.h + ", " + color.s + "%, " + color.l + "%, " + color.a + ")";
+	// lightness is actually value in the arrays, 100% value == 50% lightness
+	return "hsla(" + color.h + ", " + color.s + "%, " + (color.l / 2) + "%, " + color.a + ")";
 }
