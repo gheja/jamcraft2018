@@ -117,6 +117,9 @@ function bumpSellCount()
 				break;
 			}
 		}
+		
+		// increase concurrent customer limit
+		profile.maxActiveCustomers++;
 	}
 }
 
