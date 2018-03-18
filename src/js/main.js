@@ -258,6 +258,7 @@ function updateDisplay()
 	
 	get("cauldron_fire").style.display = ((cauldron.temperatureTarget > 20 && cauldron.status != CAULDRON_REMOVED) ? "block" : "none");
 	get("cauldron_main").style.display = (cauldron.status != CAULDRON_REMOVED ? "block" : "none");
+	get("cauldron_top").style.display = get("cauldron_main").style.display;
 }
 
 function tick()
