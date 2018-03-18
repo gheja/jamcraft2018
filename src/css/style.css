@@ -28,12 +28,17 @@ b, strong
 	color: #fff;
 }
 
+p
+{
+	margin: 0 0 8px 0;
+}
+
 hr
 {
-	margin: 0.5em 0;
+	margin: 1em auto;
 	padding: 0;
-	width: 100%;
-	border-top: 0.25em solid #403535;
+	width: 70%;
+	border-top: 1px solid rgba(0,0,0,0.5);
 	border-right: 0;
 	border-bottom: 0;
 	border-left: 0;
@@ -286,6 +291,13 @@ td
 	color: #996622;
 	display: none;
 }
+
+#box_codex b,
+#box_codex strong
+{
+	color: #221100;
+}
+
 
 #box_nothing
 {
