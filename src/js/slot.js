@@ -255,6 +255,11 @@ class Slot
 		}
 		else
 		{
+			if (this.content.color)
+			{
+				this.dom.content.style.backgroundColor = hslaArrayToString(this.content.color);
+			}
+			
 			this.dom.content.style.display = "block";
 			this.dom.content.dataset.tooltip = this.contentTooltip;
 		}

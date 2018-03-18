@@ -108,6 +108,7 @@ class Cauldron
 				"text": this.store.getPotionText()
 			};
 			
+			slot.content.color = this.store.color;
 			slot.dom.content.style.backgroundColor = slot.content.color;
 			slot.contentTooltip = slot.content.text;
 			slot.contentClassName = "item_glass_full";
