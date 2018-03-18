@@ -573,6 +573,7 @@ td
 	position: fixed;
 	top: 0;
 	right: 0;
+	display: none;
 }
 
 @keyframes crossfade
