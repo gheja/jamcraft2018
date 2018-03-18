@@ -31,6 +31,7 @@ class Cauldron
 		this.status = CAULDRON_READY;
 		this.cookTime = 0;
 		this.temperature = 20;
+		this.store.createItem("air", 1);
 	}
 	
 	stop()
@@ -189,6 +190,9 @@ class Cauldron
 		}
 		
 		this.store.round();
+		
+		this.store.update();
+		this.dom.top.style.backgroundColor = hslaArrayToString(this.store.color);
 		
 		currentDescription += status;
 	}

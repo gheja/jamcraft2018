@@ -496,7 +496,7 @@ function init()
 	itemClasses["air"] = new Substance({
 		name: "air",
 		title: "air",
-		color: "#ffffff",
+		color: { h: 0, s: 0, l: 100, a: 0.4 },
 		description: "",
 		evaporateTemperature: 0,
 		hidden: true
@@ -505,7 +505,7 @@ function init()
 	itemClasses["red"] = new Substance({
 		name: "red",
 		title: "red",
-		color: "#ee3300",
+		color: { h: 0, s: 92, l: 92, a: 1 },
 		description: "",
 		effect: "health",
 		potionPrice: 20,
@@ -517,7 +517,7 @@ function init()
 	itemClasses["yellow"] = new Substance({
 		name: "yellow",
 		title: "yellow",
-		color: "#ffee33",
+		color: { h: 60, s: 100, l: 100, a: 1 },
 		description: "",
 		effect: "nothing",
 		potionPrice: 20,
@@ -529,7 +529,7 @@ function init()
 	itemClasses["orange"] = new Substance({
 		name: "orange",
 		title: "orange",
-		color: "#ffbb00",
+		color: { h: 29, s: 92, l: 92, a: 1 },
 		description: "",
 		effect: "love",
 		potionPrice: 40,

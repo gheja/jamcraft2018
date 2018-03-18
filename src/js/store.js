@@ -8,6 +8,7 @@ class Store
 		
 		this.items = [];
 		this.objects = [];
+		this.color = { h: 0, s: 0, l: 0, a: 0 };
 		
 		for (i in itemClasses)
 		{
@@ -63,6 +64,25 @@ class Store
 		{
 			this.items[i] = parseFloat(round(this.items[i]));
 		}
+	}
+	
+	update()
+	{
+		let i, amount, arr;
+		
+		arr = [];
+		
+		for (i in this.items)
+		{
+			amount = this.items[i];
+			
+			if (amount > 0 && itemClasses[i] instanceof Substance)
+			{
+				arr.push({ color: itemClasses[i].color, amount: amount });
+			}
+		}
+		
+		this.color = mixColors(arr);
 	}
 	
 	clear()
