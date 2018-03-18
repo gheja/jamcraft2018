@@ -250,3 +250,47 @@ function arrayRemove(arr, item)
 		}
 	}
 }
+
+function mixColors(arr)
+{
+	let i, h, s, l, a, item, total, total2;
+	
+	h = 0;
+	s = 0;
+	l = 0;
+	a = 0;
+	total = 0;
+	total2 = 0;
+	
+	for (i in arr)
+	{
+		item = arr[i];
+		
+		if (item.color.s != 0)
+		{
+			h += item.color.h * item.amount;
+			total2 += item.amount;
+		}
+		s += item.color.s * item.amount;
+		l += item.color.l * item.amount;
+		a += item.color.a * item.amount;
+		
+		total += item.amount;
+	}
+	
+	// avoid division by zero
+	total = Math.max(total, 1);
+	total2 = Math.max(total2, 1);
+	
+	h = h / total2;
+	s = s / total;
+	l = l / total;
+	a = a / total;
+	
+	return { h: h, s: s, l: l, a: a };
+}
+
+function hslaArrayToString(color)
+{
+	return "hsla(" + color.h + ", " + color.s + "%, " + color.l + "%, " + color.a + ")";
+}
