@@ -128,7 +128,7 @@ class Ingredient extends Item
 			tooltip = "You have no <b>" + this.title + "</b> left.";
 		}
 		
-		tooltip += "<br/><br/>" + this.assembledDescription + "<br/><br/>Click for more info.";
+		tooltip += "<br/><br/>" + this.assembledDescription + "<br/><br/>Check the <b>Codex</b> for more info.";
 		
 		this.dom.counter.dataset.tooltip = tooltip;
 		this.dom.picture.dataset.tooltip = tooltip;
