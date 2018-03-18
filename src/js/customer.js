@@ -322,7 +322,7 @@ class Customer
 		
 		this.need.effect = a.effect;
 		this.need.price = Math.round(a.potionPrice * (1 + Math.random() * 0.2 - 0.1)); // +/- 20% random
-		this.need.effectTexts = arrayPick(this.texts["effect_" + this.need.effect]);
+		this.need.effectTexts = arrayGetPick(this.texts, "effect_" + this.need.effect);
 		this.need.subject = arrayPick(this.subjectVariations);
 		
 		this.need.pronouns = {
@@ -330,10 +330,10 @@ class Customer
 			"her": this.need.subject.her,
 			"subject1": this.need.subject.subject1,
 			"subject2": (chance(0.5) ? this.need.subject.subject2 : this.need.subject.she),
-			"suddenly": arrayPick(this.texts["suddenly"])
+			"suddenly": arrayGetPick(this.texts, "suddenly")
 		};
 		
-		this.need.text = this.replacePlaceholders(arrayPick(this.texts["need"]) + " " + this.need.effectTexts[0] + ".");
+		this.need.text = this.replacePlaceholders(arrayGetPick(this.texts, "need") + " " + this.need.effectTexts[0] + ".");
 		
 		this.dismissed = false;
 	}
@@ -347,7 +347,7 @@ class Customer
 	{
 		let feedback, r, r2, a, rating;
 		
-		feedback = arrayPick(this.texts["rating_needed"]) + " " + this.need.effectTexts[0] + " ";
+		feedback = arrayGetPick(this.texts, "rating_needed") + " " + this.need.effectTexts[0] + " ";
 		
 		rating = 3 + (this.mood - 0.5) * 2;
 		
@@ -358,7 +358,7 @@ class Customer
 			
 			if (chance(0.5))
 			{
-				feedback += arrayPick(this.texts["rating_success"]);
+				feedback += arrayGetPick(this.texts, "rating_success");
 				
 				if (chance(0.5))
 				{
@@ -373,7 +373,7 @@ class Customer
 				
 				if (chance(0.5))
 				{
-					feedback += ", " + arrayPick(this.texts["rating_success"]);
+					feedback += ", " + arrayGetPick(this.texts, "rating_success");
 				}
 				
 				feedback += arrayPick([ ".", "!" ]);
@@ -381,7 +381,7 @@ class Customer
 			
 			if (chance(0.5))
 			{
-				feedback += " " + arrayPick(this.texts["rating_thanks"]) + arrayPick([ ".", "!" ]);
+				feedback += " " + arrayGetPick(this.texts, "rating_thanks") + arrayPick([ ".", "!" ]);
 				rating += 1;
 			}
 			
@@ -390,11 +390,11 @@ class Customer
 		// failure
 		else
 		{
-			a = arrayPick(this.texts["effect_" + effect]);
+			a = arrayGetPick(this.texts, "effect_" + effect);
 			
 			rating -= (1 + Math.random() * 1);
 			
-			feedback += " " + arrayPick(this.texts["rating_fail"]) + " " + a[2];
+			feedback += " " + arrayGetPick(this.texts, "rating_fail") + " " + a[2];
 			
 			if (chance(0.5))
 			{
@@ -402,7 +402,7 @@ class Customer
 			}
 			else
 			{
-				feedback += ". " + arrayPick(this.texts["rating_never_again"]) + ".";
+				feedback += ". " + arrayGetPick(this.texts, "rating_never_again") + ".";
 			}
 		}
 		
