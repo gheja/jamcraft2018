@@ -111,7 +111,10 @@ class Customer
 			],
 			
 			"effect_health": [
-				[ "have <subject1> feel better", "<subject2> feels much better", "<suddenly> <subject2> became energetic" ],
+				[ "have <subject1> feel better", "<subject2> feels much better", "<suddenly> <subject2> became healthier" ]
+			],
+			"effect_rest": [
+				[ "have <subject1> feel rested", "<subject2> feels much better", "<suddenly> <subject2> feels rested" ],
 				[ "have <subject1> feel relaxed", "<subject2> is so relaxed", "<subject2> now feels relaxed" ],
 			],
 			"effect_love": [
