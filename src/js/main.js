@@ -144,14 +144,14 @@ function switchScreen()
 		"box_codex",
 		"box_glasses",
 		"box_nothing",
-		"box_intro"
+		"box_intro",
+		"box_feedbacks",
+		"box_messages"
 	], "none");
 	
 	setDisplay([
 		"box_time",
 		"box_navigation",
-		"box_feedbacks",
-		"box_messages"
 	], "block");
 	
 	switch (nextScreen)
@@ -162,7 +162,9 @@ function switchScreen()
 				"box_cauldron",
 				"box_ingredients",
 				"box_description",
-				"box_glasses"
+				"box_glasses",
+				"box_feedbacks",
+				"box_messages"
 			], "block");
 		break;
 		
