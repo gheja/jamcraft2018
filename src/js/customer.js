@@ -555,7 +555,7 @@ class Customer
 					
 					for (i in customers)
 					{
-						if (customers[i].state != CUSTOMER_STATE_AWAY && customers[i].state != CUSTOMER_STATE_STOPPED)
+						if (customers[i].state != CUSTOMER_STATE_AWAY)
 						{
 							activeCount++;
 						}
