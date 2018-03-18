@@ -554,7 +554,6 @@ function init()
 	itemClasses["rosepetal"] = new Ingredient({
 		name: "rosepetal",
 		title: "Rose Petal",
-		icon: "rosepetal.png",
 		unit: "tbsp",
 		dissolveTemperature: 30,
 		dissolveSpeed: 0.2, // units per minute
@@ -566,7 +565,6 @@ function init()
 	itemClasses["appleseed"] = new Ingredient({
 		name: "appleseed",
 		title: "Apple Seed",
-		icon: "appleseed.png",
 		unit: "tbsp",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -578,7 +576,6 @@ function init()
 	itemClasses["batwings"] = new Ingredient({
 		name: "batwings",
 		title: "Bat wings",
-		icon: "appleseed.png",
 		unit: "pair",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -590,7 +587,6 @@ function init()
 	itemClasses["cactusspines"] = new Ingredient({
 		name: "cactusspines",
 		title: "Cactus spines",
-		icon: "appleseed.png",
 		unit: "tsp",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -602,7 +598,6 @@ function init()
 	itemClasses["cricket"] = new Ingredient({
 		name: "cricket",
 		title: "Cricket",
-		icon: "appleseed.png",
 		unit: "pcs",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -614,7 +609,6 @@ function init()
 	itemClasses["driedbeetle"] = new Ingredient({
 		name: "driedbeetle",
 		title: "Dried beetle",
-		icon: "appleseed.png",
 		unit: "pcs",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -626,7 +620,6 @@ function init()
 	itemClasses["jasminebud"] = new Ingredient({
 		name: "jasminebud",
 		title: "Jasmine bud",
-		icon: "appleseed.png",
 		unit: "tbsp",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -638,7 +631,6 @@ function init()
 	itemClasses["komodoscale"] = new Ingredient({
 		name: "komodoscale",
 		title: "Komodo scale",
-		icon: "appleseed.png",
 		unit: "pcs",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -650,7 +642,6 @@ function init()
 	itemClasses["lavender"] = new Ingredient({
 		name: "lavender",
 		title: "Lavender",
-		icon: "appleseed.png",
 		unit: "tsp",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -662,7 +653,6 @@ function init()
 	itemClasses["mustardseed"] = new Ingredient({
 		name: "mustardseed",
 		title: "Mustard seed",
-		icon: "appleseed.png",
 		unit: "tsp",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -674,7 +664,6 @@ function init()
 	itemClasses["pinecone"] = new Ingredient({
 		name: "pinecone",
 		title: "Pine cone",
-		icon: "appleseed.png",
 		unit: "pcs",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -686,7 +675,6 @@ function init()
 	itemClasses["rosethorn"] = new Ingredient({
 		name: "rosethorn",
 		title: "Rose thorns",
-		icon: "appleseed.png",
 		unit: "pcs",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -698,7 +686,6 @@ function init()
 	itemClasses["seashell"] = new Ingredient({
 		name: "seashell",
 		title: "Sea shell",
-		icon: "appleseed.png",
 		unit: "tsp",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -710,7 +697,6 @@ function init()
 	itemClasses["snakeskin"] = new Ingredient({
 		name: "snakeskin",
 		title: "Snake skin",
-		icon: "appleseed.png",
 		unit: "pcs",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
@@ -722,7 +708,6 @@ function init()
 	itemClasses["wingofladybug"] = new Ingredient({
 		name: "wingofladybug",
 		title: "Wing of ladybug",
-		icon: "appleseed.png",
 		unit: "pair",
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
