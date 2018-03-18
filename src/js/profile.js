@@ -52,7 +52,7 @@ class Profile
 		
 		won = true;
 		
-		helper.showAtObject("Congratulations! You are now in the Top 10! <span class=\"dim\">You can keep playing if you'd like to.</span>", get("feedbacks_head"));
+		helper.showAtObject("Congratulations, you are in the Top 10! Keep your rank up until the event.", get("feedbacks_head"));
 	}
 	
 	setup()
