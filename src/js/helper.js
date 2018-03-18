@@ -59,7 +59,7 @@ class Helper
 		obj.className = "helper";
 		obj.style.top = Math.round(y - 80) + "px";
 		obj.style.left = Math.round(x) + "px";
-		obj.innerHTML = s + "<span class=\"dim\"> | Click to close.</span>";
+		obj.innerHTML = s + "<span class=\"dim\"> Click to close.</span>";
 		
 		obj.addEventListener("click", this.hide.bind(this));
 		
