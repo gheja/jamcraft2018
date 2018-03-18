@@ -50,18 +50,16 @@ class Ingredient extends Item
 		this.update();
 	}
 	
-	addToPlate()
+	addToCauldron()
 	{
-		inventory.store.moveItem(currentPlate.store, this.name, 1);
+		if (cauldron.status == CAULDRON_REMOVED)
+		{
+			logMessage("No cauldron in use.", MESSAGE_FAIL);
+			return;
+		}
+		
+		inventory.store.moveItem(cauldron.store, this.name, 1);
 		this.update();
-		currentPlate.update();
-	}
-	
-	removeFromPlate()
-	{
-		currentPlate.store.moveItem(inventory.store, this.name, 1);
-		this.update();
-		currentPlate.update();
 	}
 	
 	setup()
@@ -90,16 +88,9 @@ class Ingredient extends Item
 		this.dom.buttonBuy = b;
 		a.appendChild(b);
 		
-		b = createDomElement("button", "ingredient_minus");
-		b.onclick = this.removeFromPlate.bind(this);
-		b.dataset.tooltip = "Remove 1 " + this.unit + " " + this.title + " from the selected plate.";
-		b.innerHTML = "&#9650;";
-		this.dom.buttonMinus = b;
-		a.appendChild(b);
-		
 		b = createDomElement("button", "ingredient_plus");
-		b.onclick = this.addToPlate.bind(this);
-		b.dataset.tooltip = "Put 1 " + this.unit + " " + this.title + " from the selected plate.";
+		b.onclick = this.addToCauldron.bind(this);
+		b.dataset.tooltip = "Put 1 " + this.unit + " " + this.title + " in the cauldron.";
 		b.innerHTML = "&#9660;";
 		this.dom.buttonPlus = b;
 		a.appendChild(b);
@@ -123,7 +114,6 @@ class Ingredient extends Item
 		let tooltip;
 		
 		this.dom.root.style.display = (this.unlocked ? "block" : "none");
-		this.dom.buttonMinus.disabled = !(currentPlate.store.items[this.name] > 0);
 		this.dom.buttonPlus.disabled = !(inventory.store.items[this.name] > 0);
 		this.dom.counter.innerHTML = inventory.store.items[this.name];
 		

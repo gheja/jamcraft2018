@@ -5,8 +5,6 @@ let tickSkipCount = 0;
 let itemClasses = [];
 let interactionClasses = [];
 let cauldron = null;
-let plates = [];
-let currentPlate = null;
 let inventory = null;
 let customers = [];
 let currentDescription = "";
@@ -138,7 +136,6 @@ function switchScreen()
 		"box_customers",
 		"box_cauldron",
 		"box_ingredients",
-		"box_plates",
 		"box_description",
 		"box_codex",
 		"box_glasses",
@@ -161,7 +158,6 @@ function switchScreen()
 				"box_cauldron",
 				"box_ingredients",
 				"box_description",
-				"box_plates",
 				"box_glasses"
 			], "block");
 		break;
@@ -225,16 +221,6 @@ function getContentsString(store)
 	}
 	
 	return s;
-}
-
-function updateDisplayPlates()
-{
-	let i;
-	
-	for (i=0; i<plates.length; i++)
-	{
-		plates[i].update();
-	}
 }
 
 function updateDisplay()
@@ -769,23 +755,6 @@ function init()
 		}
 	}
 	
-	
-	plates.push(new Plate);
-	plates.push(new Plate);
-	plates.push(new Plate);
-	
-	for (i in plates)
-	{
-		plates[i].setup();
-	}
-	
-	plates[0].select();
-	
-	for (i in plates)
-	{
-		plates[i].update();
-	}
-	
 	for (i in itemClasses)
 	{
 		if (itemClasses[i] instanceof Ingredient)
@@ -804,8 +773,6 @@ function init()
 	profile.setup();
 	profile.update();
 	unlockItem("red", false);
-	
-	updateDisplayPlates();
 	
 	setSpeed(0);
 	

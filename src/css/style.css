@@ -165,7 +165,6 @@ td
 #box_navigation,
 #box_time,
 #box_ingredients,
-#box_plates,
 #box_cauldron,
 #box_description,
 #box_messages,
@@ -216,20 +215,12 @@ td
 	height: 140px;
 }
 
-#box_plates
+#box_cauldron
 {
 	left: 512px;
 	top: 148px;
 	width: 500px;
-	height: 80px;
-}
-
-#box_cauldron
-{
-	left: 512px;
-	top: 236px;
-	width: 500px;
-	height: 180px;
+	height: 268px;
 }
 
 #box_description
@@ -888,27 +879,6 @@ td
 	filter: grayscale(100%);
 }
 
-
-.plate
-{
-	float: left;
-	width: 100px;
-	height: 100px;
-}
-
-.plate_picture
-{
-	margin: 0 auto 4px auto;
-	width: 32px;
-	height: 32px;
-	background: url(../images/gfx.png);
-	background-position: -32px -32px;
-}
-
-.plate_picture_empty
-{
-	background-position: 0px -32px;
-}
 
 .helper
 {
