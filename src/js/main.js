@@ -11,6 +11,7 @@ let currentDescription = "";
 let currentTooltip = "";
 let speed = 0;
 let nextScreen = "";
+let currentScreen = "intro";
 let profile = null;
 let helper = null;
 let names = [];
@@ -177,6 +178,8 @@ function switchScreen()
 			], "block");
 		break;
 	}
+	
+	currentScreen = nextScreen;
 }
 
 function goScreen(x)
@@ -260,7 +263,7 @@ function tick()
 	
 	switch (speed)
 	{
-		case 0:	// paused
+		case 0: // paused
 		
 		break;
 		
@@ -287,6 +290,12 @@ function tick()
 		case 4: // sleeping
 			skip = false;
 		break;
+	}
+	
+	// if player is not on the home screen then game should be paused
+	if (currentScreen != "home")
+	{
+		skip = true;
 	}
 	
 	if (!skip)
