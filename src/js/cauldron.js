@@ -74,30 +74,36 @@ class Cauldron
 	{
 		let i, tmp, slot;
 		
-		if (this.temperature > 50)
+		slot = null;
+		
+		for (i in slots)
 		{
-			logMessage("You tried to put the potion in a glass but it broke.", MESSAGE_FAIL);
+			if (slots[i].content == null || slots[i].contentClassName != "item_glass_empty" || !slots[i].cauldronTarget)
+			{
+				continue;
+			}
+			
+			slot = slots[i];
+			break;
+		}
+		
+		if (slot == null)
+		{
+			logMessage("No more empty glasses left.", MESSAGE_FAIL);
+			return;
+		}
+		
+		
+		if (this.temperature >= 60)
+		{
+			slot.contentClassName = "item_glass_broken";
+			slot.contentTooltip = "A broken bottle. Not useful anymore.";
+			slot.update();
+			
+			logMessage("You tried to put the hot potion in a bottle but it broke.", MESSAGE_FAIL);
 		}
 		else
 		{
-			slot = null;
-			
-			for (i in slots)
-			{
-				if (slots[i].content == null || slots[i].contentClassName != "item_glass_empty" || !slots[i].cauldronTarget)
-				{
-					continue;
-				}
-				
-				slot = slots[i];
-				break;
-			}
-			
-			if (slot == null)
-			{
-				logMessage("No more empty glasses left.", MESSAGE_FAIL);
-				return;
-			}
 			
 			this.store.finalize();
 			
