@@ -324,6 +324,15 @@ function tick()
 				currentDescription += "Press <b>Done</b> when your potion is ready.";
 			}
 		}
+		
+		// every 30 minutes
+		if (tickCount % 60 == 0)
+		{
+			if (restockBottle())
+			{
+				logMessage("You've got a new bottle.", MESSAGE_NORMAL);
+			}
+		}
 	}
 	
 	if (currentTooltip != "")
@@ -450,6 +459,35 @@ function unlockItem(name, announce)
 	// itemClasses[name].update;
 	updateUnlockedSubstances();
 	updateUnlockedIngredients(announce);
+}
+
+function restockBottle()
+{
+	let i, obj;
+	
+	obj = null;
+	
+	for (i in slots)
+	{
+		if (slots[i].content == null && slots[i].cauldronTarget)
+		{
+			obj = slots[i];
+			break;
+		}
+	}
+	
+	if (!obj)
+	{
+		return false;
+	}
+	
+	obj.content = { "quality": "pure", "effect": "nothing", "color": "#ffffff" };
+	obj.contentClassName = "item_glass_empty";
+	obj.contentTooltip = "An empty bottle.<br/><br/>Brew potions in the cauldron and then put it in one of the bottles with <b>done</b>.";
+	obj.snapPositionToSlot();
+	obj.update();
+	
+	return true;
 }
 
 function cleanTrash()
@@ -789,12 +827,13 @@ function init()
 			className: "slot",
 			dragGroup: 2,
 			parent: a,
-			cauldronTarget: true,
-			
-			content: { "quality": "pure", "effect": "nothing", "color": "#ffffff" },
-			contentClassName: "item_glass_empty",
-			contentTooltip: "An empty bottle.<br/><br/>Brew potions in the cauldron and then put it in one of the bottles with <b>done</b>."
+			cauldronTarget: true
 		}));
+	}
+	
+	for (i=0; i<INITIAL_BOTTLE_COUNT; i++)
+	{
+		restockBottle();
 	}
 	
 	slots.push(new Slot({
