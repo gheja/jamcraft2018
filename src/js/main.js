@@ -794,8 +794,9 @@ function init()
 		}
 	}
 	
-	inventory.store.createItem("rosepetal", 3);
-	inventory.store.createItem("appleseed", 5);
+	inventory.store.createItem("rosepetal", 10);
+	inventory.store.createItem("appleseed", 10);
+	inventory.store.createItem("jasminebud", 10);
 	
 	profile = new Profile;
 	helper = new Helper;
