@@ -8,8 +8,8 @@ class Profile
 		this.feedbacks = [];
 		this.rating1 = 0;
 		this.rating2 = 0;
-		this.rank1 = 0;
-		this.rank2 = 0;
+		this.rank1 = 1000;
+		this.rank2 = 1000;
 		
 		this.competitorRatings1 = [];
 		this.competitorRatings2 = [];
@@ -192,7 +192,7 @@ class Profile
 			}
 		}
 		
-		if (count1 == 0)
+		if (count1 < 5)
 		{
 			this.rating1 = 0;
 			this.rank1 = 1000;
@@ -203,7 +203,7 @@ class Profile
 			this.rank1 = this.getRank(this.competitorRatings1, this.rating1);
 		}
 		
-		if (count2 == 0)
+		if (count2 < 5)
 		{
 			this.rating2 = 0;
 			this.rank2 = 1000;
