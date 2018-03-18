@@ -520,7 +520,7 @@ function init()
 		title: "yellow",
 		color: { h: 60, s: 100, l: 100, a: 1 },
 		description: "",
-		effect: "nothing",
+		effect: "rest",
 		potionPrice: 20,
 		interactionTemperatureMin: 60,
 		interactionTemperatureMax: 70,
@@ -539,16 +539,39 @@ function init()
 		evaporateTemperature: 300
 	});
 	
+	itemClasses["brown"] = new Substance({
+		name: "brown",
+		title: "brown",
+		color: { h: 29, s: 92, l: 92, a: 1 },
+		description: "",
+		effect: "nothing",
+		potionPrice: 0,
+		interactionTemperatureMin: 0,
+		interactionTemperatureMax: 0,
+		evaporateTemperature: 300
+	});
+	
+	itemClasses["placeholder"] = new Substance({
+		name: "placeholder",
+		title: "Placeholder substance",
+		color: { h: 29, s: 92, l: 92, a: 1 },
+		description: "",
+		effect: "nothing",
+		potionPrice: 0,
+		interactionTemperatureMin: 0,
+		interactionTemperatureMax: 0,
+		evaporateTemperature: 300
+	});
+	
 	interactionClasses.push(new Interaction({
 		inputSubstances: [
 			{ name: "red", ratio: 0.5 },
 			{ name: "yellow", ratio: 0.5 }
 		],
 		outputSubstances: [
-			{ name: "orange", ratio: 0.7 },
-			{ name: "air", ratio: 0.3 }
+			{ name: "orange", ratio: 1 },
 		],
-		speed: 0.1 // units per minute
+		speed: 0.5 // units per minute
 	}));
 	
 	itemClasses["rosepetal"] = new Ingredient({
@@ -556,9 +579,20 @@ function init()
 		title: "Rose Petal",
 		unit: "tbsp",
 		dissolveTemperature: 30,
-		dissolveSpeed: 0.2, // units per minute
+		dissolveSpeed: 0.5, // units per minute
 		substances: [
 			{ name: "red", amount: 1 }
+		]
+	});
+	
+	itemClasses["jasminebud"] = new Ingredient({
+		name: "jasminebud",
+		title: "Jasmine bud",
+		unit: "tbsp",
+		dissolveTemperature: 40,
+		dissolveSpeed: 0.5, // units per minute
+		substances: [
+			{ name: "yellow", amount: 1 }
 		]
 	});
 	
@@ -566,10 +600,10 @@ function init()
 		name: "appleseed",
 		title: "Apple Seed",
 		unit: "tbsp",
-		dissolveTemperature: 40,
-		dissolveSpeed: 0.1, // units per minute
+		dissolveTemperature: 50,
+		dissolveSpeed: 0.5, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "brown", amount: 1 }
 		]
 	});
 	
@@ -578,9 +612,9 @@ function init()
 		title: "Bat wings",
 		unit: "pair",
 		dissolveTemperature: 40,
-		dissolveSpeed: 0.1, // units per minute
+		dissolveSpeed: 0.5, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -591,7 +625,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -602,7 +636,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -613,18 +647,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
-		]
-	});
-	
-	itemClasses["jasminebud"] = new Ingredient({
-		name: "jasminebud",
-		title: "Jasmine bud",
-		unit: "tbsp",
-		dissolveTemperature: 40,
-		dissolveSpeed: 0.1, // units per minute
-		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -635,7 +658,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -646,7 +669,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -657,7 +680,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -668,7 +691,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -679,7 +702,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -690,7 +713,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -701,7 +724,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
@@ -712,7 +735,7 @@ function init()
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
-			{ name: "yellow", amount: 1 }
+			{ name: "placeholder", amount: 1 }
 		]
 	});
 	
