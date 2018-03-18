@@ -295,3 +295,21 @@ function hslaArrayToString(color)
 	// lightness is actually value in the arrays, 100% value == 50% lightness
 	return "hsla(" + color.h + ", " + color.s + "%, " + (color.l / 2) + "%, " + color.a + ")";
 }
+
+function arrayGet(arr, key)
+{
+	if (key in arr)
+	{
+		return arr[key];
+	}
+	else
+	{
+		console.log(arr);
+		throw Error("Cannot find key \"" + key + "\" in array (dumped to console).");
+	}
+}
+
+function arrayGetPick(arr, key)
+{
+	return arrayPick(arrayGet(arr, key));
+}
