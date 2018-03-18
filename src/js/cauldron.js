@@ -169,7 +169,7 @@ class Cauldron
 				continue;
 			}
 			
-			if (item instanceof Ingredient && this.temperature > item.dissolveTemperature)
+			if (item instanceof Ingredient && this.temperature >= item.dissolveTemperature)
 			{
 				a = item.dissolveSpeed * 0.5;
 				a = Math.min(a, count);
