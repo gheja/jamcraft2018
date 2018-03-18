@@ -335,7 +335,8 @@ td
 
 #cauldron_wood,
 #cauldron_main,
-#cauldron_fire
+#cauldron_fire,
+#cauldron_top
 {
 	position: absolute;
 	left: 0;
@@ -361,6 +362,16 @@ td
 {
 	background: url(../images/gfx.png);
 	background-position: -224px -64px;
+}
+
+#cauldron_top
+{
+	left: 16px;
+	top: 8px;
+	background: url(../images/gfx.png);
+	background-position: -352px -233px;
+	width: 48px;
+	height: 12px;
 }
 
 #cauldron_content

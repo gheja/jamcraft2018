@@ -14,6 +14,9 @@ class Cauldron
 		this.temperatureTarget = 20;
 		this.cookTime = 0;
 		this.status = CAULDRON_REMOVED;
+		this.dom = {
+			top: get("cauldron_top")
+		};
 		
 		this.store = new Store;
 	}
