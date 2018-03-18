@@ -504,6 +504,12 @@ class Customer
 	
 	updateButtons()
 	{
+		// when the customer is away there is no DOM
+		if (this.state == CUSTOMER_STATE_AWAY)
+		{
+			return;
+		}
+		
 		this.dom.button_answer.disabled = (this.state != CUSTOMER_STATE_RINGING);
 		this.dom.button_accept.disabled = (this.state != CUSTOMER_STATE_ASKING);
 		this.dom.button_decline.disabled = (this.state != CUSTOMER_STATE_ASKING);
@@ -522,7 +528,7 @@ class Customer
 	
 	tick()
 	{
-		let a;
+		let a, i, activeCount;
 		
 		this.waitTime--;
 		
@@ -545,6 +551,24 @@ class Customer
 			switch (this.state)
 			{
 				case CUSTOMER_STATE_AWAY:
+					activeCount = 0;
+					
+					for (i in customers)
+					{
+						if (customers[i].state != CUSTOMER_STATE_AWAY && customers[i].state != CUSTOMER_STATE_STOPPED)
+						{
+							activeCount++;
+						}
+					}
+					
+					// too many active customers at once
+					if (activeCount >= profile.maxActiveCustomers)
+					{
+						// get back later
+						this.setWaitTime(100, 100);
+						break;
+					}
+					
 					this.setupNeed();
 					this.createDom();
 					this.state = CUSTOMER_STATE_RINGING;

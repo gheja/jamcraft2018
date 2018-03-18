@@ -14,6 +14,7 @@ class Profile
 		this.competitorRatings1 = [];
 		this.competitorRatings2 = [];
 		this.noWitchFeedbacksYet = true;
+		this.maxActiveCustomers = 2;
 		
 		this.witchRatingsNeutral = [
 			"That was okay.",
