@@ -233,6 +233,8 @@ function getContentsString(store)
 
 function updateDisplay()
 {
+	let s;
+	
 	setText('temperature_target', cauldron.temperatureTarget + " &deg;C");
 	if (cauldron.status == CAULDRON_REMOVED)
 	{
@@ -248,7 +250,22 @@ function updateDisplay()
 	get("button_cauldron_prepare").disabled = (cauldron.status != CAULDRON_REMOVED);
 	get("button_cauldron_done").disabled = (cauldron.status == CAULDRON_REMOVED);
 	
-	setText("cauldron_content", getContentsString(cauldron.store));
+	if (cauldron.status == CAULDRON_REMOVED)
+	{
+		s = "No cauldron in use.";
+	}
+	else
+	{
+		// setText("cauldron_content", getContentsString(cauldron.store));
+		s = cauldron.store.getPotionText(true);
+		
+		if (cauldron.temperature >= 60)
+		{
+			s += "<br/><span class=\"warning\">Too hot to put in a glass.</span>";
+		}
+	}
+	
+	setText("cauldron_content", s);
 	
 	get("cauldron_fire").style.display = ((cauldron.temperatureTarget > 20 && cauldron.status != CAULDRON_REMOVED) ? "block" : "none");
 	get("cauldron_main").style.display = (cauldron.status != CAULDRON_REMOVED ? "block" : "none");
