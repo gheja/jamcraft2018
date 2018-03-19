@@ -150,19 +150,17 @@ class Cauldron
 			return;
 		}
 		
+		// TODO: this is too hackish
 		if (this.temperature < 40)
 		{
-			// this.dom.top.className = "cauldron_top_cold";
 			this.dom.top.style.backgroundPositionY = (-233) + "px";
 		}
 		else if (this.temperature < 80)
 		{
-			// this.dom.top.className = "cauldron_top_hot_frame" + (tickCount % 3);
 			this.dom.top.style.backgroundPositionY = (-233 - (1 + tickCount % 3) * 12) + "px";
 		}
 		else
 		{
-			// this.dom.top.className = "cauldron_top_boiling_frame" + (tickCount % 3);
 			this.dom.top.style.backgroundPositionY = (-233 - (4 + tickCount % 3) * 12) + "px";
 		}
 		
