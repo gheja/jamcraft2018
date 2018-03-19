@@ -143,7 +143,7 @@ function arrayShuffle(a)
 
 function chance(x)
 {
-	return Math.floor() < x;
+	return Math.random() < x;
 }
 
 function clamp(x, min, max)
