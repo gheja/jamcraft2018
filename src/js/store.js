@@ -187,28 +187,6 @@ class Store
 		s = "";
 		t = "";
 		
-		if (listContents)
-		{
-			s += "Contains:<br/>";
-			
-			for (i in this.items)
-			{
-				if (this.items[i] != 0 && !itemClasses[i].hidden)
-				{
-					empty = false;
-					s += "&nbsp;- " + round(this.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
-				}
-			}
-			
-			if (empty)
-			{
-				s += "&nbsp;- <b>pure water</b><br/>";
-			}
-			
-			s += "<br/>";
-		}
-		
-		
 		a = this.getPossiblePotionEffects();
 		
 		s += "Potion effect: ";
@@ -227,9 +205,26 @@ class Store
 			s = s.substring(0, s.length - 4) + "<br/>";
 		}
 		
-		s += "<br/>";
-		
 		s += "Potion quality: <b>" + this.getPotionQuality() + "</b><br/>";
+		
+		if (listContents)
+		{
+			s += "Contains:<br/>";
+			
+			for (i in this.items)
+			{
+				if (this.items[i] != 0 && !itemClasses[i].hidden)
+				{
+					empty = false;
+					s += "&nbsp;- " + round(this.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
+				}
+			}
+			
+			if (empty)
+			{
+				s += "&nbsp;- <b>pure water</b><br/>";
+			}
+		}
 		
 		return s;
 	}
