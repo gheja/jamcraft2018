@@ -129,7 +129,7 @@ class Store
 		return "garbage";
 	}
 	
-	getPotionEffect()
+	getPossiblePotionEffects()
 	{
 		let i, tops, max, result, stuffs, a;
 		
@@ -162,7 +162,14 @@ class Store
 			stuffs.push({ name: i, chance: this.items[i] });
 		}
 		
-		a = arrayPickChance(stuffs);
+		return stuffs;
+	}
+	
+	getPotionEffect()
+	{
+		let a;
+		
+		a = arrayPickChance(this.getPossiblePotionEffects());
 		
 		return itemClasses[a.name].effect;
 	}
@@ -172,31 +179,57 @@ class Store
 		return "#ff0000";
 	}
 	
-	getPotionText()
+	getPotionText(listContents)
 	{
-		let empty, s, i;
+		let empty, s, t, i, a;
 		
 		empty = true;
 		s = "";
+		t = "";
 		
-		for (i in this.items)
+		if (listContents)
 		{
-			if (this.items[i] != 0)
+			s += "Contains:<br/>";
+			
+			for (i in this.items)
 			{
-				empty = false;
-				s += "&nbsp;- " + round(this.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
+				if (this.items[i] != 0 && !itemClasses[i].hidden)
+				{
+					empty = false;
+					s += "&nbsp;- " + round(this.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
+				}
 			}
+			
+			if (empty)
+			{
+				s += "&nbsp;- <b>pure water</b><br/>";
+			}
+			
+			s += "<br/>";
 		}
 		
-		if (empty)
+		
+		a = this.getPossiblePotionEffects();
+		
+		s += "Potion effect: ";
+		
+		if (a == "nothing")
 		{
-			s = "Pure water.";
+			s += "<b>nothing</b><br/>";
 		}
 		else
 		{
-			s = "The potion contains<br/>" + s;
-			s += "<br/>Quality: " + this.getPotionQuality();
+			for (i in a)
+			{
+				s += "<b>" + itemClasses[a[i].name].effect + "</b> or ";
+			}
+			
+			s = s.substring(0, s.length - 4) + "<br/>";
 		}
+		
+		s += "<br/>";
+		
+		s += "Potion quality: <b>" + this.getPotionQuality() + "</b><br/>";
 		
 		return s;
 	}
