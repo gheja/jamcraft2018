@@ -99,7 +99,7 @@ class Profile
 			customerColor: customer.color,
 			customerPictureNumber: customer.profilePictureNumber,
 			effectWanted: customer.need.effect,
-			effectGot: customer.potion.effect,
+			effectGot: "nothing",
 			witchFeedbackEnabled: false,
 			witchRating: 0,
 			witchText: "",
@@ -109,9 +109,16 @@ class Profile
 			}
 		};
 		
-		if (this.feedbacks.length > 6)
+		// only fill the effect and allow witch to comment when the customer
+		// got a potion
+		if (customer.potion !== null)
 		{
-			arr.witchFeedbackEnabled = true;
+			arr.effectGot = customer.potion.effect;
+			
+			if (this.feedbacks.length > 6)
+			{
+				arr.witchFeedbackEnabled = true;
+			}
 		}
 		
 		a = document.createElement("div");
