@@ -2,6 +2,8 @@
 
 let _firstAnswer = true;
 let _firstAccept = true;
+let _missedCustomers = 0;
+let _failedOrders = 0;
 
 const CUSTOMER_STATE_AWAY = 0;
 const CUSTOMER_STATE_RINGING = 1;
@@ -131,6 +133,22 @@ class Customer
 				[ "", "", "nothing happened" ],
 				[ "", "", "no change whatsoever" ],
 				[ "", "", "the potion did nothing" ]
+			],
+			
+			"failed_to_deliver_1": [
+				"Asked for a potion and got nothing.",
+				"The witch failed to deliver."
+			],
+			"failed_to_deliver_2": [
+				"Total waste of money.",
+				"Will never order again.",
+				"I'm very disappointed.",
+				"Scam."
+			],
+			
+			"failed_to_answer": [
+				"Knocked on the door for 10 minutes, no answer.",
+				"Tried several times to reach the witch, no success."
 			]
 		};
 	}
@@ -434,6 +452,7 @@ class Customer
 	
 	answerRing()
 	{
+		_missedCustomers = 0;
 		this.ringAnswered = true;
 		this.setWaitTime(1, 1);
 		this.tick();
@@ -529,6 +548,55 @@ class Customer
 		);
 	}
 	
+	bumpMissedCustomers()
+	{
+		let s;
+		
+		s = {
+			text: "",
+			rating: 0
+		};
+		
+		_missedCustomers++;
+		
+		if (_missedCustomers > 3)
+		{
+			// 33% chance of leaving a negative feedback
+			if (Math.random() > 0.3)
+			{
+				s.text = arrayGetPick(this.texts, "failed_to_answer");
+				s.rating = Math.floor(1 + Math.round(Math.random() * 1));
+				
+				profile.receiveFeedback(s.rating, s.text, this);
+			}
+			
+		}
+		
+	}
+	
+	bumpFailedOrders()
+	{
+		let s;
+		
+		_failedOrders++;
+		
+		s = {
+			text: "",
+			rating: 0
+		};
+		
+		s.text = arrayGetPick(this.texts, "failed_to_deliver_1");
+		
+		if (chance(0.5))
+		{
+			s.text += " " + arrayGetPick(this.texts, "failed_to_deliver_2");
+		}
+		
+		s.rating = 1;
+		
+		profile.receiveFeedback(s.rating, s.text, this);
+	}
+	
 	tick()
 	{
 		let a, i, activeCount;
@@ -612,6 +680,7 @@ class Customer
 						this.mood -= 0.1;
 						this.setText("*$!#@!$");
 						this.setWaitTime(1, 1);
+						this.bumpMissedCustomers();
 					}
 				break;
 				
@@ -679,6 +748,7 @@ class Customer
 						this.state = CUSTOMER_STATE_SWEARING;
 						this.setText("*$!#@!$");
 						this.mood -= 0.2;
+						this.bumpFailedOrders();
 					}
 					this.setWaitTime(1, 1);
 				break;
