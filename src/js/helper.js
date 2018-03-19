@@ -72,7 +72,7 @@ class Helper
 	{
 		let position;
 		
-		position = obj.getBoundingClientRect();
+		position = positionFix(obj.getBoundingClientRect());
 		
 		this.showAtPosition(s, position.x + position.width / 2, position.y, direction);
 	}

@@ -44,7 +44,7 @@ class Slot
 	{
 		let i, pos1, pos2, x, y;
 		
-		pos1 = this.dom.content.getBoundingClientRect();
+		pos1 = positionFix(this.dom.content.getBoundingClientRect());
 		x = (pos1.x + pos1.width / 2);
 		y = (pos1.y + pos1.height / 2);
 		
@@ -58,7 +58,7 @@ class Slot
 					continue;
 				}
 				
-				pos2 = slots[i].dom.slot.getBoundingClientRect();
+				pos2 = positionFix(slots[i].dom.slot.getBoundingClientRect());
 				
 				if (x > pos2.x && x < pos2.x + pos2.width && y > pos2.y && y < pos2.y + pos2.width)
 				{

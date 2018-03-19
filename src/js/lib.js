@@ -313,3 +313,18 @@ function arrayGetPick(arr, key)
 {
 	return arrayPick(arrayGet(arr, key));
 }
+
+function positionFix(pos)
+{
+	if (pos.x === undefined)
+	{
+		pos.x = pos.left;
+	}
+	
+	if (pos.y === undefined)
+	{
+		pos.y = pos.top;
+	}
+	
+	return pos;
+}
