@@ -9,13 +9,13 @@ const CUSTOMER_STATE_AWAY = 0;
 const CUSTOMER_STATE_RINGING = 1;
 const CUSTOMER_STATE_SWEARING = 2;
 const CUSTOMER_STATE_ASKING = 3;
-const CUSTOMER_STATE_GOING = 4;
-const CUSTOMER_STATE_WAITING = 5;
+const CUSTOMER_STATE_GOING1 = 4;
+const CUSTOMER_STATE_WAITING1 = 5;
 const CUSTOMER_STATE_BACK = 6;
 const CUSTOMER_STATE_GOING2 = 7;
-const CUSTOMER_STATE_USING = 8;
-const CUSTOMER_STATE_RESET = 9;
-const CUSTOMER_STATE_STOPPED = 10;
+const CUSTOMER_STATE_WAITING2 = 8;
+const CUSTOMER_STATE_STOPPED = 9;
+const CUSTOMER_STATE_RESET = 10;
 
 class Customer
 {
@@ -544,7 +544,7 @@ class Customer
 		this.dom.button_dismiss.disabled = (
 			this.state != CUSTOMER_STATE_STOPPED &&
 			this.state != CUSTOMER_STATE_RESET &&
-			this.state != CUSTOMER_STATE_USING
+			this.state != CUSTOMER_STATE_WAITING2
 		);
 	}
 	
@@ -603,7 +603,7 @@ class Customer
 		
 		this.waitTime--;
 		
-		if (this.waitTimeTotal > 0 && (this.state == CUSTOMER_STATE_RINGING || this.state == CUSTOMER_STATE_ASKING || this.state == CUSTOMER_STATE_WAITING || this.state == CUSTOMER_STATE_BACK))
+		if (this.waitTimeTotal > 0 && (this.state == CUSTOMER_STATE_RINGING || this.state == CUSTOMER_STATE_ASKING || this.state == CUSTOMER_STATE_WAITING1 || this.state == CUSTOMER_STATE_BACK))
 		{
 			a = Math.floor((this.waitTime / this.waitTimeTotal) * 64);
 		}
@@ -697,12 +697,12 @@ class Customer
 					{
 						if (this.potion != null)
 						{
-							this.state = CUSTOMER_STATE_BACK;
+							this.state = CUSTOMER_STATE_GOING2;
 							this.setText("Thanks!");
 						}
 						else
 						{
-							this.state = CUSTOMER_STATE_GOING;
+							this.state = CUSTOMER_STATE_GOING1;
 							this.setText("Thanks, I'll be back.");
 						}
 					}
@@ -716,15 +716,15 @@ class Customer
 					this.setWaitTime(10, 10);
 				break;
 				
-				case CUSTOMER_STATE_GOING:
-					this.state = CUSTOMER_STATE_WAITING;
+				case CUSTOMER_STATE_GOING1:
+					this.state = CUSTOMER_STATE_WAITING1;
 					this.setText("*away*");
 					this.dom.image_front.dataset.tooltip = "Customer is away, will return for the completed order.";
 					this.setWaitTime(100, 100);
 					this.deactivatePicture();
 				break;
 				
-				case CUSTOMER_STATE_WAITING:
+				case CUSTOMER_STATE_WAITING1:
 					this.state = CUSTOMER_STATE_BACK;
 					this.setText("Hi, is he potion ready?");
 					this.dom.image_front.dataset.tooltip = "Customer is waiting for the completed order. Put it in the slot on the right.";
@@ -755,14 +755,14 @@ class Customer
 				
 				case CUSTOMER_STATE_GOING2:
 					this.deactivatePicture();
-					this.state = CUSTOMER_STATE_USING;
+					this.state = CUSTOMER_STATE_WAITING2;
 					this.setText("*away, will give feedback*");
 					this.dom.image_front.dataset.tooltip = "Customer went away. Should try your potion and leave a feedback soon.";
 					this.setWaitTime(30, 100);
 					this.dom.
 				break;
 				
-				case CUSTOMER_STATE_USING:
+				case CUSTOMER_STATE_WAITING2:
 					this.giveFeedback();
 					this.setText("*done*");
 					this.dom.image_front.dataset.tooltip = "Customer used the potion and left a feedback.";
