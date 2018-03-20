@@ -19,7 +19,7 @@ let slots = [];
 let won = false;
 let gold = 0;
 let sells = 0;
-let ingredientUnlockOrder = [ "red", "yellow", "brown" ];
+let ingredientUnlockOrder = [ "red", "brown", "yellow" ];
 
 function round(x)
 {
@@ -575,7 +575,7 @@ function init()
 		title: "yellow",
 		color: { h: 60, s: 100, l: 100, a: 1 },
 		description: "",
-		effect: "rest",
+		effect: "nothing",
 		potionPrice: 20,
 		interactionTemperatureMin: 60,
 		interactionTemperatureMax: 70,
@@ -599,7 +599,7 @@ function init()
 		title: "brown",
 		color: { h: 29, s: 92, l: 92, a: 1 },
 		description: "",
-		effect: "nothing",
+		effect: "rest",
 		potionPrice: 0,
 		interactionTemperatureMin: 0,
 		interactionTemperatureMax: 0,
@@ -640,17 +640,6 @@ function init()
 		]
 	});
 	
-	itemClasses["jasminebud"] = new Ingredient({
-		name: "jasminebud",
-		title: "Jasmine bud",
-		unit: "tbsp",
-		dissolveTemperature: 40,
-		dissolveSpeed: 0.5, // units per minute
-		substances: [
-			{ name: "yellow", amount: 1 }
-		]
-	});
-	
 	itemClasses["appleseed"] = new Ingredient({
 		name: "appleseed",
 		title: "Apple Seed",
@@ -659,6 +648,17 @@ function init()
 		dissolveSpeed: 0.5, // units per minute
 		substances: [
 			{ name: "brown", amount: 1 }
+		]
+	});
+	
+	itemClasses["jasminebud"] = new Ingredient({
+		name: "jasminebud",
+		title: "Jasmine bud",
+		unit: "tbsp",
+		dissolveTemperature: 40,
+		dissolveSpeed: 0.5, // units per minute
+		substances: [
+			{ name: "yellow", amount: 1 }
 		]
 	});
 	
