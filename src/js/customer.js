@@ -17,6 +17,11 @@ const CUSTOMER_STATE_WAITING2 = 8;
 const CUSTOMER_STATE_STOPPED = 9;
 const CUSTOMER_STATE_RESET = 10;
 
+const CUSTOMER_ORDER_UNSEEN = 0;
+const CUSTOMER_ORDER_ACCEPTED = 1;
+const CUSTOMER_ORDER_DECLINED = 2;
+const CUSTOMER_ORDER_FULFILLED = 3;
+
 class Customer
 {
 	constructor(n)
@@ -24,14 +29,16 @@ class Customer
 		this.name = names.pop();
 		this.mood = 0.5; // 0..1, grumpy..happy
 		this.confidence = 0.5;
+		
 		this.state = CUSTOMER_STATE_AWAY;
+		this.ringAnswered = false;
+		this.orderStatus = CUSTOMER_ORDER_UNSEEN;
+		this.dismissed = false;
+		
 		this.waitTime = 0;
 		this.waitTimeTotal = 0;
-		this.ringAnswered = false;
-		this.orderAccepted = false;
 		this.potion = null;
 		this.profilePictureNumber = Math.floor(Math.random() * 3);
-		this.dismissed = false;
 		
 		this.color = "hsl(" + (15 + Math.floor(n / 2) * (360 / CUSTOMER_COUNT_MAX * 2)) + ", 90%, " + (n % 2 == 0 ? "30" : "50") + "%)";
 		
@@ -270,12 +277,22 @@ class Customer
 	
 	activatePicture()
 	{
+		if (!this.dom.root)
+		{
+			return;
+		}
+		
 		this.dom.image_grey.style.animationName = "hide";
 		this.dom.image_grey.style.background = "rgba(32,32,32,0)";
 	}
 	
 	deactivatePicture()
 	{
+		if (!this.dom.root)
+		{
+			return;
+		}
+		
 		this.dom.image_grey.style.animationName = "show";
 		this.dom.image_grey.style.background = "rgba(32,32,32,1)";
 	}
@@ -355,8 +372,6 @@ class Customer
 		};
 		
 		this.need.text = this.replacePlaceholders(arrayGetPick(this.texts, "need") + " " + this.need.effectTexts[0] + ".");
-		
-		this.dismissed = false;
 	}
 	
 	describeNeed()
@@ -443,11 +458,6 @@ class Customer
 	
 	setupNextVisit()
 	{
-		this.state = CUSTOMER_STATE_AWAY;
-		this.setWaitTime(50, 500);
-		this.ringAnswered = false;
-		this.orderAccepted = false;
-		this.potion = null;
 	}
 	
 	answerRing()
@@ -597,6 +607,144 @@ class Customer
 		profile.receiveFeedback(s.rating, s.text, this);
 	}
 	
+	setState(state, params)
+	{
+		switch (state)
+		{
+			case CUSTOMER_STATE_AWAY:
+				this.ringAnswered = false;
+				this.orderStatus = CUSTOMER_ORDER_UNSEEN;
+				this.dismissed = false;
+				this.potion = null;
+				this.deactivatePicture();
+				this.setText("");
+				
+				if (params && params.first)
+				{
+					this.setWaitTime(10, 30);
+				}
+				else
+				{
+					this.setWaitTime(50, 500);
+				}
+			break;
+			
+			case CUSTOMER_STATE_RINGING:
+				this.setupNeed();
+				this.createDom();
+				this.setText("*knock* *knock*");
+				this.dom.image.style.background = this.color;
+				this.dom.image_front.dataset.tooltip = "Customer is knocking on your door.";
+				this.activatePicture();
+				
+				if (_firstAnswer)
+				{
+					window.setTimeout(this.helperFirstAnswer.bind(this), 700);
+					_firstAnswer = false;
+				}
+				
+				this.setWaitTime(30, 30);
+			break;
+			
+			case CUSTOMER_STATE_SWEARING:
+				if (params)
+				{
+					switch (params.reason)
+					{
+						case 1:
+							logMessage("A customer just got tired of knocking.", MESSAGE_WARNING);
+							this.mood -= 0.05;
+							this.bumpMissedCustomers();
+						break;
+						
+						case 2:
+							logMessage("A customer just got dissapointed.", MESSAGE_WARNING);
+							this.mood -= 0.2;
+							this.bumpFailedOrders();
+						break;
+					}
+				}
+				
+				this.dom.image_front.dataset.tooltip = "Customer is disappointed.";
+				this.setText("*$!#@!$");
+				this.setWaitTime(5, 5);
+			break;
+			
+			case CUSTOMER_STATE_ASKING:
+				this.setText(this.describeNeed());
+				this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
+				this.dom.name.innerHTML += " (" + this.need.effect + ", " + this.need.price + " gold)";
+				
+				if (_firstAccept)
+				{
+					window.setTimeout(this.helperFirstAccept.bind(this), 1000);
+					_firstAccept = false;
+				}
+				
+				this.setWaitTime(300, 300);
+			break;
+			
+			case CUSTOMER_STATE_GOING1:
+				this.setText("Thanks, I'll be back.");
+				this.setWaitTime(10, 10);
+			break;
+			
+			case CUSTOMER_STATE_WAITING1:
+				this.setText("*away*");
+				this.dom.image_front.dataset.tooltip = "Customer is away, will return for the completed order.";
+				this.deactivatePicture();
+				this.setWaitTime(100, 100);
+			break;
+			
+			case CUSTOMER_STATE_BACK:
+				this.setText("Hi, is he potion ready?");
+				this.dom.image_front.dataset.tooltip = "Customer is waiting for the completed order. Put it in the slot on the right.";
+				this.activatePicture();
+				this.setWaitTime(100, 100);
+			break;
+			
+			case CUSTOMER_STATE_GOING2:
+				this.setText("Thanks!");
+				this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
+				this.mood += 0.1;
+				this.setWaitTime(10, 10);
+			break;
+			
+			case CUSTOMER_STATE_WAITING2:
+				this.deactivatePicture();
+				this.setText("*away, will give feedback*");
+				this.dom.image_front.dataset.tooltip = "Customer went away. Should try your potion and leave a feedback soon.";
+				this.setWaitTime(30, 100);
+			break;
+			
+			case CUSTOMER_STATE_STOPPED:
+				if (params)
+				{
+					switch (params.reason)
+					{
+						case 1:
+							this.setText("OK, no problem, bye.");
+						break;
+						
+						case 2:
+							this.setText("*done*");
+							this.dom.image_front.dataset.tooltip = "Customer left.";
+							this.giveFeedback();
+						break;
+					}
+				}
+				this.dom.image_front.dataset.tooltip = "Customer left.";
+				this.deactivatePicture();
+				this.setWaitTime(10, 10);
+			break;
+			
+			case CUSTOMER_STATE_RESET:
+			break;
+		}
+		
+		this.state = state;
+	}
+	
 	tick()
 	{
 		let a, i, activeCount;
@@ -636,60 +784,28 @@ class Customer
 					if (activeCount >= profile.maxActiveCustomers)
 					{
 						// get back later
-						this.setWaitTime(100, 100);
-						break;
+						this.setState(CUSTOMER_STATE_AWAY);
 					}
-					
-					this.setupNeed();
-					this.createDom();
-					this.state = CUSTOMER_STATE_RINGING;
-					this.setText("*knock* *knock*");
-					this.setWaitTime(30, 30);
-					this.dom.image.style.background = this.color;
-					this.dom.image_front.dataset.tooltip = "Customer is knocking on your door.";
-					this.activatePicture();
-					
-					if (_firstAnswer)
+					else
 					{
-						window.setTimeout(this.helperFirstAnswer.bind(this), 700);
-						_firstAnswer = false;
+						this.setState(CUSTOMER_STATE_RINGING);
 					}
 				break;
 				
 				case CUSTOMER_STATE_RINGING:
 					if (this.ringAnswered)
 					{
-						this.state = CUSTOMER_STATE_ASKING;
-						this.setText(this.describeNeed());
-						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
-						this.dom.name.innerHTML += " (" + this.need.effect + ", " + this.need.price + " gold)";
-						this.setWaitTime(300, 300);
-						
-						if (_firstAccept)
-						{
-							window.setTimeout(this.helperFirstAccept.bind(this), 1000);
-							_firstAccept = false;
-						}
+						this.setState(CUSTOMER_STATE_ASKING);
 					}
 					else
 					{
 						// TODO: "do not disturb" mode?
-						logMessage("A customer just got tired of knocking.", MESSAGE_WARNING);
-						this.dom.image_front.dataset.tooltip = "Customer has left your door.";
-						this.state = CUSTOMER_STATE_SWEARING;
-						this.mood -= 0.1;
-						this.setText("*$!#@!$");
-						this.setWaitTime(1, 1);
-						this.bumpMissedCustomers();
+						this.setState(CUSTOMER_STATE_SWEARING, { reason: 1 });
 					}
 				break;
 				
 				case CUSTOMER_STATE_SWEARING:
-						// this.state = CUSTOMER_STATE_RESET;
-						// this.dom.image.style.background = "#222222";
-						this.deactivatePicture();
-						this.state = CUSTOMER_STATE_STOPPED;
-						this.setWaitTime(30, 30);
+					this.setState(CUSTOMER_STATE_STOPPED);
 				break;
 				
 				case CUSTOMER_STATE_ASKING:
@@ -697,101 +813,56 @@ class Customer
 					{
 						if (this.potion != null)
 						{
-							this.state = CUSTOMER_STATE_GOING2;
-							this.setText("Thanks!");
+							this.setState(CUSTOMER_STATE_GOING2);
 						}
 						else
 						{
-							this.state = CUSTOMER_STATE_GOING1;
-							this.setText("Thanks, I'll be back.");
+							this.setState(CUSTOMER_STATE_GOING1);
 						}
 					}
 					else
 					{
-						this.deactivatePicture();
-						this.state = CUSTOMER_STATE_STOPPED;
-						this.setText("OK, no problem, bye.");
+						this.setState(CUSTOMER_STATE_STOPPED, { reason: 1 });
 					}
-					
-					this.setWaitTime(10, 10);
 				break;
 				
 				case CUSTOMER_STATE_GOING1:
-					this.state = CUSTOMER_STATE_WAITING1;
-					this.setText("*away*");
-					this.dom.image_front.dataset.tooltip = "Customer is away, will return for the completed order.";
-					this.setWaitTime(100, 100);
-					this.deactivatePicture();
+					this.setState(CUSTOMER_STATE_WAITING1);
 				break;
 				
 				case CUSTOMER_STATE_WAITING1:
-					this.state = CUSTOMER_STATE_BACK;
-					this.setText("Hi, is he potion ready?");
-					this.dom.image_front.dataset.tooltip = "Customer is waiting for the completed order. Put it in the slot on the right.";
-					this.setWaitTime(100, 100);
-					this.activatePicture();
+					this.setState(CUSTOMER_STATE_BACK);
 				break;
 				
 				case CUSTOMER_STATE_BACK:
 					// TODO: check if got potion or just stood there a few days
 					if (this.potion)
 					{
-						this.state = CUSTOMER_STATE_GOING2;
-						this.setText("Thanks!");
-						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
-						this.mood += 0.1;
+						this.setState(CUSTOMER_STATE_GOING2);
 					}
 					else
 					{
-						logMessage("A customer just got dissapointed.", MESSAGE_WARNING);
-						this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
-						this.state = CUSTOMER_STATE_SWEARING;
-						this.setText("*$!#@!$");
-						this.mood -= 0.2;
-						this.bumpFailedOrders();
+						this.setState(CUSTOMER_STATE_SWEARING, { reason: 2 });
 					}
-					this.setWaitTime(1, 1);
 				break;
 				
 				case CUSTOMER_STATE_GOING2:
-					this.deactivatePicture();
-					this.state = CUSTOMER_STATE_WAITING2;
-					this.setText("*away, will give feedback*");
-					this.dom.image_front.dataset.tooltip = "Customer went away. Should try your potion and leave a feedback soon.";
-					this.setWaitTime(30, 100);
-					this.dom.
+					this.setState(CUSTOMER_STATE_WAITING2);
 				break;
 				
 				case CUSTOMER_STATE_WAITING2:
-					this.giveFeedback();
-					this.setText("*done*");
-					this.dom.image_front.dataset.tooltip = "Customer used the potion and left a feedback.";
-					
-					if (this.dismissed)
-					{
-						this.state = CUSTOMER_STATE_RESET;
-					}
-					else
-					{
-						this.state = CUSTOMER_STATE_STOPPED;
-					}
-					
-					this.setWaitTime(1, 1);
+					this.setState(CUSTOMER_STATE_STOPPED, { reason: 2 });
 				break;
 				
 				case CUSTOMER_STATE_STOPPED:
-					this.dom.image_front.dataset.tooltip = "Customer is away.";
 					if (this.dismissed)
 					{
-						this.state = CUSTOMER_STATE_RESET;
+						this.setState(CUSTOMER_STATE_RESET);
 					}
-					this.setWaitTime(1, 1);
 				break;
 				
 				case CUSTOMER_STATE_RESET:
-					this.deactivatePicture();
-					this.setText("");
-					this.setupNextVisit();
+					this.setState(CUSTOMER_STATE_AWAY);
 				break;
 			}
 			

@@ -812,7 +812,7 @@ function init()
 	
 	for (i=0; i<CUSTOMER_COUNT_MAX; i++)
 	{
-		customers[i].setupNextVisit();
+		customers[i].setState(CUSTOMER_STATE_AWAY);
 	}
 	arrayShuffle(customers);
 	
