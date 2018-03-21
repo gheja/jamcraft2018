@@ -188,28 +188,34 @@ class Store
 		
 		a = this.getPossiblePotionEffects();
 		
-		s += "Potion effect: ";
 		
 		percentSum = 0;
 		
-		for (i in a)
+		if (a.length == 1)
 		{
-			// make sure that percents add up to 100 in display
-			// last item is always 100% minus sum of all previous
-			if (i != a.length - 1)
-			{
-				percent = Math.floor(a[i].chance * 100);
-				percentSum += percent;
-			}
-			else
-			{
-				percent = 100 - percentSum;
-			}
-			
-			s += "<b>" + itemClasses[a[i].name].effect + "</b> (" + percent + "%) or ";
+			s += "Potion effect: <b>" + itemClasses[a[0].name].effect + "</b><br/>";
 		}
-		
-		s = s.substring(0, s.length - 4) + "<br/>";
+		else
+		{
+			s += "Possible potion effects:<br/>";
+			
+			for (i in a)
+			{
+				// make sure that percents add up to 100 in display
+				// last item is always 100% minus sum of all previous
+				if (i != a.length - 1)
+				{
+					percent = Math.floor(a[i].chance * 100);
+					percentSum += percent;
+				}
+				else
+				{
+					percent = 100 - percentSum;
+				}
+				
+				s += "&nbsp;- <b>" + itemClasses[a[i].name].effect + "</b> (" + percent + "%)<br/>";
+			}
+		}
 		
 		s += "Potion quality: <b>" + this.getPotionQuality() + "</b><br/>";
 		
