@@ -186,8 +186,28 @@ class Store
 		s = "";
 		t = "";
 		
-		a = this.getPossiblePotionEffects();
+		if (listContents)
+		{
+			s += "Contains:<br/>";
+			
+			for (i in this.items)
+			{
+				if (this.items[i] != 0 && !itemClasses[i].hidden)
+				{
+					empty = false;
+					s += "&nbsp;- " + round(this.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
+				}
+			}
+			
+			if (empty)
+			{
+				s += "&nbsp;- <b>pure water</b><br/>";
+			}
+		}
 		
+		s += "Potion quality: <b>" + this.getPotionQuality() + "</b><br/>";
+		
+		a = this.getPossiblePotionEffects();
 		
 		percentSum = 0;
 		
@@ -214,27 +234,6 @@ class Store
 				}
 				
 				s += "&nbsp;- <b>" + itemClasses[a[i].name].effect + "</b> (" + percent + "%)<br/>";
-			}
-		}
-		
-		s += "Potion quality: <b>" + this.getPotionQuality() + "</b><br/>";
-		
-		if (listContents)
-		{
-			s += "Contains:<br/>";
-			
-			for (i in this.items)
-			{
-				if (this.items[i] != 0 && !itemClasses[i].hidden)
-				{
-					empty = false;
-					s += "&nbsp;- " + round(this.items[i]) + " " + itemClasses[i].unit + " of <b>" + itemClasses[i].title + "</b><br/>";
-				}
-			}
-			
-			if (empty)
-			{
-				s += "&nbsp;- <b>pure water</b><br/>";
 			}
 		}
 		
