@@ -131,36 +131,35 @@ class Store
 	
 	getPossiblePotionEffects()
 	{
-		let i, tops, max, result, stuffs, a;
-		
-		max = 0;
-		
-		for (i in this.items)
-		{
-			if (!(itemClasses[i] instanceof Substance) || itemClasses[i].hidden)
-			{
-				continue;
-			}
-			
-			max = Math.max(max, this.items[i]);
-		}
-		
-		if (max < 3)
-		{
-			return "nothing";
-		}
+		let i, item, amount, stuffs, sum, water;
 		
 		stuffs = [];
 		
+		sum = 0;
+		
 		for (i in this.items)
 		{
-			if (!(itemClasses[i] instanceof Substance) || itemClasses[i].hidden || this.items[i] < 3)
+			item = itemClasses[i];
+			amount = this.items[i];
+			
+			if (!(item instanceof Substance) || item.hidden || item.effect == "nothing" || amount == 0)
 			{
 				continue;
 			}
 			
-			stuffs.push({ name: i, chance: this.items[i] });
+			sum += amount;
+			
+			stuffs.push({ name: i, chance: amount });
 		}
+		
+		water = 3 - Math.min(3, sum);
+		
+		if (water > 0)
+		{
+			stuffs.push({ name: "air", chance: water });
+		}
+		
+		stuffs = arrayNormalizeChances(stuffs);
 		
 		return stuffs;
 	}
