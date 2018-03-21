@@ -180,7 +180,7 @@ class Store
 	
 	getPotionText(listContents)
 	{
-		let empty, s, t, i, a;
+		let empty, s, t, i, a, percent, percentSum;
 		
 		empty = true;
 		s = "";
@@ -190,19 +190,26 @@ class Store
 		
 		s += "Potion effect: ";
 		
-		if (a == "nothing")
+		percentSum = 0;
+		
+		for (i in a)
 		{
-			s += "<b>nothing</b><br/>";
-		}
-		else
-		{
-			for (i in a)
+			// make sure that percents add up to 100 in display
+			// last item is always 100% minus sum of all previous
+			if (i != a.length - 1)
 			{
-				s += "<b>" + itemClasses[a[i].name].effect + "</b> or ";
+				percent = Math.floor(a[i].chance * 100);
+				percentSum += percent;
+			}
+			else
+			{
+				percent = 100 - percentSum;
 			}
 			
-			s = s.substring(0, s.length - 4) + "<br/>";
+			s += "<b>" + itemClasses[a[i].name].effect + "</b> (" + percent + "%) or ";
 		}
+		
+		s = s.substring(0, s.length - 4) + "<br/>";
 		
 		s += "Potion quality: <b>" + this.getPotionQuality() + "</b><br/>";
 		
