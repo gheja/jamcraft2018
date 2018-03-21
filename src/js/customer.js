@@ -269,6 +269,8 @@ class Customer
 		slots.push(this.slot);
 		
 		this.slot.slotTooltip = "Drag the potion you want to give to this customer into this slot.<br/><br/>After dragging it here click <b>Give</b> when the customer is around.";
+		this.slot.hidden = true;
+		this.slot.update();
 		
 		get("box_customers").appendChild(this.dom.root);
 		
@@ -675,6 +677,9 @@ class Customer
 				this.dom.image_front.dataset.tooltip = "Customer is talking with you.";
 				this.dom.name.innerHTML += " (" + this.need.effect + ", " + this.need.price + " gold)";
 				
+				this.slot.hidden = false;
+				this.slot.update();
+				
 				if (_firstAccept)
 				{
 					window.setTimeout(this.helperFirstAccept.bind(this), 1000);
@@ -715,6 +720,9 @@ class Customer
 				this.setText("*away, will give feedback*");
 				this.dom.image_front.dataset.tooltip = "Customer went away. Should try your potion and leave a feedback soon.";
 				this.setWaitTime(30, 100);
+				
+				this.slot.hidden = true;
+				this.slot.update();
 			break;
 			
 			case CUSTOMER_STATE_STOPPED:
@@ -735,6 +743,10 @@ class Customer
 				}
 				this.dom.image_front.dataset.tooltip = "Customer left.";
 				this.deactivatePicture();
+				
+				this.slot.hidden = true;
+				this.slot.update();
+				
 				this.setWaitTime(10, 10);
 			break;
 			
