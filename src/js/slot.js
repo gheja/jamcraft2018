@@ -28,6 +28,7 @@ class Slot
 		this.dragging = false;
 		this.locked = false;
 		this.cauldronTarget = false;
+		this.hidden = false;
 		
 		for (k in params)
 		{
@@ -263,5 +264,8 @@ class Slot
 			this.dom.content.style.display = "block";
 			this.dom.content.dataset.tooltip = this.contentTooltip;
 		}
+		
+		this.dom.slot.style.display = (this.hidden ? "none" : "block");
+		this.dom.content.style.display = (this.hidden ? "none" : this.dom.content.style.display);
 	}
 }
