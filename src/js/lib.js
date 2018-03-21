@@ -96,6 +96,32 @@ function setText(name, text)
 	obj.innerHTML = text;
 }
 
+function arrayNormalizeChances(a)
+{
+	let i, sum;
+	
+	sum = 0;
+	
+	for (i in a)
+	{
+		sum += a[i].chance;
+	}
+	
+	for (i in a)
+	{
+		if (sum == 0)
+		{
+			a[i].chance = 1;
+		}
+		else
+		{
+			a[i].chance = a[i].chance / sum;
+		}
+	}
+	
+	return a;
+}
+
 function arrayPick(a)
 {
 	return a[Math.floor(Math.random() * a.length)];
