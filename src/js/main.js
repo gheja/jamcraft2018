@@ -443,7 +443,7 @@ function updateUnlockedIngredients(announce)
 	
 	if (announce && last != null)
 	{
-		helper.showAtObject("New ingredient. Check Codex for details.", last.dom.buttonPlus);
+		helper.showAtObject("New ingredient. Check Codex for details.", last.dom.buttonPlus, null, "new_ingredient");
 	}
 }
 
@@ -531,6 +531,14 @@ function cleanTrash()
 			slots[i].update();
 		}
 	}
+}
+
+function hideFeedbackHelpers()
+{
+	helper.hideByName("feedbacks_1");
+	helper.hideByName("feedbacks_2");
+	helper.hideByName("feedbacks_3");
+	helper.hideByName("feedbacks_4");
 }
 
 function init()

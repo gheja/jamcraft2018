@@ -52,6 +52,8 @@ class Ingredient extends Item
 	
 	addToCauldron()
 	{
+		helper.hideByName("new_ingredient");
+		
 		if (cauldron.status == CAULDRON_REMOVED)
 		{
 			logMessage("No cauldron in use.", MESSAGE_FAIL);

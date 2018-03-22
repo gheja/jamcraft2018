@@ -464,6 +464,7 @@ class Customer
 	
 	answerRing()
 	{
+		helper.hideByName("customer_answer");
 		_missedCustomers = 0;
 		this.ringAnswered = true;
 		this.setWaitTime(1, 1);
@@ -472,6 +473,7 @@ class Customer
 	
 	acceptOrder()
 	{
+		helper.hideByName("customer_order");
 		logMessage("Accepted: <b>" + (this.need.effect) + "</b> for <b>" + this.name +"</b>.", MESSAGE_NORMAL);
 		this.orderAccepted = true;
 		this.setWaitTime(1, 1);
@@ -480,6 +482,7 @@ class Customer
 	
 	declineOrder()
 	{
+		helper.hideByName("customer_order");
 		this.orderAccepted = false;
 		this.setWaitTime(1, 1);
 		this.tick();
@@ -487,6 +490,7 @@ class Customer
 	
 	givePotion()
 	{
+		helper.hideByName("customer_order");
 		this.orderAccepted = true;
 		this.potion = this.slot.content;
 		this.slot.locked = true;
@@ -528,12 +532,12 @@ class Customer
 	
 	helperFirstAnswer()
 	{
-		helper.showAtObject("A customer is knocking on your door. Use this button to answer.", this.dom.button_answer);
+		helper.showAtObject("A customer is knocking on your door. Use this button to answer.", this.dom.button_answer, null, "customer_answer");
 	}
 	
 	helperFirstAccept()
 	{
-		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept);
+		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept, null, "customer_order");
 	}
 	
 	updateButtons()
