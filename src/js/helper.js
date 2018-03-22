@@ -27,12 +27,23 @@ class Helper
 	
 	hide(event)
 	{
-		let obj;
+		let obj, i;
 		
 		obj = event.target;
 		
+		// the clicked object can be a child of the actual helper
+		// walk through all of the parents and delete the root
 		while (obj.parentNode != document.body)
 		{
+			for (i in activeHelpers)
+			{
+				if (activeHelpers[i].dom.root == obj)
+				{
+					arrayRemove(activeHelpers, i);
+					break;
+				}
+			}
+			
 			if (obj.parentNode == null)
 			{
 				console.log("Could not find parent");
