@@ -1,7 +1,6 @@
 "use strict";
 
 let tickCount = 0;
-let tickSkipCount = 0;
 let itemClasses = [];
 let interactionClasses = [];
 let cauldron = null;
@@ -276,40 +275,7 @@ function tick()
 {
 	let i, skip;
 	
-	tickSkipCount++;
-	
-	skip = true;
-	
-	switch (speed)
-	{
-		case 0: // paused
-		
-		break;
-		
-		case 1: // normal
-			if (tickSkipCount >= 6)
-			{
-				skip = false;
-				tickSkipCount = 0;
-			}
-		break;
-		
-		case 2: // fast
-			if (tickSkipCount >= 3)
-			{
-				skip = false;
-				tickSkipCount = 0;
-			}
-		break;
-		
-		case 3: // faster
-			skip = false;
-		break;
-		
-		case 4: // sleeping
-			skip = false;
-		break;
-	}
+	skip = false;
 	
 	// if player is not on the home screen then game should be paused
 	if (currentScreen != "home")
@@ -372,6 +338,39 @@ function tick()
 	{
 		setText("description", currentDescription);
 		get("description").className = "";
+	}
+}
+
+function tickTimer()
+{
+	let i, count;
+	
+	switch (speed)
+	{
+		case 0: // paused
+			count = 0;
+		break;
+		
+		case 1: // normal
+			count = 1
+		break;
+		
+		case 2: // fast
+			count = 3;
+		break;
+		
+		case 3: // faster
+			count = 6;
+		break;
+		
+		case 4: // sleeping
+			count = 6;
+		break;
+	}
+	
+	for (i=0; i<count; i++)
+	{
+		tick();
 	}
 }
 
@@ -883,7 +882,7 @@ function init()
 		slotTooltip: "Trash can. Drag items here to delete."
 	}));
 	
-	window.setInterval(tick, 50);
+	window.setInterval(tickTimer, 50);
 	
 	registerAllTooltips();
 }
