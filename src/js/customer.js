@@ -34,6 +34,7 @@ class Customer
 		this.ringAnswered = false;
 		this.orderStatus = CUSTOMER_ORDER_UNSEEN;
 		this.dismissed = false;
+		this.gaveFeedback = false;
 		
 		this.waitTime = 0;
 		this.waitTimeTotal = 0;
@@ -528,6 +529,8 @@ class Customer
 		this.mood += (s.rating - 3) / 10;
 		
 		profile.receiveFeedback(s.rating, s.text, this);
+		
+		this.gaveFeedback = true;
 	}
 	
 	helperFirstAnswer()
@@ -622,6 +625,7 @@ class Customer
 				this.orderStatus = CUSTOMER_ORDER_UNSEEN;
 				this.dismissed = false;
 				this.potion = null;
+				this.gaveFeedback = false;
 				this.deactivatePicture();
 				this.setText("");
 				
@@ -741,7 +745,10 @@ class Customer
 						case 2:
 							this.setText("*done*");
 							this.dom.image_front.dataset.tooltip = "Customer left.";
-							this.giveFeedback();
+							if (!this.gaveFeedback)
+							{
+								this.giveFeedback();
+							}
 						break;
 					}
 				}
