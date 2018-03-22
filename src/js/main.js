@@ -234,14 +234,14 @@ function updateDisplay()
 {
 	let s;
 	
-	setText('temperature_target', cauldron.temperatureTarget + " &deg;C");
+	setText('temperature_target', Math.round(cauldron.temperatureTarget) + " &deg;C");
 	if (cauldron.status == CAULDRON_REMOVED)
 	{
 		setText('temperature_current', "-");
 	}
 	else
 	{
-		setText('temperature_current', cauldron.temperature + " &deg;C");
+		setText('temperature_current', Math.round(cauldron.temperature) + " &deg;C");
 	}
 	
 	setText('cooking_time', toHoursMinutes(cauldron.cookTime));

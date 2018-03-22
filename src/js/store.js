@@ -52,7 +52,7 @@ class Store
 		
 		for (i in this.items)
 		{
-			this.items[i] = Math.floor(this.items[i] * 1000) / 1000;
+			this.items[i] = Math.round(this.items[i] * 1000) / 1000;
 		}
 	}
 	
