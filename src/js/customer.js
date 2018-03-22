@@ -755,8 +755,12 @@ class Customer
 				this.dom.image_front.dataset.tooltip = "Customer left.";
 				this.deactivatePicture();
 				
-				this.slot.hidden = true;
-				this.slot.update();
+				// after destroyDom() slot does not exist anymore
+				if (this.slot)
+				{
+					this.slot.hidden = true;
+					this.slot.update();
+				}
 				
 				this.setWaitTime(10, 10);
 			break;
