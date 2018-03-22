@@ -26,7 +26,7 @@ function toHoursMinutes(x)
 {
 	let h, m, a;
 	
-	a = x * 30;
+	a = x * TICK_SECONDS;
 	
 	h = Math.floor(a / 3600);
 	m = Math.floor(a % (3600) / 60);
