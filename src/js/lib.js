@@ -52,7 +52,7 @@ function toTime(x, trimMinute)
 		return s;
 	}
 	
-	a = x * 30;
+	a = x * TICK_SECONDS;
 	
 	d = Math.floor(a / (24 * 3600));
 	h = Math.floor(a % (24 * 3600) / 3600);

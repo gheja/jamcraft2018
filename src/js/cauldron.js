@@ -172,12 +172,12 @@ class Cauldron
 		
 		if (this.temperature < this.temperatureTarget)
 		{
-			this.temperature += Math.min(2, this.temperatureTarget - this.temperature);
+			this.temperature += Math.min(2 * GAME_SPEED, this.temperatureTarget - this.temperature);
 		}
 		
 		if (this.temperature > this.temperatureTarget)
 		{
-			this.temperature += Math.min(-2, this.temperature - this.temperatureTarget);
+			this.temperature += Math.min(-2 * GAME_SPEED, this.temperature - this.temperatureTarget);
 		}
 		
 		for (i in this.store.items)
@@ -192,7 +192,7 @@ class Cauldron
 			
 			if (item instanceof Ingredient && this.temperature >= item.dissolveTemperature)
 			{
-				a = item.dissolveSpeed * 0.5;
+				a = item.dissolveSpeed * 0.5 * GAME_SPEED;
 				a = Math.min(a, count);
 				
 				this.store.destroyItem(i, a);

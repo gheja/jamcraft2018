@@ -354,7 +354,7 @@ function tick()
 		}
 		
 		// every 30 minutes
-		if (tickCount % 60 == 0)
+		if ((tickCount * TICK_SECONDS) % 1800 == 0)
 		{
 			if (restockBottle())
 			{

@@ -454,7 +454,7 @@ class Customer
 	
 	setWaitTime(min, max)
 	{
-		this.waitTime = Math.floor(min + Math.random() * (max - min));
+		this.waitTime = Math.floor(min + Math.random() * (max - min)) / GAME_SPEED;
 		this.waitTimeTotal = this.waitTime;
 	}
 	

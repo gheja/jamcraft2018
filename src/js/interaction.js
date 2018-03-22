@@ -25,7 +25,7 @@ class Interaction
 		let i, a, s, minMultiplier, status;
 		
 		// TODO: check speed
-		minMultiplier = this.speed;
+		minMultiplier = this.speed * GAME_SPEED;
 		
 		for (i in this.inputSubstances)
 		{
