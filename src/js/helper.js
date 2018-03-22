@@ -5,6 +5,9 @@ const HELPER_DIRECTION_RIGHT = 1;
 const HELPER_DIRECTION_BOTTOM = 2;
 const HELPER_DIRECTION_LEFT = 3;
 
+let activeHelpers = [
+];
+
 class Helper
 {
 	constructor()
@@ -45,12 +48,26 @@ class Helper
 		window.setTimeout(this.destroy.bind(this, obj), 310);
 	}
 	
+	hideByName(name)
+	{
+		let i;
+		
+		// emulate a click on the helper
+		for (i in activeHelpers)
+		{
+			if (activeHelpers[i].name == name)
+			{
+				activeHelpers[i].dom.root.click();
+			}
+		}
+	}
+	
 	activate(obj)
 	{
 		obj.className = "helper helper_active";
 	}
 	
-	showAtPosition(s, x, y, direction)
+	showAtPosition(s, x, y, direction, name)
 	{
 		let obj;
 		
@@ -65,15 +82,22 @@ class Helper
 		
 		window.setTimeout(this.activate.bind(this, obj), 100);
 		
+		activeHelpers.push({
+			name: name,
+			dom: {
+				root: obj
+			}
+		});
+		
 		document.body.appendChild(obj);
 	}
 	
-	showAtObject(s, obj, direction)
+	showAtObject(s, obj, direction, name)
 	{
 		let position;
 		
 		position = positionFix(obj.getBoundingClientRect());
 		
-		this.showAtPosition(s, position.x + position.width / 2, position.y, direction);
+		this.showAtPosition(s, position.x + position.width / 2, position.y, direction, name);
 	}
 }
