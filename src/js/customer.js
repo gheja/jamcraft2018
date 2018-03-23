@@ -1,7 +1,5 @@
 "use strict";
 
-let _firstAnswer = true;
-let _firstAccept = true;
 let _missedCustomers = 0;
 let _failedOrders = 0;
 
@@ -535,12 +533,12 @@ class Customer
 	
 	helperFirstAnswer()
 	{
-		helper.showAtObject("A customer is knocking on your door. Use this button to answer.", this.dom.button_answer, null, "customer_answer");
+		helper.showAtObject("A customer is knocking on your door. Use this button to answer.", this.dom.button_answer, null, "customer_answer", true);
 	}
 	
 	helperFirstAccept()
 	{
-		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept, null, "customer_order");
+		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept, null, "customer_order", true);
 	}
 	
 	updateButtons()
@@ -647,11 +645,7 @@ class Customer
 				this.dom.image_front.dataset.tooltip = "Customer is knocking on your door.";
 				this.activatePicture();
 				
-				if (_firstAnswer)
-				{
-					window.setTimeout(this.helperFirstAnswer.bind(this), 700);
-					_firstAnswer = false;
-				}
+				window.setTimeout(this.helperFirstAnswer.bind(this), 700);
 				
 				this.setWaitTime(30, 30);
 			break;
@@ -688,11 +682,7 @@ class Customer
 				this.slot.hidden = false;
 				this.slot.update();
 				
-				if (_firstAccept)
-				{
-					window.setTimeout(this.helperFirstAccept.bind(this), 1000);
-					_firstAccept = false;
-				}
+				window.setTimeout(this.helperFirstAccept.bind(this), 1000);
 				
 				this.setWaitTime(300, 300);
 			break;
