@@ -473,6 +473,8 @@ class Customer
 	acceptOrder()
 	{
 		helper.hideByName("customer_order");
+		helper.showAtObject("Start cooking your potion by clicking <b>prepare</b>.", get("button_cauldron_prepare"), null, "cauldron_prepare", true);
+		
 		logMessage("Accepted: <b>" + (this.need.effect) + "</b> for <b>" + this.name +"</b>.", MESSAGE_NORMAL);
 		this.orderAccepted = true;
 		this.setWaitTime(1, 1);

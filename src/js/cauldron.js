@@ -28,6 +28,9 @@ class Cauldron
 	
 	prepare()
 	{
+		helper.hideByName("cauldron_prepare");
+		helper.showAtObject("Add ingredients by clicking <b>down arrow</b>, buy more by clicking <b>$</b>.", itemClasses["rosepetal"].dom.buttonPlus, null, "add_ingredient", true);
+		
 		this.status = CAULDRON_READY;
 		this.cookTime = 0;
 		this.temperature = 20;
@@ -44,6 +47,8 @@ class Cauldron
 	strain()
 	{
 		let i, n, left;
+		
+		helper.hideByName("strain");
 		
 		n = 1.2;
 		left = 1;
@@ -73,6 +78,8 @@ class Cauldron
 	storePotion()
 	{
 		let i, tmp, slot;
+		
+		helper.hideByName("strain");
 		
 		slot = null;
 		
@@ -134,6 +141,9 @@ class Cauldron
 	
 	adjustTemperatureTarget(d)
 	{
+		helper.hideByName("temperature_adjustment");
+		helper.showAtObject("Use <b>Strain</b> to remove leftover ingredients, <b>done</b> when done.", get("button_cauldron_strain"), null, "strain", true);
+		
 		this.temperatureTarget += d;
 		
 		this.temperatureTarget = Math.min(100, Math.max(20, this.temperatureTarget));
