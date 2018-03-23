@@ -12,6 +12,7 @@ class Helper
 {
 	constructor()
 	{
+		this.helpersShown = [];
 	}
 	
 	destroy(obj)
@@ -78,9 +79,21 @@ class Helper
 		obj.className = "helper helper_active";
 	}
 	
-	showAtPosition(s, x, y, direction, name)
+	showAtPosition(s, x, y, direction, name, onlyOnce)
 	{
 		let obj;
+		
+		if (onlyOnce)
+		{
+			if (this.helpersShown.indexOf(name) !== -1)
+			{
+				return;
+			}
+			else
+			{
+				this.helpersShown.push(name);
+			}
+		}
 		
 		obj = document.createElement("div");
 		
@@ -103,12 +116,12 @@ class Helper
 		document.body.appendChild(obj);
 	}
 	
-	showAtObject(s, obj, direction, name)
+	showAtObject(s, obj, direction, name, onlyOnce)
 	{
 		let position;
 		
 		position = positionFix(obj.getBoundingClientRect());
 		
-		this.showAtPosition(s, position.x + position.width / 2, position.y, direction, name);
+		this.showAtPosition(s, position.x + position.width / 2, position.y, direction, name, onlyOnce);
 	}
 }
