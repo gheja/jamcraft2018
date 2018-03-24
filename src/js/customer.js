@@ -466,7 +466,7 @@ class Customer
 		helper.hideByName("customer_answer");
 		_missedCustomers = 0;
 		this.ringAnswered = true;
-		this.setWaitTime(1, 1);
+		this.setWaitTime(0, 0);
 		this.tick();
 	}
 	
@@ -477,7 +477,7 @@ class Customer
 		
 		logMessage("Accepted: <b>" + (this.need.effect) + "</b> for <b>" + this.name +"</b>.", MESSAGE_NORMAL);
 		this.orderAccepted = true;
-		this.setWaitTime(1, 1);
+		this.setWaitTime(0, 0);
 		this.tick();
 	}
 	
@@ -485,7 +485,7 @@ class Customer
 	{
 		helper.hideByName("customer_order");
 		this.orderAccepted = false;
-		this.setWaitTime(1, 1);
+		this.setWaitTime(0, 0);
 		this.tick();
 	}
 	
@@ -496,7 +496,7 @@ class Customer
 		this.potion = this.slot.content;
 		this.slot.locked = true;
 		this.updateButtons();
-		this.setWaitTime(1, 1);
+		this.setWaitTime(0, 0);
 		this.tick();
 		
 		bumpSellCount();
