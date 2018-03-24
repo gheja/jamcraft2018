@@ -508,6 +508,13 @@ class Customer
 	
 	dismiss()
 	{
+		// if slot is not empty but the potion was not given to the customer
+		if (this.slot.content != null && this.potion == null)
+		{
+			logMessage("Remove potion from the slot before dismissing.", MESSAGE_WARNING);
+			return;
+		}
+		
 		this.hideDom();
 		this.dismissed = true;
 		
@@ -750,8 +757,12 @@ class Customer
 				// after destroyDom() slot does not exist anymore
 				if (this.slot)
 				{
-					this.slot.hidden = true;
-					this.slot.update();
+					// if the slot has content and was given to the customer
+					if (this.slot.content == null && this.potion != null)
+					{
+						this.slot.hidden = true;
+						this.slot.update();
+					}
 				}
 				
 				this.setWaitTime(10, 10);
