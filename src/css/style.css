@@ -121,11 +121,9 @@ button[disabled]
 
 #container
 {
-	margin: 30px auto;
-	position: relative;
+	position: fixed;
 	width: 1200px;
 	height: 600px;
-	background: rgba(0,0,0,0.2);
 }
 
 .slot

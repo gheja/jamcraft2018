@@ -517,6 +517,19 @@ function restockBottle()
 	return true;
 }
 
+function onResize()
+{
+	let obj, pos1, pos2;
+	
+	obj = get("container");
+	
+	pos1 = positionFix(document.body.getBoundingClientRect());
+	pos2 = positionFix(obj.getBoundingClientRect());
+	
+	obj.style.left = Math.floor((pos1.width - pos2.width) / 2) + "px";
+	obj.style.top = Math.floor((pos1.height - pos2.height) / 2) + "px";
+}
+
 function cleanTrash()
 {
 	let i;
@@ -883,6 +896,8 @@ function init()
 	}));
 	
 	window.setInterval(tickTimer, 50);
+	window.addEventListener("resize", onResize);
+	onResize();
 	
 	registerAllTooltips();
 }
