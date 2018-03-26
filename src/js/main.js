@@ -312,12 +312,6 @@ function tick()
 			customers[i].tick();
 		}
 		
-		// console.log(toTime(tickCount) + " Temperature: " + cauldron.temperature + " 'C (target: " + cauldron.temperatureTarget + " 'C) = " + toF(cauldron.temperature) + " 'F (target: " + toF(cauldron.temperatureTarget) + " 'F)");
-		setText("time", toTime(tickCount, true));
-		setText("gold", "<b>" + gold + " gold</b>");
-		
-		updateDisplay();
-		
 		
 		if (currentDescription == "")
 		{
@@ -342,17 +336,6 @@ function tick()
 				logMessage("You've got a new bottle.", MESSAGE_NORMAL);
 			}
 		}
-	}
-	
-	if (currentTooltip != "")
-	{
-		setText("description", currentTooltip);
-		get("description").className = "tooltip";
-	}
-	else
-	{
-		setText("description", currentDescription);
-		get("description").className = "";
 	}
 }
 
@@ -386,6 +369,22 @@ function tickTimer()
 	for (i=0; i<count; i++)
 	{
 		tick();
+	}
+	
+	setText("time", toTime(tickCount, true));
+	setText("gold", "<b>" + gold + " gold</b>");
+	
+	updateDisplay();
+	
+	if (currentTooltip != "")
+	{
+		setText("description", currentTooltip);
+		get("description").className = "tooltip";
+	}
+	else
+	{
+		setText("description", currentDescription);
+		get("description").className = "";
 	}
 }
 
