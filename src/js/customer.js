@@ -709,7 +709,7 @@ class Customer
 			break;
 			
 			case CUSTOMER_STATE_BACK:
-				this.setText("Hi, is he potion ready?");
+				this.setText("Hi, is the potion ready?");
 				this.dom.image_front.dataset.tooltip = "Customer is waiting for the completed order. Put it in the slot on the right.";
 				this.activatePicture();
 				this.setWaitTime(100, 100);
