@@ -638,11 +638,11 @@ class Customer
 				
 				if (params && params.first)
 				{
-					this.setWaitTime(10, 30);
+					this.setWaitTime(5, 50);
 				}
 				else
 				{
-					this.setWaitTime(50, 500);
+					this.setWaitTime(150, 500);
 				}
 			break;
 			
@@ -818,7 +818,15 @@ class Customer
 					}
 					else
 					{
-						this.setState(CUSTOMER_STATE_RINGING);
+						if (dndActive)
+						{
+							logMessage("A customer was at the door, saw the Do Not Disturb sign.", MESSAGE_NORMAL);
+							this.setState(CUSTOMER_STATE_AWAY);
+						}
+						else
+						{
+							this.setState(CUSTOMER_STATE_RINGING);
+						}
 					}
 				break;
 				
@@ -829,7 +837,6 @@ class Customer
 					}
 					else
 					{
-						// TODO: "do not disturb" mode?
 						this.setState(CUSTOMER_STATE_SWEARING, { reason: 1 });
 					}
 				break;
@@ -861,7 +868,15 @@ class Customer
 				break;
 				
 				case CUSTOMER_STATE_WAITING1:
-					this.setState(CUSTOMER_STATE_BACK);
+					if (dndActive)
+					{
+						logMessage("<b>" + this.name + "</b> was at the door, saw the Do Not Disturb sign.", MESSAGE_NORMAL);
+						this.setWaitTime(100, 100);
+					}
+					else
+					{
+						this.setState(CUSTOMER_STATE_BACK);
+					}
 				break;
 				
 				case CUSTOMER_STATE_BACK:

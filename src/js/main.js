@@ -19,6 +19,7 @@ let won = false;
 let gold = 0;
 let sells = 0;
 let ingredientUnlockOrder = [ "red", "brown", "yellow" ];
+let dndActive = false;
 
 function round(x)
 {
@@ -90,6 +91,20 @@ function setSpeed(n)
 	}
 	
 	speed = n;
+}
+
+function toggleDnd()
+{
+	dndActive = !dndActive;
+	
+	if (dndActive)
+	{
+		get("dnd_status").innerHTML = "ON";
+	}
+	else
+	{
+		get("dnd_status").innerHTML = "off";
+	}
 }
 
 function bumpSellCount()
@@ -832,7 +847,7 @@ function init()
 	
 	for (i=0; i<CUSTOMER_COUNT_MAX; i++)
 	{
-		customers[i].setState(CUSTOMER_STATE_AWAY, { first: (i == 0) });
+		customers[i].setState(CUSTOMER_STATE_AWAY, { first: (i < 2) });
 	}
 	arrayShuffle(customers);
 	
