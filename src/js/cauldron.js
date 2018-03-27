@@ -177,7 +177,12 @@ class Cauldron
 		
 		if (this.temperature > 20)
 		{
+			this.status = CAULDRON_COOKING;
 			this.cookTime += 1;
+		}
+		else
+		{
+			this.status = CAULDRON_READY;
 		}
 		
 		if (this.temperature < this.temperatureTarget)
