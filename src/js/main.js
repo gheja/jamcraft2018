@@ -298,13 +298,6 @@ function tick()
 	
 	skip = false;
 	
-	tiredness += 0.012;
-	
-	if (cauldron.status == CAULDRON_COOKING)
-	{
-		tiredness += 0.012;
-	}
-	
 	// if player is not on the home screen then game should be paused
 	if (currentScreen != "home")
 	{
@@ -348,6 +341,13 @@ function tick()
 			{
 				logMessage("You've got a new bottle.", MESSAGE_NORMAL);
 			}
+		}
+		
+		tiredness += 0.012;
+		
+		if (cauldron.status == CAULDRON_COOKING)
+		{
+			tiredness += 0.012;
 		}
 	}
 }
