@@ -993,3 +993,9 @@ td
 	position: absolute;
 	display: none;
 }
+
+#button_wake:disabled,
+#button_wake[disabled]
+{
+	opacity: 1;
+}
