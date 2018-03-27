@@ -124,6 +124,12 @@ button[disabled]
 	position: fixed;
 	width: 1200px;
 	height: 600px;
+	transition: filter 0.25s;
+}
+
+#container.sleeping
+{
+	filter: opacity(0.33) grayscale(1.0);
 }
 
 .slot
