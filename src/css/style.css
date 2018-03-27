@@ -948,3 +948,36 @@ td
 	background: url(../images/gfx.png);
 	background-position: -128px 0px;
 }
+
+#tiredness_meter
+{
+	position: relative;
+}
+
+#tiredness_meter_bg,
+#tiredness_meter_fg,
+#tiredness_meter_text
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 300px;
+	height: 20px;
+}
+
+#tiredness_meter_bg
+{
+	background: rgba(0,0,0,0.2);
+}
+
+#tiredness_meter_fg
+{
+	background: rgba(255,255,0,0.33);
+	width: 80px;
+}
+
+#tiredness_meter_text
+{
+	padding: 0 0 0 2px;
+	color: #fff;
+}

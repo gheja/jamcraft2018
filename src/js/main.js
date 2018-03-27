@@ -20,6 +20,8 @@ let gold = 0;
 let sells = 0;
 let ingredientUnlockOrder = [ "red", "brown", "yellow" ];
 let dndActive = false;
+let tirednessMax = 100;
+let tiredness = 0;
 
 function round(x)
 {
@@ -247,7 +249,7 @@ function getContentsString(store)
 
 function updateDisplay()
 {
-	let s;
+	let s, pos;
 	
 	setText('temperature_target', Math.round(cauldron.temperatureTarget) + " &deg;C");
 	if (cauldron.status == CAULDRON_REMOVED)
@@ -284,6 +286,10 @@ function updateDisplay()
 	get("cauldron_fire").style.display = ((cauldron.temperatureTarget > 20 && cauldron.status != CAULDRON_REMOVED) ? "block" : "none");
 	get("cauldron_main").style.display = (cauldron.status != CAULDRON_REMOVED ? "block" : "none");
 	get("cauldron_top").style.display = get("cauldron_main").style.display;
+	
+	pos = positionFix(get("tiredness_meter_bg").getBoundingClientRect());
+	
+	get("tiredness_meter_fg").style.width = (pos.width * Math.min(1, tiredness / tirednessMax)) + "px";
 }
 
 function tick()
@@ -291,6 +297,13 @@ function tick()
 	let i, skip;
 	
 	skip = false;
+	
+	tiredness += 0.012;
+	
+	if (cauldron.status == CAULDRON_COOKING)
+	{
+		tiredness += 0.012;
+	}
 	
 	// if player is not on the home screen then game should be paused
 	if (currentScreen != "home")
