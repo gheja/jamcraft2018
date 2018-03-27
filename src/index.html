@@ -31,7 +31,8 @@
 				<button onclick="setSpeed(0); return false" id="button_speed_0" data-tooltip="Pause the game.">||</button>
 				<button onclick="setSpeed(1); return false" id="button_speed_1" data-tooltip="Normal game speed.">&gt;</button>
 				<button onclick="setSpeed(2); return false" id="button_speed_2" data-tooltip="Faster game speed.">&gt;&gt;</button>
-				<button onclick="setSpeed(3); return false" id="button_speed_3" data-tooltip="Fastest game speed.">&gt;&gt;&gt;</button><br/>
+				<button onclick="setSpeed(3); return false" id="button_speed_3" data-tooltip="Fastest game speed.">&gt;&gt;&gt;</button>
+				<button onclick="setSpeed(4); return false" id="button_speed_4" data-tooltip="Sleep.">zzz</button><br/>
 				<br/>
 				<div id="tiredness_meter">
 					<span id="tiredness_meter_bg"></span>
@@ -213,6 +214,8 @@
 				<div id="feedbacks"></div>
 			</div>
 		</div>
+		
+		<button onclick="setSpeed(1); return false" id="button_wake" data-tooltip="Sleep.">wake up</button>
 		
 		<input id="debug_checkbox" type="checkbox" onclick="updateDebugFlag();" />
 		

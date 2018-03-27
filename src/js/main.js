@@ -85,7 +85,7 @@ function registerAllTooltips()
 
 function setSpeed(n)
 {
-	let i;
+	let i, pos1, pos2, obj;
 	
 	for (i=0; i<4; i++)
 	{
@@ -93,6 +93,27 @@ function setSpeed(n)
 	}
 	
 	speed = n;
+	
+	if (speed == 4)
+	{
+		get("container").classList.add("sleeping");
+		pos1 = positionFix(get("button_speed_0").getBoundingClientRect());
+		pos2 = positionFix(get("button_speed_4").getBoundingClientRect());
+		obj = get("button_wake");
+		
+		obj.style.left = pos1.x + "px";
+		obj.style.top = pos1.y + "px";
+		obj.style.width = (pos2.x + pos2.width - pos1.x) + "px";
+		obj.style.height = (pos2.y + pos2.height - pos1.y) + "px";
+		obj.style.display = "block";
+	}
+	else
+	{
+		get("container").classList.remove("sleeping");
+		
+		obj = get("button_wake");
+		obj.style.display = "none";
+	}
 }
 
 function toggleDnd()
@@ -289,6 +310,8 @@ function updateDisplay()
 	
 	pos = positionFix(get("tiredness_meter_bg").getBoundingClientRect());
 	
+	get("button_wake").disabled = (tiredness > tirednessMax * 0.8);
+	
 	get("tiredness_meter_fg").style.width = (pos.width * Math.min(1, tiredness / tirednessMax)) + "px";
 }
 
@@ -348,6 +371,12 @@ function tick()
 		if (cauldron.status == CAULDRON_COOKING)
 		{
 			tiredness += 0.012;
+		}
+		
+		// sleeping
+		if (speed == 4)
+		{
+			tiredness = Math.max(0, tiredness - 0.08);
 		}
 	}
 }
