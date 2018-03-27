@@ -373,6 +373,12 @@ function tick()
 			tiredness += 0.012;
 		}
 		
+		// if too tired then fall asleep automatically
+		if (tiredness >= tirednessMax)
+		{
+			setSpeed(4);
+		}
+		
 		// sleeping
 		if (speed == 4)
 		{
