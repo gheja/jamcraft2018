@@ -22,6 +22,7 @@ let ingredientUnlockOrder = [ "red", "brown", "yellow" ];
 let dndActive = false;
 let tirednessMax = 100;
 let tiredness = 0;
+let tirednessHidden = true;
 
 function round(x)
 {
@@ -271,6 +272,15 @@ function getContentsString(store)
 function updateDisplay()
 {
 	let s, pos;
+	
+	if (tirednessHidden && tiredness > tirednessMax * 0.1)
+	{
+		// get("tiredness_meter_bg").style.display = "block";
+		get("tiredness_meter_fg").style.display = "block";
+		get("tiredness_meter_text").style.display = "block";
+		helper.showAtObject("This is your tiredness meter, you can reduce it by sleeping.", get("tiredness_meter_text"), null, "tiredness");
+		tirednessHidden = false;
+	}
 	
 	setText('temperature_target', Math.round(cauldron.temperatureTarget) + " &deg;C");
 	if (cauldron.status == CAULDRON_REMOVED)

@@ -980,12 +980,14 @@ td
 {
 	background: rgba(255,255,0,0.33);
 	width: 80px;
+	display: none;
 }
 
 #tiredness_meter_text
 {
 	padding: 0 0 0 2px;
 	color: #fff;
+	display: none;
 }
 
 #button_wake
