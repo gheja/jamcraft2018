@@ -692,7 +692,7 @@ function init()
 		color: { h: 29, s: 92, l: 92, a: 1 },
 		description: "",
 		effect: "rest",
-		potionPrice: 0,
+		potionPrice: 23,
 		interactionTemperatureMin: 0,
 		interactionTemperatureMax: 0,
 		evaporateTemperature: 300
