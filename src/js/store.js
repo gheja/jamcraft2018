@@ -257,6 +257,12 @@ class Store
 			{
 				for (j=0; j<this.items[i]; j++)
 				{
+					// cannot display more than 10 items
+					if (n >= 10)
+					{
+						break;
+					}
+					
 					x = 2 + (n % 5) * 36;
 					y = 2 + Math.floor(n / 5) * 36;
 					
@@ -316,12 +322,6 @@ class Store
 					ctx.stroke();
 					
 					n++;
-					
-					// cannot display more than 10 items
-					if (n > 10)
-					{
-						break;
-					}
 				}
 			}
 		}
@@ -333,8 +333,14 @@ class Store
 			{
 				for (j=0; j<this.items[i]; j++)
 				{
-					x = 2 + (n % 28) * 6;
-					y = 74 + Math.floor(n / 28) * 16;
+					// cannot display more than 29 items
+					if (n >= 29)
+					{
+						break;
+					}
+					
+					x = 2 + (n % 29) * 6;
+					y = 74 + Math.floor(n / 29) * 16;
 					
 					ctx.fillStyle = "rgba(0,0,0,0.2)";
 					ctx.fillRect(x, y, 5, 16);
@@ -345,12 +351,6 @@ class Store
 					ctx.fillRect(x, y + 16 - k * 16, 5, k * 16);
 					
 					n++;
-					
-					// cannot display more than 28 items
-					if (n > 28)
-					{
-						break;
-					}
 				}
 			}
 		}
