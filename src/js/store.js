@@ -239,4 +239,120 @@ class Store
 		
 		return s;
 	}
+	
+	draw(ctx)
+	{
+		let canvas, i, j, k, n, x, y;
+		
+		canvas = ctx.canvas;
+		
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.strokeStyle = "#fff";
+		ctx.lineWidth = 1.5;
+		
+		n = 0;
+		for (i in this.items)
+		{
+			if (this.items[i] != 0 && !itemClasses[i].hidden && itemClasses[i] instanceof Ingredient)
+			{
+				for (j=0; j<this.items[i]; j++)
+				{
+					x = 2 + (n % 5) * 36;
+					y = 2 + Math.floor(n / 5) * 36;
+					
+					k = clamp(this.items[i] - j, 0, 1);
+					
+					ctx.globalAlpha = k;
+					ctx.drawImage(tilesetObj, itemClasses[i].tilesetLeft, itemClasses[i].tilesetTop, 32, 32, x, y, 32, 32);
+					ctx.globalAlpha = 1;
+					
+					x -= 1.5;
+					y -= 1.5;
+					
+					ctx.beginPath();
+					ctx.moveTo(x + 34, y);
+					
+					if (k > 0)
+					{
+						ctx.lineTo(x + 17, y);
+						k -= 1/8;
+					}
+					if (k > 0)
+					{
+						ctx.lineTo(x, y);
+						k -= 1/8;
+					}
+					if (k > 0)
+					{
+						ctx.lineTo(x, y + 17);
+						k -= 1/8;
+					}
+					if (k > 0)
+					{
+						ctx.lineTo(x, y + 34);
+						k -= 1/8;
+					}
+					if (k > 0)
+					{
+						ctx.lineTo(x + 17, y + 34);
+						k -= 1/8;
+					}
+					if (k > 0)
+					{
+						ctx.lineTo(x + 34, y + 34);
+						k -= 1/8;
+					}
+					if (k > 0)
+					{
+						ctx.lineTo(x + 34, y + 17);
+						k -= 1/8;
+					}
+					if (k > 0)
+					{
+						ctx.lineTo(x + 34, y);
+						k -= 1/8;
+					}
+					
+					ctx.stroke();
+					
+					n++;
+					
+					// cannot display more than 10 items
+					if (n > 10)
+					{
+						break;
+					}
+				}
+			}
+		}
+		
+		n = 0;
+		for (i in this.items)
+		{
+			if (this.items[i] != 0 && !itemClasses[i].hidden && itemClasses[i] instanceof Substance)
+			{
+				for (j=0; j<this.items[i]; j++)
+				{
+					x = 2 + (n % 28) * 6;
+					y = 74 + Math.floor(n / 28) * 16;
+					
+					ctx.fillStyle = "rgba(0,0,0,0.2)";
+					ctx.fillRect(x, y, 5, 16);
+					
+					k = clamp(this.items[i] - j, 0, 1);
+					
+					ctx.fillStyle = hslaArrayToString(itemClasses[i].color);
+					ctx.fillRect(x, y + 16 - k * 16, 5, k * 16);
+					
+					n++;
+					
+					// cannot display more than 28 items
+					if (n > 28)
+					{
+						break;
+					}
+				}
+			}
+		}
+	}
 }
