@@ -23,6 +23,8 @@ let dndActive = false;
 let tirednessMax = 100;
 let tiredness = 0;
 let tirednessHidden = true;
+let tilesetObj = null;
+let tilesetLoaded = false;
 
 function round(x)
 {
@@ -625,6 +627,20 @@ function hideFeedbackHelpers()
 	helper.hideByName("feedbacks_4");
 }
 
+function tilesetLoadedCallback()
+{
+	tilesetLoaded = true;
+	
+	get("button_start").disabled = false;
+}
+
+function tilesetInit()
+{
+	tilesetObj = new Image();
+	tilesetObj.addEventListener('load', tilesetLoadedCallback);
+	tilesetObj.src = "./images/gfx.png";
+}
+
 function init()
 {
 	let a, b, i;
@@ -1000,6 +1016,8 @@ function init()
 	window.setInterval(tickTimer, 50);
 	window.addEventListener("resize", onResize);
 	onResize();
+	
+	tilesetInit();
 	
 	registerAllTooltips();
 }
