@@ -689,7 +689,7 @@ function init()
 	itemClasses["brown"] = new Substance({
 		name: "brown",
 		title: "brown",
-		color: { h: 29, s: 92, l: 92, a: 1 },
+		color: { h: 29, s: 92, l: 60, a: 1 },
 		description: "",
 		effect: "rest",
 		potionPrice: 23,
