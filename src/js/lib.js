@@ -354,3 +354,16 @@ function positionFix(pos)
 	
 	return pos;
 }
+
+let _once_array = [];
+
+function once(name)
+{
+	if (name in _once_array)
+	{
+		return false;
+	}
+	
+	_once_array.push(name);
+	return true;
+}
