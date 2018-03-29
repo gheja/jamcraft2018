@@ -325,6 +325,8 @@ function updateDisplay()
 	get("button_wake").disabled = (tiredness > tirednessMax * 0.8);
 	
 	get("tiredness_meter_fg").style.width = (pos.width * Math.min(1, tiredness / tirednessMax)) + "px";
+	
+	cauldron.draw();
 }
 
 function tick()

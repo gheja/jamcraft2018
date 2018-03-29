@@ -155,6 +155,11 @@ class Cauldron
 		this.temperatureTarget = Math.min(100, Math.max(20, this.temperatureTarget));
 	}
 	
+	draw()
+	{
+		this.store.draw(this.dom.ctx);
+	}
+	
 	tick()
 	{
 		let i, a, j, item, count, ingredient, substance1, substance2, status;
