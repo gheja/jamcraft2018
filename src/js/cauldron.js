@@ -15,8 +15,14 @@ class Cauldron
 		this.cookTime = 0;
 		this.status = CAULDRON_REMOVED;
 		this.dom = {
-			top: get("cauldron_top")
+			top: get("cauldron_top"),
+			canvas: get("cauldron_content_canvas"),
+			ctx: null
 		};
+		
+		this.dom.canvas.width = 200;
+		this.dom.canvas.height = 100;
+		this.dom.ctx = this.dom.canvas.getContext("2d");
 		
 		this.store = new Store;
 	}
