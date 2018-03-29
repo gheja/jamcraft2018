@@ -35,7 +35,10 @@ class Cauldron
 	prepare()
 	{
 		helper.hideByName("cauldron_prepare");
-		helper.showAtObject("Add ingredients by clicking <b>down arrow</b>, buy more by clicking <b>$</b>.", itemClasses["rosepetal"].dom.buttonPlus, null, "add_ingredient", true);
+		if (once("helper:add_ingredient"))
+		{
+			helper.showAtObject("Add ingredients by clicking <b>down arrow</b>, buy more by clicking <b>$</b>.", itemClasses["rosepetal"].dom.buttonPlus, null, "add_ingredient");
+		}
 		
 		this.status = CAULDRON_READY;
 		this.cookTime = 0;
@@ -148,7 +151,10 @@ class Cauldron
 	adjustTemperatureTarget(d)
 	{
 		helper.hideByName("temperature_adjustment");
-		helper.showAtObject("Use <b>Strain</b> to remove leftover ingredients, <b>done</b> when done.", get("button_cauldron_strain"), null, "strain", true);
+		if (once("helper:strain"))
+		{
+			helper.showAtObject("Use <b>Strain</b> to remove leftover ingredients, <b>done</b> when done.", get("button_cauldron_strain"), null, "strain");
+		}
 		
 		this.temperatureTarget += d;
 		

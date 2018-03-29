@@ -280,7 +280,10 @@ function updateDisplay()
 		// get("tiredness_meter_bg").style.display = "block";
 		get("tiredness_meter_fg").style.display = "block";
 		get("tiredness_meter_text").style.display = "block";
-		helper.showAtObject("This is your tiredness meter, you can reduce it by sleeping.", get("tiredness_meter_text"), null, "tiredness");
+		if (once("helper:tiredness"))
+		{
+			helper.showAtObject("This is your tiredness meter, you can reduce it by sleeping.", get("tiredness_meter_text"), null, "tiredness");
+		}
 		tirednessHidden = false;
 	}
 	

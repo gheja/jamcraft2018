@@ -57,7 +57,10 @@ class Ingredient extends Item
 		helper.hideByName("new_ingredient");
 		helper.hideByName("add_ingredient");
 		
-		helper.showAtObject("Use the <b>up</b> and <b>down arrows</b> to adjust temperature.", get("button_cauldron_up"), null, "temperature_adjustment", true);
+		if (once("helper:temperature_adjustment"))
+		{
+			helper.showAtObject("Use the <b>up</b> and <b>down arrows</b> to adjust temperature.", get("button_cauldron_up"), null, "temperature_adjustment");
+		}
 		
 		if (cauldron.status == CAULDRON_REMOVED)
 		{

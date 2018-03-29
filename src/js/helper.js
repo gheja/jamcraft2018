@@ -79,21 +79,11 @@ class Helper
 		obj.className = "helper helper_active";
 	}
 	
-	showAtPosition(s, x, y, direction, name, onlyOnce)
+	showAtPosition(s, x, y, direction, name)
 	{
 		let obj;
 		
-		if (onlyOnce)
-		{
-			if (this.helpersShown.indexOf(name) !== -1)
-			{
-				return;
-			}
-			else
-			{
-				this.helpersShown.push(name);
-			}
-		}
+		this.helpersShown.push(name);
 		
 		obj = document.createElement("div");
 		
@@ -116,12 +106,12 @@ class Helper
 		document.body.appendChild(obj);
 	}
 	
-	showAtObject(s, obj, direction, name, onlyOnce)
+	showAtObject(s, obj, direction, name)
 	{
 		let position;
 		
 		position = positionFix(obj.getBoundingClientRect());
 		
-		this.showAtPosition(s, position.x + position.width / 2, position.y, direction, name, onlyOnce);
+		this.showAtPosition(s, position.x + position.width / 2, position.y, direction, name);
 	}
 }

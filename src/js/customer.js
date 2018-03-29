@@ -473,7 +473,10 @@ class Customer
 	acceptOrder()
 	{
 		helper.hideByName("customer_order");
-		helper.showAtObject("Start cooking your potion by clicking <b>prepare</b>.", get("button_cauldron_prepare"), null, "cauldron_prepare", true);
+		if (once("helper:tiredness"))
+		{
+			helper.showAtObject("Start cooking your potion by clicking <b>prepare</b>.", get("button_cauldron_prepare"), null, "cauldron_prepare");
+		}
 		
 		logMessage("Accepted: <b>" + (this.need.effect) + "</b> for <b>" + this.name +"</b>.", MESSAGE_NORMAL);
 		this.orderAccepted = true;
@@ -542,12 +545,12 @@ class Customer
 	
 	helperFirstAnswer()
 	{
-		helper.showAtObject("A customer is knocking on your door. Use this button to answer.", this.dom.button_answer, null, "customer_answer", true);
+		helper.showAtObject("A customer is knocking on your door. Use this button to answer.", this.dom.button_answer, null, "customer_answer");
 	}
 	
 	helperFirstAccept()
 	{
-		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept, null, "customer_order", true);
+		helper.showAtObject("After listening to the customer, decide if you want to take this order", this.dom.button_accept, null, "customer_order");
 	}
 	
 	updateButtons()
@@ -654,7 +657,10 @@ class Customer
 				this.dom.image_front.dataset.tooltip = "Customer is knocking on your door.";
 				this.activatePicture();
 				
-				window.setTimeout(this.helperFirstAnswer.bind(this), 700);
+				if (once("helper:customer_answer"))
+				{
+					window.setTimeout(this.helperFirstAnswer.bind(this), 700);
+				}
 				
 				this.setWaitTime(30, 30);
 			break;
@@ -691,7 +697,10 @@ class Customer
 				this.slot.hidden = false;
 				this.slot.update();
 				
-				window.setTimeout(this.helperFirstAccept.bind(this), 1000);
+				if (once("helper:customer_order"))
+				{
+					window.setTimeout(this.helperFirstAccept.bind(this), 1000);
+				}
 				
 				this.setWaitTime(300, 300);
 			break;
