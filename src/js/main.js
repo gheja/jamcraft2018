@@ -725,6 +725,8 @@ function init()
 		name: "rosepetal",
 		title: "Rose Petal",
 		unit: "tbsp",
+		tilesetLeft: 0,
+		tilesetTop: 141,
 		dissolveTemperature: 30,
 		dissolveSpeed: 0.5, // units per minute
 		substances: [
@@ -736,6 +738,8 @@ function init()
 		name: "appleseed",
 		title: "Apple Seed",
 		unit: "tbsp",
+		tilesetLeft: 0,
+		tilesetTop: 173,
 		dissolveTemperature: 50,
 		dissolveSpeed: 0.5, // units per minute
 		substances: [
@@ -747,6 +751,8 @@ function init()
 		name: "jasminebud",
 		title: "Jasmine bud",
 		unit: "tbsp",
+		tilesetLeft: 160,
+		tilesetTop: 141,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.5, // units per minute
 		substances: [
@@ -758,6 +764,8 @@ function init()
 		name: "batwings",
 		title: "Bat wings",
 		unit: "pair",
+		tilesetLeft: 32,
+		tilesetTop: 173,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.5, // units per minute
 		substances: [
@@ -769,6 +777,8 @@ function init()
 		name: "cactusspines",
 		title: "Cactus spines",
 		unit: "tsp",
+		tilesetLeft: 32,
+		tilesetTop: 141,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -780,6 +790,8 @@ function init()
 		name: "cricket",
 		title: "Cricket",
 		unit: "pcs",
+		tilesetLeft: 64,
+		tilesetTop: 173,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -791,6 +803,8 @@ function init()
 		name: "driedbeetle",
 		title: "Dried beetle",
 		unit: "pcs",
+		tilesetLeft: 96,
+		tilesetTop: 173,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -802,6 +816,8 @@ function init()
 		name: "komodoscale",
 		title: "Komodo scale",
 		unit: "pcs",
+		tilesetLeft: 128,
+		tilesetTop: 173,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -813,6 +829,8 @@ function init()
 		name: "lavender",
 		title: "Lavender",
 		unit: "tsp",
+		tilesetLeft: 128,
+		tilesetTop: 141,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -824,6 +842,8 @@ function init()
 		name: "mustardseed",
 		title: "Mustard seed",
 		unit: "tsp",
+		tilesetLeft: 192,
+		tilesetTop: 141,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -835,6 +855,8 @@ function init()
 		name: "pinecone",
 		title: "Pine cone",
 		unit: "pcs",
+		tilesetLeft: 96,
+		tilesetTop: 141,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -846,6 +868,8 @@ function init()
 		name: "rosethorn",
 		title: "Rose thorns",
 		unit: "pcs",
+		tilesetLeft: 64,
+		tilesetTop: 141,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -857,6 +881,8 @@ function init()
 		name: "seashell",
 		title: "Sea shell",
 		unit: "tsp",
+		tilesetLeft: 160,
+		tilesetTop: 173,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -868,6 +894,8 @@ function init()
 		name: "snakeskin",
 		title: "Snake skin",
 		unit: "pcs",
+		tilesetLeft: 192,
+		tilesetTop: 173,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [
@@ -879,6 +907,8 @@ function init()
 		name: "wingofladybug",
 		title: "Wing of ladybug",
 		unit: "pair",
+		tilesetLeft: 0,
+		tilesetTop: 205,
 		dissolveTemperature: 40,
 		dissolveSpeed: 0.1, // units per minute
 		substances: [

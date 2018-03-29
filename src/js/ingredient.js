@@ -19,6 +19,8 @@ class Ingredient extends Item
 		this.buyAmount = 5;
 		this.buyCost = 5;
 		this.assembledDescription = "";
+		this.tilesetLeft = 0;
+		this.tilesetTop = 0;
 		
 		for (k in params)
 		{
@@ -76,7 +78,9 @@ class Ingredient extends Item
 		a = createDiv("ingredient");
 		this.dom.root = a;
 		
-		b = createDomElement("div", "ingredient_picture ingredient_picture_" + this.name);
+		b = createDomElement("div", "ingredient_picture");
+		b.style.backgroundPositionX = "-" + this.tilesetLeft + "px";
+		b.style.backgroundPositionY = "-" + this.tilesetTop + "px";
 		b.dataset.tooltip = this.title;
 		this.dom.picture = b;
 		a.appendChild(b);
